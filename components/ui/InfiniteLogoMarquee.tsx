@@ -81,7 +81,7 @@ export function InfiniteLogoMarquee({ clients }: InfiniteLogoMarqueeProps) {
         {clients.map((client) => (
           <div
             key={client.name}
-            className="surface-panel flex items-center justify-center rounded-[1.5rem]"
+            className="flex items-center justify-center"
           >
             <ClientLogo client={client} />
           </div>

@@ -28,7 +28,7 @@ export function BrandMark({ compact = false, href = "/" }: BrandMarkProps) {
           width={340}
           height={132}
           priority
-          className="h-13 w-auto object-contain"
+          className="h-16 w-auto object-contain md:h-20"
         />
       )}
     </div>

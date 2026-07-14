@@ -1,7 +1,16 @@
 import { Container } from "@/components/layout/Container";
-import { InfiniteLogoMarquee } from "@/components/ui/InfiniteLogoMarquee";
+import LogoLoop, { type LogoItem } from "@/components/ui/LogoLoop";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { clients } from "@/data/clients";
+
+const clientLogos: LogoItem[] = clients.map((client) => ({
+  src: client.logo,
+  alt: client.alt ?? client.name,
+  title: client.name,
+  width: client.width,
+  height: client.height,
+  href: client.href,
+}));
 
 export function ClientsMarqueeSection() {
   return (
@@ -9,12 +18,24 @@ export function ClientsMarqueeSection() {
       <Container>
         <SectionTitle
           eyebrow="Marcas atendidas"
-          title="Estrutura pronta para mostrar as empresas e marcas atendidas"
-          description="As logos oficiais podem ser anexadas depois na pasta de clientes. O componente já está preparado para marquee automático, grade estática com movimento reduzido e acessibilidade para leitores de tela."
+          title="Marcas que já confiaram no nosso trabalho"
+          description="Empresas de diferentes segmentos que contaram com estratégia, tráfego e acompanhamento da Universo Marketing."
           align="center"
         />
-        <div className="surface-panel mt-10 rounded-[2rem] px-4 py-6 md:px-6 md:py-8">
-          <InfiniteLogoMarquee clients={clients} />
+        <div className="surface-panel mt-10 overflow-hidden rounded-[2rem] px-2 py-6 md:px-4 md:py-8">
+          <LogoLoop
+            logos={clientLogos}
+            speed={55}
+            direction="left"
+            logoHeight={64}
+            gap={32}
+            hoverSpeed={0}
+            scaleOnHover
+            fadeOut
+            fadeOutColor="#0d0d0f"
+            ariaLabel="Marcas atendidas pela Universo Marketing"
+            className="client-logo-loop"
+          />
         </div>
       </Container>
     </section>

@@ -6,9 +6,16 @@ export const siteConfig = {
   url: "https://seudominio.com.br",
   positionStatement: "Damos à sua marca uma vantagem estratégica na internet.",
   whatsapp: {
-    number: "",
+    number: "+55 (81) 98602-0710",
     message:
       "Olá, T. Thales! Conheci a Universo Marketing pela landing page e gostaria de solicitar uma análise do meu negócio.",
+  },
+  scheduling: {
+    url: "",
+  },
+  intro: {
+    enabled: true,
+    sessionStorageKey: "universo-intro-completed",
   },
   social: {
     tassoInstagram: "https://instagram.com/tassothales",
@@ -38,9 +45,11 @@ export const siteConfig = {
   },
 } as const;
 
-export function getWhatsAppUrl() {
+export function getWhatsAppUrl(
+  customMessage: string = siteConfig.whatsapp.message,
+) {
   const number = siteConfig.whatsapp.number.replace(/\D/g, "");
-  const message = encodeURIComponent(siteConfig.whatsapp.message);
+  const message = encodeURIComponent(customMessage);
 
   if (!number) {
     return `https://api.whatsapp.com/send?text=${message}`;

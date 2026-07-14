@@ -14,14 +14,14 @@ export function ClientLogo({ client }: ClientLogoProps) {
       whileHover={{ scale: 1.04 }}
       whileFocus={{ scale: 1.04 }}
       transition={{ duration: 0.18, ease: "easeOut" }}
-      className="flex items-center justify-center px-8 py-4 opacity-75 saturate-50 transition hover:opacity-100 hover:saturate-100 focus-within:opacity-100 focus-within:saturate-100 md:px-10"
+      className="mx-3 flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#f3f1ec] opacity-80 shadow-[0_0_0_1px_rgba(255,255,255,0.08)] transition hover:opacity-100 focus-within:opacity-100 md:mx-4 md:h-24 md:w-24"
     >
       <Image
         src={client.logo}
         alt={client.alt ?? client.name}
         width={client.width ?? 180}
         height={client.height ?? 64}
-        className="h-10 w-auto object-contain md:h-12"
+        className="h-full w-full rounded-full object-cover mix-blend-multiply"
       />
     </motion.div>
   );
