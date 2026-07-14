@@ -1,0 +1,50 @@
+export const siteConfig = {
+  name: "Universo Marketing",
+  title: "Universo Marketing | Tráfego Pago, Automação e Marketing Digital",
+  description:
+    "Estratégias de tráfego pago, atendimento com IA, CRM, automações, SEO e tecnologia para gerar oportunidades comerciais para sua empresa.",
+  url: "https://seudominio.com.br",
+  positionStatement: "Damos à sua marca uma vantagem estratégica na internet.",
+  whatsapp: {
+    number: "",
+    message:
+      "Olá, T. Thales! Conheci a Universo Marketing pela landing page e gostaria de solicitar uma análise do meu negócio.",
+  },
+  social: {
+    tassoInstagram: "https://instagram.com/tassothales",
+    companyInstagram: "https://instagram.com/universomrktg",
+  },
+  email: "",
+  assets: {
+    brandLogo: "/images/brand/logo-universo-dourada.png",
+    brandIcon: "/images/brand/icone-universo-dourado.png",
+    brandIconWhite: "/images/brand/icone-universo-branco.png",
+    brandLogoSecondary: "/images/brand/logo-universo-grafite.png",
+    tassoBadge: "/images/tasso/logo-gestor-trafego.png",
+    portrait: "/images/tasso/portrait-placeholder.svg",
+    ogImage: "/images/brand/social-cover-placeholder.svg",
+  },
+  seo: {
+    keywords: [
+      "universo marketing",
+      "tráfego pago",
+      "marketing digital",
+      "automação",
+      "crm",
+      "seo",
+      "atendimento com ia",
+    ],
+    ogImage: "/images/brand/social-cover-placeholder.svg",
+  },
+} as const;
+
+export function getWhatsAppUrl() {
+  const number = siteConfig.whatsapp.number.replace(/\D/g, "");
+  const message = encodeURIComponent(siteConfig.whatsapp.message);
+
+  if (!number) {
+    return `https://api.whatsapp.com/send?text=${message}`;
+  }
+
+  return `https://wa.me/${number}?text=${message}`;
+}

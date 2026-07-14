@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900" fill="none">
+  <rect width="720" height="900" rx="48" fill="#0C0C0D"/>
+  <rect x="24" y="24" width="672" height="852" rx="32" stroke="url(#paint0_linear)" stroke-opacity="0.36"/>
+  <circle cx="360" cy="262" r="108" fill="rgba(245,169,0,0.12)"/>
+  <circle cx="360" cy="250" r="74" fill="#17181B"/>
+  <path d="M228 636C228 534.38 310.38 452 412 452H308C409.62 452 492 534.38 492 636V656H228V636Z" fill="#17181B"/>
+  <text x="96" y="746" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="34" font-weight="700">Espaço preparado para foto profissional</text>
+  <text x="96" y="798" fill="#A1A1AA" font-family="Arial, sans-serif" font-size="24">Substitua este arquivo por um retrato oficial em</text>
+  <text x="96" y="836" fill="#FFD447" font-family="Arial, sans-serif" font-size="24">/public/images/tasso/</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="24" y1="24" x2="696" y2="876" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD447"/>
+      <stop offset="1" stop-color="#E99000"/>
+    </linearGradient>
+  </defs>
+</svg>

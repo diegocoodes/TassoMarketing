@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#050505"/>
+  <circle cx="960" cy="120" r="180" fill="#F5A900" fill-opacity="0.1"/>
+  <circle cx="170" cy="500" r="220" fill="#F5A900" fill-opacity="0.08"/>
+  <rect x="70" y="70" width="1060" height="490" rx="36" fill="#0C0C0D" stroke="rgba(245,169,0,0.24)"/>
+  <rect x="120" y="150" width="120" height="120" rx="34" fill="url(#paint0_linear)"/>
+  <path d="M160 186H179.5L198 227.5L216.5 186H236V230H221.5V205.5L207 230H189L174.5 205.5V230H160V186Z" fill="#050505"/>
+  <text x="120" y="344" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="66" font-weight="700">Universo Marketing</text>
+  <text x="120" y="416" fill="#FFD447" font-family="Arial, sans-serif" font-size="34" font-weight="700">Tráfego pago, automação e crescimento digital</text>
+  <text x="120" y="474" fill="#A1A1AA" font-family="Arial, sans-serif" font-size="26">Placeholder visual pronto para ser substituído pela arte social oficial.</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="120" y1="150" x2="240" y2="270" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD447"/>
+      <stop offset="1" stop-color="#E99000"/>
+    </linearGradient>
+  </defs>
+</svg>
