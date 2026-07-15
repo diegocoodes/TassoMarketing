@@ -16,6 +16,7 @@ import { LeadForm } from "@/components/intro/LeadForm";
 import Particles from "@/components/ui/Particles";
 import { siteConfig } from "@/config/site";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useSessionIntro } from "@/hooks/useSessionIntro";
 
@@ -29,6 +30,7 @@ export function IntroGateway() {
   const [isExiting, setIsExiting] = useState(false);
   const { isVisible, completeIntro } = useSessionIntro();
   const reducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
   const schedulingUrl = siteConfig.scheduling.url.trim();
 
   useEffect(() => {
@@ -125,19 +127,21 @@ export function IntroGateway() {
         className="intro-gateway fixed inset-0 z-[100] min-h-svh overflow-x-hidden overflow-y-auto bg-[#050505] px-4 py-4 sm:px-6 sm:py-6"
       >
         <div ref={transitionRef} className="pointer-events-none fixed left-1/2 top-1/2 z-[90] h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-gold)] opacity-0" aria-hidden="true" />
-        <div className="pointer-events-none fixed inset-0 opacity-65" aria-hidden="true">
-          <Particles
-            particleColors={introParticleColors}
-            particleCount={220}
-            particleSpread={10}
-            speed={0.06}
-            particleBaseSize={70}
-            sizeRandomness={0.7}
-            particleHoverFactor={0.5}
-            cameraDistance={20}
-            pixelRatio={1}
-          />
-        </div>
+        {!isMobile ? (
+          <div className="pointer-events-none fixed inset-0 opacity-65" aria-hidden="true">
+            <Particles
+              particleColors={introParticleColors}
+              particleCount={220}
+              particleSpread={10}
+              speed={0.06}
+              particleBaseSize={70}
+              sizeRandomness={0.7}
+              particleHoverFactor={0.5}
+              cameraDistance={20}
+              pixelRatio={1}
+            />
+          </div>
+        ) : null}
         <button
           type="button"
           onClick={revealSite}
@@ -163,10 +167,10 @@ export function IntroGateway() {
             </div>
 
             <div className="relative mx-auto mt-5 max-w-2xl text-center">
-              <h1 data-intro-item className="mt-5 font-display text-[clamp(2rem,5vw,3.7rem)] font-semibold leading-[0.98] tracking-[-0.025em] text-white">
+              <h1 data-intro-item className="font-display type-section-title mt-5 text-white">
                 Como podemos ajudar o seu negócio hoje?
               </h1>
-              <p data-intro-item className="mx-auto mt-4 max-w-xl text-sm leading-6 text-[var(--color-text-muted)] sm:text-base sm:leading-7">
+              <p data-intro-item className="type-body-md mx-auto mt-4 max-w-xl text-[var(--color-text-muted)]">
                 Escolha o próximo passo para falar com nossa equipe, agendar uma conversa ou conhecer melhor a Universo Marketing.
               </p>
             </div>

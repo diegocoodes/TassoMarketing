@@ -42,7 +42,7 @@ export function AboutSection() {
   return (
     <section id="sobre" ref={sectionRef} className="relative overflow-hidden bg-[#050505] pb-20 pt-8 md:pb-28 md:pt-14">
       <Container>
-        <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#121214] lg:grid-cols-2 lg:rounded-[2rem] lg:border-0 lg:bg-[#ECEBEF]">
+        <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#ECEBEF] lg:grid-cols-2 lg:rounded-[2rem] lg:border-0">
           <div className="relative aspect-[4/3] overflow-hidden bg-black sm:aspect-[16/11] lg:aspect-auto lg:min-h-[42rem]">
             <Image
               src={siteConfig.assets.tassoBanner}
@@ -58,25 +58,25 @@ export function AboutSection() {
             </div>
           </div>
 
-          <div className="flex items-center p-6 text-white sm:p-9 lg:p-12 lg:text-black">
+          <div className="flex items-center p-6 text-black sm:p-9 lg:p-12">
             <div>
-              <p data-about-reveal className="inline-flex rounded-full bg-[rgba(245,169,0,0.1)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-gold-light)] lg:bg-black/8 lg:text-zinc-700">Sobre mim</p>
-              <p data-about-reveal className="mt-7 text-xl font-medium text-zinc-300 md:text-2xl lg:text-zinc-700">Prazer,</p>
-              <h2 data-about-reveal className="mt-1 font-display text-[clamp(3rem,6vw,5rem)] font-semibold leading-[0.92] tracking-tight text-white lg:text-black">T. <span className="text-[var(--color-gold-deep)]">Thales</span></h2>
+              <p data-about-reveal className="inline-flex items-center rounded-full border border-black/10 bg-black/8 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-black">Sobre mim</p>
+              <p data-about-reveal className="type-section-subtitle mt-7 text-zinc-700">Prazer,</p>
+              <h2 data-about-reveal className="font-display type-section-title mt-1 text-black">T. <span className="text-black">Thales</span></h2>
               <div data-about-line className="mt-5 h-1 w-36 rounded-full bg-gradient-to-r from-[var(--color-gold-deep)] to-[var(--color-gold-light)]" />
 
-              <p data-about-reveal className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white lg:text-zinc-900">
+              <p data-about-reveal className="type-body-md mt-6 inline-flex items-center gap-2 font-semibold text-zinc-900">
                 <BadgeCheck className="h-5 w-5 text-[var(--color-gold-deep)]" aria-hidden="true" />
                 CEO da Universo Marketing e especialista em tráfego pago
               </p>
-              <p data-about-reveal className="mt-5 text-sm leading-7 text-zinc-300 sm:text-base lg:text-zinc-700">
+              <p data-about-reveal className="type-body-md mt-5 text-zinc-700">
                 T. Thales desenvolve estratégias de marketing digital para ajudar empresas a gerar oportunidades comerciais e construir processos mais eficientes de atendimento e vendas.
               </p>
-              <p data-about-reveal className="mt-4 text-sm leading-7 text-zinc-300 sm:text-base lg:text-zinc-700">
+              <p data-about-reveal className="type-body-md mt-4 text-zinc-700">
                 Seu trabalho conecta anúncios, inteligência artificial, CRM, automações, SEO e tecnologia em uma estrutura integrada de crescimento.
               </p>
 
-              <div data-about-reveal className="mt-8">
+              <div data-about-reveal className="mt-8 flex justify-center lg:justify-start">
                 <Button href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer">Quero aumentar minhas vendas</Button>
               </div>
             </div>

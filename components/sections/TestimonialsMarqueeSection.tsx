@@ -21,8 +21,8 @@ function TestimonialCard({ company, feedback }: (typeof testimonials)[number]) {
         ) : <div />}
         <Quote className="h-7 w-7 text-[var(--color-gold-light)]" aria-hidden="true" />
       </div>
-      <p className="mt-5 flex-1 text-sm leading-7 text-zinc-300">“{feedback}”</p>
-      <p className="mt-6 border-t border-white/8 pt-4 font-display text-lg font-semibold text-white">{company}</p>
+      <p className="type-body-md mt-5 flex-1 text-zinc-300">“{feedback}”</p>
+      <p className="font-display type-card-title mt-6 border-t border-white/8 pt-4 text-white">{company}</p>
     </article>
   );
 }

@@ -7,10 +7,10 @@ export default function PrivacyPolicyPage() {
       <Container>
         <div className="surface-panel rounded-[2rem] p-8 md:p-12">
           <p className="eyebrow">Documento provisório</p>
-          <h1 className="font-display mt-6 text-4xl font-semibold tracking-tight md:text-5xl">
+          <h1 className="font-display type-section-title mt-6">
             Política de privacidade
           </h1>
-          <div className="mt-8 space-y-5 text-[var(--color-text-soft)]">
+          <div className="type-body-md mt-8 space-y-5 text-[var(--color-text-soft)]">
             <p>
               Esta página foi preparada para a futura publicação da política de
               privacidade oficial da Universo Marketing.

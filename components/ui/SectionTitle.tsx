@@ -18,11 +18,11 @@ export function SectionTitle({
   return (
     <div className={`max-w-3xl ${alignment} ${className}`.trim()}>
       {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
-      <h2 className="font-display mt-5 text-[clamp(2rem,4vw,3.7rem)] font-semibold leading-[0.95] tracking-tight text-white">
+      <h2 className="font-display type-section-title mt-5 text-white">
         {title}
       </h2>
       {description ? (
-        <p className={`mt-5 max-w-2xl text-base leading-7 text-[var(--color-text-muted)] md:text-lg ${align === "center" ? "mx-auto" : "mx-auto md:mx-0"}`}>
+        <p className={`type-body-lg mt-5 max-w-2xl text-[var(--color-text-muted)] ${align === "center" ? "mx-auto" : "mx-auto md:mx-0"}`}>
           {description}
         </p>
       ) : null}

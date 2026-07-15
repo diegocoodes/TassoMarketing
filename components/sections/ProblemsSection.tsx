@@ -84,10 +84,10 @@ export function ProblemsSection() {
                   <div className="flex h-12 w-12 -translate-y-px items-center justify-center rounded-b-xl bg-gradient-to-br from-[var(--color-gold-light)] to-[var(--color-gold-deep)] text-black shadow-[0_10px_30px_rgba(245,169,0,0.2)]">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>
-                  <h3 className="mt-5 text-xl font-semibold text-white">
+                  <h3 className="font-display type-card-title mt-5 text-white">
                     {problem.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
+                  <p className="type-body-md mt-3 text-[var(--color-text-muted)]">
                     {problem.description}
                   </p>
                 </SpotlightCard>

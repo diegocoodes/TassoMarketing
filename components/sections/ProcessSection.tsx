@@ -45,9 +45,9 @@ export function ProcessSection() {
         <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[2rem] bg-white shadow-[0_28px_80px_rgba(0,0,0,0.16)] lg:grid-cols-[1.05fr_0.95fr]">
           <div className="p-6 sm:p-9 lg:p-12">
             <div className="text-center md:text-left" data-process-reveal>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-gold-deep)]">Como funciona</p>
-              <h2 className="mt-4 font-display text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[0.98] tracking-tight text-black">Uma estratégia pronta para transformar atenção em vendas</h2>
-              <p className="mt-5 text-sm leading-7 text-zinc-600 md:text-base">Do diagnóstico à otimização, cada etapa é construída para dar direção ao investimento e gerar oportunidades melhores.</p>
+              <p className="type-caption text-[var(--color-gold-deep)]">Como funciona</p>
+              <h2 className="font-display type-section-title mt-4 text-black">Uma estratégia pronta para transformar atenção em vendas</h2>
+              <p className="type-body-md mt-5 text-zinc-600">Do diagnóstico à otimização, cada etapa é construída para dar direção ao investimento e gerar oportunidades melhores.</p>
             </div>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -60,11 +60,11 @@ export function ProcessSection() {
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </span>
                       <div>
-                        <p className="text-[0.65rem] font-bold tracking-[0.16em] text-[var(--color-gold-deep)]">0{index + 1}</p>
-                        <h3 className="mt-1 font-display text-sm font-semibold text-black">{step.title}</h3>
+                        <p className="type-caption text-[var(--color-gold-deep)]">0{index + 1}</p>
+                        <h3 className="font-display type-card-title mt-1 text-black">{step.title}</h3>
                       </div>
                     </div>
-                    <p className="mt-3 text-xs leading-6 text-zinc-600">{step.description}</p>
+                    <p className="type-body-sm mt-3 text-zinc-600">{step.description}</p>
                   </article>
                 );
               })}
@@ -78,8 +78,8 @@ export function ProcessSection() {
           <div data-process-reveal className="relative min-h-[32rem] overflow-hidden bg-black lg:min-h-full">
             <Image src={siteConfig.assets.tassoNotebook} alt="T. Thales durante o planejamento de uma estratégia digital." fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover object-center" />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent px-7 pb-7 pt-24 text-white">
-              <p className="font-display text-2xl font-semibold">T. Thales</p>
-              <p className="mt-2 text-sm text-zinc-300">Estratégia, acompanhamento e evolução contínua.</p>
+              <p className="font-display type-section-subtitle">T. Thales</p>
+              <p className="type-body-md mt-2 text-zinc-300">Estratégia, acompanhamento e evolução contínua.</p>
             </div>
           </div>
         </div>

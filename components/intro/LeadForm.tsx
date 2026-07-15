@@ -110,10 +110,10 @@ export function LeadForm({ onClose }: LeadFormProps) {
       >
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-white/8 bg-[rgba(13,13,16,0.94)] px-5 py-4 backdrop-blur-lg sm:px-7">
           <div>
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-gold-light)]">
+            <p className="type-caption text-[var(--color-gold-light)]">
               Etapa {String(step + 1).padStart(2, "0")} de 04
             </p>
-            <h2 id="lead-form-title" className="mt-1 font-display text-xl font-semibold text-white">
+            <h2 id="lead-form-title" className="font-display type-section-subtitle mt-1 text-white">
               {["Sobre o negócio", "Presença atual", "Objetivos", "Revise e envie"][step]}
             </h2>
           </div>
@@ -168,10 +168,10 @@ export function LeadForm({ onClose }: LeadFormProps) {
                 <label className="block text-sm font-medium text-zinc-300">Observações <span className="font-normal text-zinc-600">(opcional)</span><textarea value={values.notes} onChange={(e) => updateValue("notes", e.target.value)} className={`${inputClasses} min-h-24 resize-y`} placeholder="Conte algo que ajude na análise." /></label>
                 <div className="rounded-[1.4rem] border border-[rgba(245,169,0,0.22)] bg-[rgba(245,169,0,0.06)] p-5 sm:p-6">
                   <CheckCircle2 className="h-8 w-8 text-[var(--color-gold-light)]" aria-hidden="true" />
-                  <h3 className="mt-5 font-display text-2xl font-semibold text-white">
+                  <h3 className="font-display type-section-subtitle mt-5 text-white">
                     Tudo pronto!
                   </h3>
-                  <p className="mt-2 leading-7 text-[var(--color-text-muted)]">
+                  <p className="type-body-md mt-2 text-[var(--color-text-muted)]">
                     Agora vamos abrir o WhatsApp com suas respostas. Nenhuma informação foi enviada ainda.
                   </p>
                 </div>

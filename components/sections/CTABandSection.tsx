@@ -28,7 +28,7 @@ export function CTABandSection() {
     <section className="overflow-hidden border-y border-[rgba(245,169,0,0.15)] bg-[rgba(245,169,0,0.04)] py-5" aria-label="Especialidades da Universo Marketing">
       <div
         ref={trackRef}
-        className="flex w-max whitespace-nowrap font-display text-lg font-semibold uppercase tracking-[0.18em] text-[var(--color-gold-light)] md:text-xl"
+        className="font-display type-section-subtitle flex w-max whitespace-nowrap uppercase text-[var(--color-gold-light)]"
       >
         <span>{message.repeat(8)}</span>
         <span aria-hidden="true">{message.repeat(8)}</span>

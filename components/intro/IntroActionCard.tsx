@@ -23,7 +23,7 @@ function CardContent({
       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-black/10 bg-black/10 text-black transition group-hover:bg-black/15">
         <Icon className="h-5 w-5" aria-hidden="true" />
       </span>
-      <h3 className="font-display text-lg font-bold text-black sm:text-xl">
+      <h3 className="font-display type-section-subtitle text-black">
         {title}
       </h3>
     </div>

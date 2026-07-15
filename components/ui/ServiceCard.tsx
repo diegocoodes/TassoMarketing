@@ -28,8 +28,8 @@ export function ServiceCard({
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[rgba(245,169,0,0.1)] text-[var(--color-gold-light)]">
           <Icon className="h-5 w-5" aria-hidden="true" />
         </div>
-        <h3 className="mt-6 text-2xl font-semibold text-white">{title}</h3>
-        <p className="mt-4 text-sm leading-7 text-[var(--color-text-muted)] md:text-base">
+        <h3 className="font-display type-section-subtitle mt-6 text-white">{title}</h3>
+        <p className="type-body-md mt-4 text-[var(--color-text-muted)]">
           {description}
         </p>
       </SpotlightCard>

@@ -21,7 +21,7 @@ export function FAQSection() {
               title="Dúvidas frequentes respondidas com transparência"
               description="Estratégias sérias começam com informação clara. Entenda como funcionam investimento, operação e acompanhamento."
             />
-            <div className="mt-7">
+            <div className="mt-7 flex justify-center lg:justify-start">
               <Button href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer">
                 Quero melhorar meus resultados
               </Button>

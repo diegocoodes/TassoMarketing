@@ -55,10 +55,10 @@ export function ServicesSection() {
               title="Estrutura para transformar atenção em oportunidades"
               description="Conectamos mídia, atendimento e organização comercial para sua empresa atrair as pessoas certas e aproveitar melhor cada contato."
             />
-            <div className="mt-8">
+            <div className="mt-8 flex justify-center lg:justify-start">
               <Button href="#contato" icon={<ArrowUpRight className="h-4 w-4" />} magnetic>Quero aumentar minhas vendas</Button>
             </div>
-            <p className="mt-3 text-xs text-zinc-500">Atendimento direto e estratégia personalizada.</p>
+            <p className="type-caption mt-3 text-zinc-500">Atendimento direto e estratégia personalizada.</p>
           </div>
 
           <div className="space-y-4">
@@ -69,8 +69,8 @@ export function ServicesSection() {
                   <div className="flex h-12 w-12 items-center justify-center rounded-b-xl bg-gradient-to-br from-[var(--color-gold-light)] to-[var(--color-gold-deep)] text-black">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>
-                  <h3 className="mt-5 font-display text-2xl font-semibold text-white md:text-3xl">{service.title}</h3>
-                  <p className="mt-3 max-w-2xl text-sm leading-7 text-zinc-400 md:text-base">{service.description}</p>
+                  <h3 className="font-display type-section-subtitle mt-5 text-white">{service.title}</h3>
+                  <p className="type-body-md mt-3 max-w-2xl text-zinc-400">{service.description}</p>
                 </article>
               );
             })}

@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 import type { MouseEventHandler, PointerEventHandler, ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { animationConfig } from "@/config/animation";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 type ButtonProps = {
@@ -38,6 +39,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const reducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
   const [finePointer, setFinePointer] = useState(false);
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
@@ -61,17 +63,17 @@ export function Button({
 
   return (
     <motion.a
-      whileHover={{ y: -2, scale: 1.01 }}
+      whileHover={isMobile ? undefined : { y: -2, scale: 1.01 }}
       whileTap={{ scale: 0.985 }}
       transition={{ duration: 0.18, ease: "easeOut" }}
       aria-label={ariaLabel}
       onPointerMove={handlePointerMove}
       onPointerLeave={() => { rawX.set(0); rawY.set(0); }}
-      style={magnetic ? { x, y } : undefined}
-      className={`group relative isolate inline-flex min-h-12 items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold tracking-[0.02em] transition ${variantClasses[variant]} ${className}`}
+      style={magnetic && !isMobile ? { x, y } : undefined}
+      className={`group relative isolate mx-auto inline-flex min-h-12 items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-center text-sm font-semibold tracking-[0.02em] transition sm:mx-0 ${variantClasses[variant]} ${className}`}
       {...props}
     >
-      <span className="absolute inset-0 -z-10 translate-y-[102%] bg-[var(--color-gold-light)] transition-transform duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0" aria-hidden="true" />
+      <span className="absolute inset-0 -z-10 translate-y-[102%] bg-[var(--color-gold-light)] transition-transform duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0 motion-reduce:translate-y-0" aria-hidden="true" />
       <span className="transition-colors group-hover:text-black group-focus-visible:text-black">{children}</span>
       <span className="transition duration-200 group-hover:translate-x-1 group-hover:text-black group-focus-visible:translate-x-1 group-focus-visible:text-black">{icon}</span>
     </motion.a>

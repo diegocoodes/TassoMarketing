@@ -57,6 +57,41 @@ export const clients: Client[] = [
     width: 500,
     height: 500,
   },
+  {
+    name: "Expresso 22",
+    logo: "/logosempresa/expresso22.png",
+    alt: "Logo da Expresso 22",
+    width: 687,
+    height: 687,
+  },
+  {
+    name: "GYEON",
+    logo: "/logosempresa/gyeon.png",
+    alt: "Logo da GYEON",
+    width: 687,
+    height: 687,
+  },
+  {
+    name: "MK Estética",
+    logo: "/logosempresa/mkestetica%20copy.png",
+    alt: "Logo da MK Estética",
+    width: 500,
+    height: 500,
+  },
+  {
+    name: "Nevada",
+    logo: "/logosempresa/nevada.png",
+    alt: "Logo da Nevada",
+    width: 500,
+    height: 500,
+  },
+  {
+    name: "NP1",
+    logo: "/logosempresa/np1%20copy.png",
+    alt: "Logo da NP1",
+    width: 500,
+    height: 500,
+  },
 ];
 
 export const marqueeConfig = {

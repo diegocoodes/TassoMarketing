@@ -42,12 +42,12 @@ export function HeroSection() {
       />
       <Container className="relative z-10 hidden md:block">
         <div className="max-w-3xl text-left">
-          <h1 className="font-display text-[clamp(2.35rem,11vw,3.3rem)] font-semibold leading-[0.92] tracking-[-0.03em] md:text-[clamp(2.9rem,8vw,6.5rem)] md:leading-[0.88]">
+          <h1 className="font-display type-hero-title">
             <TextReveal className="block text-black" delay={0.08}>Transforme</TextReveal>
             <TextReveal className="block pb-2 text-[var(--color-gold-deep)]" delay={0.2}>anúncios em clientes</TextReveal>
             <TextReveal className="hidden text-black md:block" delay={0.34}>para o seu negócio</TextReveal>
           </h1>
-          <p data-hero-copy className="mt-5 max-w-xl text-base leading-7 text-zinc-700 md:mt-6 md:text-lg md:leading-8"><span className="md:hidden">Estratégia digital para atrair oportunidades e aumentar suas vendas.</span><span className="hidden md:inline">Estratégias de tráfego pago, automação e atendimento inteligente para atrair oportunidades, melhorar seu processo comercial e aumentar suas vendas.</span></p>
+          <p data-hero-copy className="type-body-lg mt-5 max-w-xl text-zinc-700 md:mt-6"><span className="md:hidden">Estratégia digital para atrair oportunidades e aumentar suas vendas.</span><span className="hidden md:inline">Estratégias de tráfego pago, automação e atendimento inteligente para atrair oportunidades, melhorar seu processo comercial e aumentar suas vendas.</span></p>
           <div data-hero-actions className="mt-8 hidden flex-col gap-3 sm:flex-row md:flex">
             <Button href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer" icon={<ArrowRight className="h-4 w-4" />} magnetic>Quero uma análise do meu negócio</Button>
             <Button href="#solucoes" variant="secondary" className="hero-secondary">Conhecer as soluções</Button>
@@ -57,7 +57,7 @@ export function HeroSection() {
       <div className="relative md:hidden">
         <Image src={siteConfig.assets.heroBannerMobile} alt="T. Thales trabalhando com notebook." width={941} height={1672} priority className="h-auto w-full" />
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/55 to-transparent px-4 pb-5 pt-16">
-          <p className="mx-auto mb-3 max-w-xs text-center font-display text-xl font-semibold leading-tight text-white">
+          <p className="font-display type-section-subtitle mx-auto mb-3 max-w-xs text-center text-white">
             Mais clientes. <span className="text-[var(--color-gold-light)]">Mais crescimento.</span>
           </p>
           <div data-hero-actions className="flex flex-col gap-3">

@@ -1,14 +1,16 @@
 "use client";
 
 import { motion, useScroll, useSpring } from "motion/react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export function ScrollProgress() {
   const reducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 30, mass: 0.25 });
 
-  if (reducedMotion) return null;
+  if (reducedMotion || isMobile) return null;
   return (
     <motion.div
       aria-hidden="true"

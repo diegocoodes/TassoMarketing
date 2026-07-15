@@ -28,7 +28,7 @@ export function FAQItem({
           aria-controls={`${id}-panel`}
           className="group flex min-h-16 w-full items-stretch justify-between gap-5 text-left"
         >
-          <span className={`flex items-center px-5 py-4 text-sm font-semibold leading-6 transition-colors md:px-6 md:text-base ${isOpen ? "text-white" : "text-[var(--color-text-soft)] group-hover:text-white"}`}>{question}</span>
+          <span className={`type-body-md flex items-center px-5 py-4 font-semibold transition-colors md:px-6 ${isOpen ? "text-white" : "text-[var(--color-text-soft)] group-hover:text-white"}`}>{question}</span>
           <motion.span
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -49,7 +49,7 @@ export function FAQItem({
             transition={{ duration: 0.32, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <motion.div initial={{ y: -6 }} animate={{ y: 0 }} className="max-w-2xl border-t border-white/8 px-5 py-5 text-sm leading-7 text-[var(--color-text-muted)] md:px-6 md:text-base">
+            <motion.div initial={{ y: -6 }} animate={{ y: 0 }} className="type-body-md max-w-2xl border-t border-white/8 px-5 py-5 text-[var(--color-text-muted)] md:px-6">
               {answer}
             </motion.div>
           </motion.div>

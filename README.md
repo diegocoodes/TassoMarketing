@@ -181,6 +181,12 @@ Os recortes são definidos pelas classes `object-position` junto de cada `next/i
 
 A seção do ninja está em `components/sections/StrategySection.tsx`. Para desativá-la, remova `<StrategySection />` de `app/page.tsx`. Textos, conceitos, intensidade da luz e timeline ScrollTrigger podem ser alterados no próprio componente. Quando `prefers-reduced-motion` está ativo, a imagem e o conteúdo permanecem visíveis sem a sequência cinematográfica.
 
+### Seção Estratégia Digital
+
+A composição de `#estrategia` usa duas colunas no desktop e empilha imagem e conteúdo no mobile. A fotografia `tasso-ninja.webp` permanece em `object-contain`, com máscara inferior suave, glow, símbolo da marca e uma única órbita decorativa. GSAP/ScrollTrigger controla a entrada cinematográfica e o parallax apenas no desktop; Motion controla exclusivamente hover/tap de tags, cards e botão. Em movimento reduzido, órbita, passagem de luz e parallax são desativados e todo o conteúdo é exibido imediatamente.
+
+Os cards apresentam a jornada `Atrair → Converter → Evoluir`; em telas menores eles são empilhados sem sobrepor a fotografia. O CTA aponta para `#como-funciona`, seção existente na página.
+
 Alt texts estão definidos onde cada imagem é renderizada. Ao trocar a fotografia, atualize também a descrição para representar fielmente o novo conteúdo.
 
 ## Cadastro de clientes e logos do marquee

@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, Orbitron } from "next/font/google";
+import { Manrope, Sora } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
   preload: false,
 });
 
-const orbitron = Orbitron({
-  variable: "--font-orbitron",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
   preload: false,
 });
@@ -52,9 +55,12 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: {
+      url: "/favicon.ico",
+      type: "image/x-icon",
+    },
     shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
+    apple: "/images/tasso/Logo%20%5Bicone%5D%20Universo%20PNG.png",
   },
 };
 
@@ -66,7 +72,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${orbitron.variable} h-full antialiased`}
+      className={`${manrope.variable} ${sora.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body

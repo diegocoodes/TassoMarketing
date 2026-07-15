@@ -47,8 +47,8 @@ export function AudienceSection() {
                 <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-b-xl bg-gradient-to-br from-[var(--color-gold-light)] to-[var(--color-gold-deep)] text-black">
                   <Icon className="h-6 w-6" aria-hidden="true" />
                 </div>
-                <h3 className="mt-6 font-display text-xl font-semibold text-white md:text-2xl">{pillar.title}</h3>
-                <p className="mx-auto mt-4 max-w-sm text-sm leading-7 text-zinc-400">{pillar.description}</p>
+                <h3 className="font-display type-section-subtitle mt-6 text-white">{pillar.title}</h3>
+                <p className="type-body-md mx-auto mt-4 max-w-sm text-zinc-400">{pillar.description}</p>
               </article>
             );
           })}

@@ -28,7 +28,7 @@ export function SectionScrollReveal() {
           observer.unobserve(entry.target);
         });
       },
-      { rootMargin: "0px 0px -10%", threshold: 0.08 },
+      { rootMargin: "0px 0px -8%", threshold: 0.06 },
     );
 
     sections.forEach((section) => observer.observe(section));
