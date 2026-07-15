@@ -1,20 +1,20 @@
 export const results = [
   {
-    title: "Espaço para case real",
+    title: "Organização da captação",
     description:
-      "Adicione aqui um print oficial de resultados, uma legenda objetiva e o contexto do projeto quando os materiais forem anexados.",
-    status: "Aguardando material oficial",
+      "Estruturação do caminho percorrido pelo lead desde o anúncio até o atendimento.",
+    status: "Captação",
   },
   {
-    title: "Espaço para evolução de campanha",
+    title: "Otimização de campanhas",
     description:
-      "Estruture um comparativo visual com os indicadores permitidos pelo cliente, sem promessas ou dados inventados.",
-    status: "Preparado para atualização",
+      "Acompanhamento, testes e ajustes para melhorar a qualidade dos contatos.",
+    status: "Campanhas",
   },
   {
-    title: "Espaço para processo comercial",
+    title: "Automação do atendimento",
     description:
-      "Use esta área para mostrar organização de leads, atendimento e acompanhamento com imagens reais da operação.",
-    status: "Pronto para customização",
+      "Criação de fluxos para agilizar respostas e organizar oportunidades.",
+    status: "Atendimento",
   },
 ] as const;

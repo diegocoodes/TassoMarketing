@@ -155,6 +155,8 @@ function useAnimationLoop(
   const lastTimestampRef = useRef<number | null>(null);
   const offsetRef = useRef(0);
   const velocityRef = useRef(0);
+  const isVisibleRef = useRef(true);
+  const isDocumentVisibleRef = useRef(true);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -170,6 +172,24 @@ function useAnimationLoop(
 
     if (reducedMotion) return;
 
+    isDocumentVisibleRef.current = document.visibilityState === "visible";
+
+    const handleVisibilityChange = () => {
+      isDocumentVisibleRef.current = document.visibilityState === "visible";
+      lastTimestampRef.current = null;
+    };
+
+    const observer =
+      "IntersectionObserver" in window
+        ? new IntersectionObserver(([entry]) => {
+            isVisibleRef.current = entry.isIntersecting;
+            lastTimestampRef.current = null;
+          })
+        : null;
+
+    observer?.observe(track);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     const animate = (timestamp: number) => {
       if (lastTimestampRef.current === null) lastTimestampRef.current = timestamp;
 
@@ -182,7 +202,7 @@ function useAnimationLoop(
         1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
       velocityRef.current += (target - velocityRef.current) * easingFactor;
 
-      if (seqSize > 0) {
+      if (seqSize > 0 && isVisibleRef.current && isDocumentVisibleRef.current) {
         let nextOffset = offsetRef.current + velocityRef.current * deltaTime;
         nextOffset = ((nextOffset % seqSize) + seqSize) % seqSize;
         offsetRef.current = nextOffset;
@@ -198,6 +218,8 @@ function useAnimationLoop(
 
     return () => {
       if (rafRef.current !== null) window.cancelAnimationFrame(rafRef.current);
+      observer?.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       rafRef.current = null;
       lastTimestampRef.current = null;
     };

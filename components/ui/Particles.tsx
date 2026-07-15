@@ -219,8 +219,21 @@ export default function Particles({
     let animationFrameId = 0;
     let lastTime = performance.now();
     let elapsed = 0;
+    let isInViewport = true;
+    let isDocumentVisible = document.visibilityState === "visible";
+
+    const renderFrame = () => {
+      renderer.render({ scene: particles, camera });
+    };
+
+    const shouldAnimate = () => isInViewport && isDocumentVisible && !reducedMotion;
 
     const update = (time: number) => {
+      if (!shouldAnimate()) {
+        animationFrameId = window.requestAnimationFrame(update);
+        return;
+      }
+
       const delta = time - lastTime;
       lastTime = time;
       elapsed += delta * speed;
@@ -237,12 +250,30 @@ export default function Particles({
         particles.rotation.z += 0.01 * speed;
       }
 
-      renderer.render({ scene: particles, camera });
+      renderFrame();
       animationFrameId = window.requestAnimationFrame(update);
     };
 
+    const handleVisibilityChange = () => {
+      isDocumentVisible = document.visibilityState === "visible";
+      lastTime = performance.now();
+      if (!isDocumentVisible) renderFrame();
+    };
+
+    const observer =
+      "IntersectionObserver" in window
+        ? new IntersectionObserver(([entry]) => {
+            isInViewport = entry.isIntersecting;
+            lastTime = performance.now();
+            if (!isInViewport) renderFrame();
+          })
+        : null;
+
+    observer?.observe(container);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     if (reducedMotion) {
-      renderer.render({ scene: particles, camera });
+      renderFrame();
     } else {
       animationFrameId = window.requestAnimationFrame(update);
     }
@@ -250,6 +281,8 @@ export default function Particles({
     return () => {
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      observer?.disconnect();
       if (animationFrameId) window.cancelAnimationFrame(animationFrameId);
       if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
     };

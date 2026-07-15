@@ -165,6 +165,24 @@ Para substituir:
 1. Adicione a foto oficial em `public/images/tasso/`.
 2. Atualize `siteConfig.assets.portrait` em [config/site.ts](C:/Users/diego.silva/Desktop/Tasso/config/site.ts:1).
 
+## Fotografias narrativas de T. Thales
+
+Os PNGs originais foram preservados em `public/images/tasso/` e as versões otimizadas usadas pela página estão em WebP:
+
+- `tasso-terno.webp`: Hero, autoridade e posicionamento profissional.
+- `tasso-mobile.webp`: soluções e comportamento digital.
+- `tasso-ninja.webp`: seção `#estrategia`, precisão e atuação nos bastidores.
+- `tasso-retrato.webp`: seção Sobre T. Thales.
+- `tasso-notebook.webp`: processo de diagnóstico e planejamento.
+
+Os caminhos ficam centralizados em `config/site.ts`. Para substituir uma fotografia, mantenha preferencialmente a mesma proporção, gere WebP com qualidade entre 85 e 90 e atualize o respectivo campo em `siteConfig.assets`.
+
+Os recortes são definidos pelas classes `object-position` junto de cada `next/image`. Ajuste valores como `object-[50%_28%]` para deslocar o enquadramento sem modificar o arquivo. No mobile, preserve rosto e silhueta usando `object-contain` quando a imagem tiver fundo transparente.
+
+A seção do ninja está em `components/sections/StrategySection.tsx`. Para desativá-la, remova `<StrategySection />` de `app/page.tsx`. Textos, conceitos, intensidade da luz e timeline ScrollTrigger podem ser alterados no próprio componente. Quando `prefers-reduced-motion` está ativo, a imagem e o conteúdo permanecem visíveis sem a sequência cinematográfica.
+
+Alt texts estão definidos onde cada imagem é renderizada. Ao trocar a fotografia, atualize também a descrição para representar fielmente o novo conteúdo.
+
 ## Cadastro de clientes e logos do marquee
 
 Edite [data/clients.ts](C:/Users/diego.silva/Desktop/Tasso/data/clients.ts:1).
@@ -272,6 +290,46 @@ Arquivos temporários ainda preparados para uso futuro:
 - `npm run build`
 
 O projeto compila com sucesso e gera saída estática.
+
+## Sistema de animações
+
+As configurações compartilhadas ficam em `config/animation.ts`. Nesse arquivo podem ser alterados `ease`, durações, `stagger`, velocidade do marquee e limite dos botões magnéticos.
+
+### Divisão de responsabilidades
+
+- GSAP: introdução cinematográfica, transição para o Hero, reveals ligados ao scroll, timeline do processo, faixa contínua, parallax e movimentos decorativos complexos.
+- Motion para React: hover/tap, indicador ativo do menu, cursor, progresso da página, formulário em etapas, FAQ e transições de estado.
+- CSS: gradientes, spotlight, preenchimento líquido, grid e detalhes visuais sem estado.
+
+GSAP e Motion não devem controlar simultaneamente `transform`, `opacity`, `x`, `y`, `scale` ou `rotate` no mesmo elemento. Quando os dois forem necessários, use um container para o reveal GSAP e um elemento interno para a microinteração Motion.
+
+### Componentes reutilizáveis
+
+- `components/animation/ScrollProgress.tsx`: progresso fixo da página.
+- `components/animation/CustomCursor.tsx`: cursor apenas para ponteiro preciso.
+- `components/animation/SpotlightCard.tsx`: iluminação localizada em cards.
+- `components/ui/Button.tsx`: hover líquido e modo magnético opcional.
+- `hooks/useMousePosition.ts`: posição do ponteiro com atualização controlada.
+
+Para desativar o cursor, remova `<CustomCursor />` de `app/page.tsx`. Para desativar uma animação específica, remova seu componente decorativo ou retorne antes da criação da timeline quando `useReducedMotion()` for verdadeiro.
+
+### Limpeza segura do GSAP
+
+Cada seção deve usar `gsap.context()` e executar `context.revert()` na limpeza. Recursos responsivos criados com `gsap.matchMedia()` também devem executar `mm.revert()`. Nunca encerre todos os ScrollTriggers globalmente, pois isso remove animações pertencentes a outras seções.
+
+### Movimento reduzido
+
+Com `prefers-reduced-motion: reduce`, cursor, progresso animado, marquee, partículas, parallax, movimentos orbitais e timelines contínuas são desativados ou transformados em estados estáticos. Formulário, FAQ, navegação e conteúdo permanecem funcionais.
+
+Teste no Chrome/Edge em DevTools → Rendering → Emulate CSS media feature `prefers-reduced-motion`. No Windows 10 também é possível testar desativando “Mostrar animações no Windows”.
+
+### Breakpoints e testes
+
+- Desktop: background reativo, cursor, botão magnético, órbitas e efeitos completos.
+- Tablet: reveals e microinterações com deslocamentos moderados.
+- Mobile: scroll natural, sem cursor, magnetismo ou parallax pesado; timeline vertical e movimentos curtos.
+
+Teste as larguras `320`, `375`, `390`, `425`, `768`, `1024`, `1280` e `1440` px. Confira teclado, foco, menu mobile, FAQ, formulário, marquee e ausência de overflow horizontal antes de publicar.
 
 ## Pendências que dependem do cliente
 

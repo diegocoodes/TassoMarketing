@@ -24,6 +24,7 @@ const introParticleColors = ["#edb301"];
 export function IntroGateway() {
   const rootRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const transitionRef = useRef<HTMLDivElement>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
   const { isVisible, completeIntro } = useSessionIntro();
@@ -111,7 +112,8 @@ export function IntroGateway() {
         stagger: 0.025,
       })
       .to(panel, { opacity: 0, y: -30, scale: 0.98, duration: 0.36 }, "-=0.1")
-      .to(root, { opacity: 0, yPercent: -8, duration: 0.28 }, "-=0.22");
+      .fromTo(transitionRef.current, { opacity: 0, scale: 0.15 }, { opacity: 1, scale: 18, duration: 0.52, ease: "power3.in" }, "-=0.3")
+      .to(root, { opacity: 0, duration: 0.22 }, "-=0.08");
   }
 
   if (!isVisible) return null;
@@ -122,15 +124,15 @@ export function IntroGateway() {
         ref={rootRef}
         className="intro-gateway fixed inset-0 z-[100] min-h-svh overflow-x-hidden overflow-y-auto bg-[#050505] px-4 py-4 sm:px-6 sm:py-6"
       >
+        <div ref={transitionRef} className="pointer-events-none fixed left-1/2 top-1/2 z-[90] h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-gold)] opacity-0" aria-hidden="true" />
         <div className="pointer-events-none fixed inset-0 opacity-65" aria-hidden="true">
           <Particles
             particleColors={introParticleColors}
-            particleCount={700}
+            particleCount={220}
             particleSpread={10}
-            speed={0.1}
-            particleBaseSize={100}
-            sizeRandomness={1}
-            moveParticlesOnHover
+            speed={0.06}
+            particleBaseSize={70}
+            sizeRandomness={0.7}
             particleHoverFactor={0.5}
             cameraDistance={20}
             pixelRatio={1}
@@ -156,7 +158,6 @@ export function IntroGateway() {
                 alt="Universo Marketing"
                 fill
                 sizes="208px"
-                priority
                 className="object-cover object-center"
               />
             </div>

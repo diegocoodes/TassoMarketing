@@ -13,7 +13,7 @@ export function SectionTitle({
   align = "left",
   className = "",
 }: SectionTitleProps) {
-  const alignment = align === "center" ? "mx-auto text-center" : "";
+  const alignment = align === "center" ? "mx-auto text-center" : "mx-auto text-center md:mx-0 md:text-left";
 
   return (
     <div className={`max-w-3xl ${alignment} ${className}`.trim()}>
@@ -22,7 +22,7 @@ export function SectionTitle({
         {title}
       </h2>
       {description ? (
-        <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--color-text-muted)] md:text-lg">
+        <p className={`mt-5 max-w-2xl text-base leading-7 text-[var(--color-text-muted)] md:text-lg ${align === "center" ? "mx-auto" : "mx-auto md:mx-0"}`}>
           {description}
         </p>
       ) : null}

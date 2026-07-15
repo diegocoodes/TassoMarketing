@@ -15,19 +15,14 @@ export const faqItems = [
       "A verba de mídia normalmente é paga diretamente às plataformas e é separada do valor da gestão.",
   },
   {
-    question: "Vocês criam os anúncios?",
+    question: "Vocês trabalham com Google Ads e Meta Ads?",
     answer:
-      "A estratégia pode incluir planejamento das campanhas, direcionamento dos criativos, textos e configuração dos anúncios, de acordo com a solução contratada.",
+      "Sim. A estratégia pode utilizar Google, Instagram e Facebook, de acordo com o público e os objetivos da empresa.",
   },
   {
-    question: "Vocês trabalham apenas com tráfego pago?",
+    question: "Como acompanho os resultados?",
     answer:
-      "Não. A Universo Marketing também desenvolve soluções de atendimento com IA, CRM, automações, agendamento, SEO e estrutura digital.",
-  },
-  {
-    question: "Como funciona o atendimento?",
-    answer:
-      "O primeiro passo é uma conversa para entender o negócio. Em seguida, analisamos o cenário e apresentamos as soluções mais adequadas.",
+      "Os resultados podem ser apresentados por meio de relatórios, indicadores e acompanhamento periódico, de acordo com a solução contratada.",
   },
   {
     question: "Existe garantia de vendas?",

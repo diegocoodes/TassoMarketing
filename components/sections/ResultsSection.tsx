@@ -47,12 +47,12 @@ export function ResultsSection() {
   }, [reducedMotion]);
 
   return (
-    <section id="resultados" ref={sectionRef} className="py-18 md:py-24">
+    <section id="resultados" ref={sectionRef} className="editorial-dark-panel mx-2 rounded-[2.75rem] py-18 md:mx-4 md:rounded-[4rem] md:py-24">
       <Container>
         <SectionTitle
           eyebrow="Resultados"
           title="Resultados construídos com estratégia e acompanhamento"
-          description="A seção já está pronta para receber cases, prints e resumos reais assim que os materiais oficiais forem anexados."
+          description="Estruturas institucionais que representam como organizamos a jornada de aquisição, sem métricas ou promessas inventadas."
         />
         <div className="mt-10 grid gap-5 lg:grid-cols-3">
           {results.map((result, index) => {
@@ -76,8 +76,8 @@ export function ResultsSection() {
                 <p className="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
                   {result.description}
                 </p>
-                <div className="mt-6 rounded-[1.5rem] border border-dashed border-white/10 bg-black/20 px-5 py-10 text-center text-sm text-[var(--color-text-muted)]">
-                  Espaço reservado para imagem ou print oficial do cliente.
+                <div className="mt-6 flex items-center gap-2 border-t border-white/8 pt-5 text-xs uppercase tracking-[0.14em] text-zinc-500">
+                  Estratégia • Implementação • Acompanhamento
                 </div>
               </article>
             );

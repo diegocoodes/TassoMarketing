@@ -1,5 +1,4 @@
 import {
-  BarChart3,
   Bot,
   CalendarClock,
   Search,
@@ -38,11 +37,5 @@ export const services = [
     description:
       "Melhoria da presença da empresa no Google para gerar novas oportunidades de forma contínua.",
     icon: Search,
-  },
-  {
-    title: "Estratégia digital",
-    description:
-      "Planejamento personalizado, posicionamento, análise do cenário e definição das melhores ações para o negócio.",
-    icon: BarChart3,
   },
 ] as const;

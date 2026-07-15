@@ -1,169 +1,86 @@
 "use client";
 
+import Image from "next/image";
+import { ArrowRight, BarChart3, Crosshair, Rocket, Search } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { Container } from "@/components/layout/Container";
-import { SectionTitle } from "@/components/ui/SectionTitle";
+import { Button } from "@/components/ui/Button";
+import { getWhatsAppUrl, siteConfig } from "@/config/site";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const steps = [
-  {
-    number: "01",
-    title: "Diagnóstico",
-    description:
-      "Analisamos sua empresa, público, concorrentes, oferta e presença digital.",
-  },
-  {
-    number: "02",
-    title: "Planejamento",
-    description:
-      "Definimos canais, campanhas, orçamento e processo de atendimento.",
-  },
-  {
-    number: "03",
-    title: "Implementação",
-    description:
-      "Configuramos a estrutura necessária para começar a gerar oportunidades.",
-  },
-  {
-    number: "04",
-    title: "Otimização",
-    description:
-      "Acompanhamos os resultados, realizamos testes e aplicamos melhorias contínuas.",
-  },
+  { icon: Search, title: "Diagnóstico", description: "Entendemos seu negócio, público, oferta e cenário atual." },
+  { icon: Crosshair, title: "Planejamento", description: "Definimos canais, campanhas e prioridades para a operação." },
+  { icon: Rocket, title: "Implementação", description: "Colocamos a estratégia em prática com estrutura e precisão." },
+  { icon: BarChart3, title: "Otimização", description: "Analisamos dados, realizamos testes e melhoramos continuamente." },
 ] as const;
 
 export function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const desktopProgressRef = useRef<HTMLDivElement>(null);
-  const mobileProgressRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
 
   useIsomorphicLayoutEffect(() => {
     const section = sectionRef.current;
-    const desktopProgress = desktopProgressRef.current;
-    const mobileProgress = mobileProgressRef.current;
-
-    if (!section || !desktopProgress || !mobileProgress) {
-      return;
-    }
-
+    if (!section || reducedMotion) return;
     gsap.registerPlugin(ScrollTrigger);
-
-    if (reducedMotion) {
-      gsap.set([desktopProgress, mobileProgress], { scaleX: 1, scaleY: 1 });
-      return;
-    }
-
-    const mm = gsap.matchMedia();
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        "[data-process-step]",
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.08,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 78%",
-          },
-        },
-      );
+      gsap.fromTo("[data-process-reveal]", { opacity: 0, y: 26 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.65,
+        stagger: 0.07,
+        ease: "power3.out",
+        scrollTrigger: { trigger: section, start: "top 76%" },
+      });
     }, section);
-
-    mm.add("(min-width: 768px)", () => {
-      gsap.set(desktopProgress, { transformOrigin: "left center", scaleX: 0 });
-      gsap.to(desktopProgress, {
-        scaleX: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 72%",
-          end: "bottom 55%",
-          scrub: true,
-        },
-      });
-    });
-
-    mm.add("(max-width: 767px)", () => {
-      gsap.set(mobileProgress, { transformOrigin: "top center", scaleY: 0 });
-      gsap.to(mobileProgress, {
-        scaleY: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 75%",
-          end: "bottom 80%",
-          scrub: true,
-        },
-      });
-    });
-
-    return () => {
-      mm.revert();
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, [reducedMotion]);
 
   return (
-    <section id="como-funciona" ref={sectionRef} className="py-18 md:py-24">
+    <section id="como-funciona" ref={sectionRef} className="bg-[#ECEBEF] py-18 text-black md:py-24">
       <Container>
-        <SectionTitle
-          eyebrow="Como funciona"
-          title="Uma estratégia construída para o seu negócio"
-          description="O trabalho une análise, planejamento e acompanhamento para que a operação digital tenha direção clara desde o primeiro passo."
-        />
+        <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[2rem] bg-white shadow-[0_28px_80px_rgba(0,0,0,0.16)] lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="p-6 sm:p-9 lg:p-12">
+            <div className="text-center md:text-left" data-process-reveal>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-gold-deep)]">Como funciona</p>
+              <h2 className="mt-4 font-display text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[0.98] tracking-tight text-black">Uma estratégia pronta para transformar atenção em vendas</h2>
+              <p className="mt-5 text-sm leading-7 text-zinc-600 md:text-base">Do diagnóstico à otimização, cada etapa é construída para dar direção ao investimento e gerar oportunidades melhores.</p>
+            </div>
 
-        <div className="relative mt-10 hidden md:block">
-          <div className="absolute top-8 left-0 h-px w-full bg-white/10" />
-          <div
-            ref={desktopProgressRef}
-            className="absolute top-8 left-0 h-px w-full bg-gradient-to-r from-[var(--color-gold-light)] to-[var(--color-gold-deep)]"
-          />
-          <div className="grid gap-6 md:grid-cols-4">
-            {steps.map((step) => (
-              <article key={step.number} data-process-step className="pt-14">
-                <div className="mb-5 h-4 w-4 rounded-full border border-[rgba(245,169,0,0.26)] bg-[var(--color-bg)]" />
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-gold-light)]">
-                  {step.number}
-                </p>
-                <h3 className="mt-4 text-2xl font-semibold text-white">
-                  {step.title}
-                </h3>
-                <p className="mt-4 text-sm leading-7 text-[var(--color-text-muted)]">
-                  {step.description}
-                </p>
-              </article>
-            ))}
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {steps.map((step, index) => {
+                const Icon = step.icon;
+                return (
+                  <article key={step.title} data-process-reveal className="rounded-xl bg-[#f4f3f2] p-4">
+                    <div className="flex items-start gap-3">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-black text-[var(--color-gold-light)]">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <div>
+                        <p className="text-[0.65rem] font-bold tracking-[0.16em] text-[var(--color-gold-deep)]">0{index + 1}</p>
+                        <h3 className="mt-1 font-display text-sm font-semibold text-black">{step.title}</h3>
+                      </div>
+                    </div>
+                    <p className="mt-3 text-xs leading-6 text-zinc-600">{step.description}</p>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div data-process-reveal className="mt-7">
+              <Button href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer" icon={<ArrowRight className="h-4 w-4" />} className="w-full" magnetic>Quero aumentar minhas vendas</Button>
+            </div>
           </div>
-        </div>
 
-        <div className="relative mt-10 md:hidden">
-          <div className="absolute top-0 left-5 h-full w-px bg-white/10" />
-          <div
-            ref={mobileProgressRef}
-            className="absolute top-0 left-5 h-full w-px bg-gradient-to-b from-[var(--color-gold-light)] to-[var(--color-gold-deep)]"
-          />
-          <div className="space-y-8">
-            {steps.map((step) => (
-              <article key={step.number} data-process-step className="relative pl-14">
-                <div className="absolute top-1 left-[14px] h-3 w-3 rounded-full border border-[rgba(245,169,0,0.26)] bg-[var(--color-bg)]" />
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-gold-light)]">
-                  {step.number}
-                </p>
-                <h3 className="mt-3 text-2xl font-semibold text-white">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
-                  {step.description}
-                </p>
-              </article>
-            ))}
+          <div data-process-reveal className="relative min-h-[32rem] overflow-hidden bg-black lg:min-h-full">
+            <Image src={siteConfig.assets.tassoNotebook} alt="T. Thales durante o planejamento de uma estratégia digital." fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover object-center" />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent px-7 pb-7 pt-24 text-white">
+              <p className="font-display text-2xl font-semibold">T. Thales</p>
+              <p className="mt-2 text-sm text-zinc-300">Estratégia, acompanhamento e evolução contínua.</p>
+            </div>
           </div>
         </div>
       </Container>

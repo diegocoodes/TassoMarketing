@@ -2,14 +2,25 @@
 
 import { MessageCircleMore } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getWhatsAppUrl } from "@/config/site";
 
 export function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => { frame = 0; setIsVisible(window.scrollY > Math.min(window.innerHeight * 0.7, 720)); };
+    const scroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", scroll, { passive: true });
+    return () => { window.removeEventListener("scroll", scroll); if (frame) cancelAnimationFrame(frame); };
+  }, []);
 
   return (
-    <div className="fixed right-4 bottom-4 z-50 safe-bottom md:right-6 md:bottom-6">
+    <AnimatePresence>
+    {isVisible ? <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }} className="fixed right-4 bottom-4 z-50 safe-bottom md:right-6 md:bottom-6">
       <motion.a
         href={getWhatsAppUrl()}
         target="_blank"
@@ -19,8 +30,6 @@ export function WhatsAppButton() {
         onHoverEnd={() => setIsHovered(false)}
         onFocus={() => setIsHovered(true)}
         onBlur={() => setIsHovered(false)}
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
         whileHover={{ y: -3, scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         transition={{ duration: 0.22, ease: "easeOut" }}
@@ -41,6 +50,7 @@ export function WhatsAppButton() {
           ) : null}
         </AnimatePresence>
       </motion.a>
-    </div>
+    </motion.div> : null}
+    </AnimatePresence>
   );
 }

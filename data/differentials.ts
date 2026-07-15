@@ -4,6 +4,7 @@ import {
   Handshake,
   LineChart,
   Repeat,
+  SlidersHorizontal,
   Workflow,
 } from "lucide-react";
 
@@ -49,5 +50,12 @@ export const differentials = [
     description:
       "O trabalho evolui em ciclos de observação, teste e refinamento para sustentar crescimento com mais consistência.",
     icon: Repeat,
+  },
+  {
+    number: "07",
+    title: "Soluções adaptadas à realidade",
+    description:
+      "Ferramentas, canais e prioridades são definidos conforme o momento e a estrutura disponível em cada empresa.",
+    icon: SlidersHorizontal,
   },
 ] as const;

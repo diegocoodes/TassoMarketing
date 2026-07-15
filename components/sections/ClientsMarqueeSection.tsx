@@ -22,22 +22,22 @@ export function ClientsMarqueeSection() {
           description="Empresas de diferentes segmentos que contaram com estratégia, tráfego e acompanhamento da Universo Marketing."
           align="center"
         />
-        <div className="surface-panel mt-10 overflow-hidden rounded-[2rem] px-2 py-6 md:px-4 md:py-8">
-          <LogoLoop
-            logos={clientLogos}
-            speed={55}
-            direction="left"
-            logoHeight={64}
-            gap={32}
-            hoverSpeed={0}
-            scaleOnHover
-            fadeOut
-            fadeOutColor="#0d0d0f"
-            ariaLabel="Marcas atendidas pela Universo Marketing"
-            className="client-logo-loop"
-          />
-        </div>
       </Container>
+      <div className="mt-12 w-full overflow-hidden py-4 md:py-6">
+        <LogoLoop
+          logos={clientLogos}
+          speed={65}
+          direction="left"
+          logoHeight={72}
+          gap={44}
+          hoverSpeed={0}
+          scaleOnHover
+          fadeOut
+          fadeOutColor="#050505"
+          ariaLabel="Marcas atendidas pela Universo Marketing"
+          className="client-logo-loop"
+        />
+      </div>
     </section>
   );
 }

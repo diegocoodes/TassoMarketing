@@ -1,60 +1,63 @@
+import { ArrowUpRight, Eye, Handshake, TrendingUp, Zap } from "lucide-react";
 import { Container } from "@/components/layout/Container";
+import { Button } from "@/components/ui/Button";
 import { SectionTitle } from "@/components/ui/SectionTitle";
+import { getWhatsAppUrl } from "@/config/site";
 
-const rightFit = [
-  "Desejam receber mais contatos qualificados",
-  "Já anunciam, mas não conseguem bons resultados",
-  "Dependem apenas de indicação",
-  "Demoram para responder clientes",
-  "Precisam organizar o processo comercial",
-  "Querem crescer de forma estruturada",
-] as const;
-
-const notIdealYet = [
-  "Procuram resultados sem investimento",
-  "Esperam uma fórmula mágica",
-  "Não desejam acompanhar indicadores",
-  "Não possuem estrutura para atender novos clientes",
+const pillars = [
+  {
+    icon: Eye,
+    title: "Visão do negócio",
+    description: "Antes de investir em anúncios, entendemos sua operação, seus clientes e o cenário em que sua empresa está inserida.",
+  },
+  {
+    icon: Zap,
+    title: "Execução inteligente",
+    description: "Cada decisão é orientada por dados e transformada em campanhas estruturadas para alcançar as pessoas certas.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Resultado",
+    description: "Acompanhamos o desempenho continuamente para corrigir rotas, aproveitar oportunidades e ampliar resultados.",
+  },
+  {
+    icon: Handshake,
+    title: "Parceria estratégica",
+    description: "Trabalhamos próximos ao seu negócio, compartilhando decisões e construindo uma estratégia consistente de crescimento.",
+  },
 ] as const;
 
 export function AudienceSection() {
   return (
-    <section className="py-18 md:py-24">
-      <Container>
+    <section className="relative overflow-hidden bg-[#050505] py-18 md:py-24">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,169,0,0.07),transparent_45%)]" />
+      <Container className="relative">
         <SectionTitle
-          eyebrow="Para quem é"
-          title="Essa estratégia é indicada para empresas que..."
-          description="O trabalho faz mais sentido quando existe interesse real em estrutura, acompanhamento e evolução contínua."
+          eyebrow="Metodologia"
+          title="Os pilares da nossa metodologia"
+          description="Uma forma de trabalhar que combina visão estratégica, execução cuidadosa e acompanhamento próximo."
+          align="center"
         />
-        <div className="mt-10 grid gap-5 lg:grid-cols-2">
-          <div className="surface-panel rounded-[1.75rem] p-6 md:p-7">
-            <h3 className="text-2xl font-semibold text-white">Perfil ideal</h3>
-            <ul className="mt-6 space-y-3">
-              {rightFit.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-4 text-sm leading-7 text-[var(--color-text-soft)]"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="surface-panel rounded-[1.75rem] p-6 md:p-7">
-            <h3 className="text-2xl font-semibold text-white">
-              Talvez não seja o momento ideal se você...
-            </h3>
-            <ul className="mt-6 space-y-3">
-              {notIdealYet.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-4 text-sm leading-7 text-[var(--color-text-soft)]"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+
+        <div className="mx-auto mt-12 grid max-w-5xl gap-px overflow-hidden rounded-2xl bg-[rgba(245,169,0,0.32)] md:grid-cols-2">
+          {pillars.map((pillar) => {
+            const Icon = pillar.icon;
+            return (
+              <article key={pillar.title} className="relative bg-[linear-gradient(145deg,#141416,#09090a)] px-6 pb-8 pt-0 text-center md:px-9">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-b-xl bg-gradient-to-br from-[var(--color-gold-light)] to-[var(--color-gold-deep)] text-black">
+                  <Icon className="h-6 w-6" aria-hidden="true" />
+                </div>
+                <h3 className="mt-6 font-display text-xl font-semibold text-white md:text-2xl">{pillar.title}</h3>
+                <p className="mx-auto mt-4 max-w-sm text-sm leading-7 text-zinc-400">{pillar.description}</p>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="mt-9 flex justify-center">
+          <Button href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer" icon={<ArrowUpRight className="h-4 w-4" />} magnetic>
+            Quero aumentar minhas vendas
+          </Button>
         </div>
       </Container>
     </section>

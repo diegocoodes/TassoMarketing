@@ -6,7 +6,7 @@ import { navigationItems } from "@/data/navigation";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/8 bg-black/30 py-12 md:py-16">
+    <footer className="footer-gold mx-2 mb-2 rounded-[2.75rem] bg-[var(--color-gold)] py-12 text-black md:mx-4 md:mb-4 md:rounded-[4rem] md:py-16">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
           <div>
@@ -71,7 +71,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/8 pt-6 text-sm text-[var(--color-text-muted)] md:flex-row md:items-center md:justify-between">
+        <div className="mt-12 flex flex-col gap-4 pt-2 text-sm text-[var(--color-text-muted)] md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap gap-5">
             <Link href="/politica-de-privacidade/" className="transition hover:text-white">
               Política de privacidade

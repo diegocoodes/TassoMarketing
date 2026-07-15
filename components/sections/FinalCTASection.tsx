@@ -74,11 +74,13 @@ export function FinalCTASection() {
             </div>
             <div
               data-final-reveal
-              className="mx-auto flex h-40 w-40 items-center justify-center rounded-[2rem] border border-[rgba(245,169,0,0.18)] bg-[rgba(245,169,0,0.08)] md:h-48 md:w-48"
+              className="relative mx-auto flex h-40 w-40 items-center justify-center rounded-full border border-[rgba(245,169,0,0.18)] bg-[rgba(245,169,0,0.08)] md:h-48 md:w-48"
             >
+              <span className="absolute -inset-4 animate-[spin_24s_linear_infinite] rounded-full border border-dashed border-[rgba(245,169,0,0.22)] motion-reduce:animate-none" aria-hidden="true" />
+              <span className="absolute -inset-8 animate-[spin_34s_linear_infinite_reverse] rounded-full border border-white/8 motion-reduce:animate-none" aria-hidden="true" />
               <Image
                 src={siteConfig.assets.brandIcon}
-                alt="Placeholder do símbolo da Universo Marketing"
+                alt="Símbolo da Universo Marketing"
                 width={160}
                 height={160}
                 className="h-24 w-24 object-contain md:h-28 md:w-28"

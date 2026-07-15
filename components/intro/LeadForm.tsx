@@ -65,20 +65,25 @@ function buildLeadMessage(values: FormValues) {
 
 export function LeadForm({ onClose }: LeadFormProps) {
   const [values, setValues] = useState<FormValues>(initialValues);
-  const [isReady, setIsReady] = useState(false);
+  const [step, setStep] = useState(0);
+  const [direction, setDirection] = useState(1);
 
   function updateValue(field: keyof FormValues, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleNext(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     if (!event.currentTarget.reportValidity()) {
       return;
     }
+    setDirection(1);
+    setStep((current) => Math.min(current + 1, 3));
+  }
 
-    setIsReady(true);
+  function goBack() {
+    setDirection(-1);
+    setStep((current) => Math.max(current - 1, 0));
   }
 
   const whatsappUrl = getWhatsAppUrl(buildLeadMessage(values));
@@ -106,10 +111,10 @@ export function LeadForm({ onClose }: LeadFormProps) {
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-white/8 bg-[rgba(13,13,16,0.94)] px-5 py-4 backdrop-blur-lg sm:px-7">
           <div>
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--color-gold-light)]">
-              {isReady ? "Etapa 02 de 02" : "Etapa 01 de 02"}
+              Etapa {String(step + 1).padStart(2, "0")} de 04
             </p>
             <h2 id="lead-form-title" className="mt-1 font-display text-xl font-semibold text-white">
-              {isReady ? "Revise e envie" : "Conte um pouco sobre o negócio"}
+              {["Sobre o negócio", "Presença atual", "Objetivos", "Revise e envie"][step]}
             </h2>
           </div>
           <button
@@ -122,10 +127,45 @@ export function LeadForm({ onClose }: LeadFormProps) {
           </button>
         </div>
 
+        <div className="h-1 bg-white/5"><motion.div className="h-full origin-left bg-gradient-to-r from-[var(--color-gold)] to-[var(--color-gold-light)]" animate={{ scaleX: (step + 1) / 4 }} transition={{ duration: 0.3 }} /></div>
         <div className="p-5 sm:p-7">
           <AnimatePresence mode="wait" initial={false}>
-            {isReady ? (
-              <LeadFormStep key="review" stepKey="review">
+            {step === 0 ? (
+              <LeadFormStep key="business" stepKey="business" direction={direction}>
+                <form onSubmit={handleNext}>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <label className="text-sm font-medium text-zinc-300">Nome<input required autoComplete="name" value={values.name} onChange={(e) => updateValue("name", e.target.value)} className={inputClasses} placeholder="Seu nome" /></label>
+                    <label className="text-sm font-medium text-zinc-300">Nome da empresa<input required autoComplete="organization" value={values.company} onChange={(e) => updateValue("company", e.target.value)} className={inputClasses} placeholder="Sua empresa" /></label>
+                    <label className="text-sm font-medium text-zinc-300 sm:col-span-2">Segmento do negócio<input required value={values.segment} onChange={(e) => updateValue("segment", e.target.value)} className={inputClasses} placeholder="Ex.: clínica, varejo, serviços" /></label>
+                  </div>
+                  <StepActions />
+                </form>
+              </LeadFormStep>
+            ) : step === 1 ? (
+              <LeadFormStep key="presence" stepKey="presence" direction={direction}>
+                <form onSubmit={handleNext}>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <label className="text-sm font-medium text-zinc-300">Cidade ou região<input required autoComplete="address-level2" value={values.location} onChange={(e) => updateValue("location", e.target.value)} className={inputClasses} placeholder="Onde você atende?" /></label>
+                    <label className="text-sm font-medium text-zinc-300">Instagram ou site<input required value={values.profile} onChange={(e) => updateValue("profile", e.target.value)} className={inputClasses} placeholder="@perfil ou seusite.com.br" /></label>
+                  </div>
+                  <fieldset className="mt-6"><legend className="text-sm font-medium text-zinc-300">Situação atual dos anúncios</legend><div className="mt-3 flex flex-wrap gap-2">{advertisingOptions.map((option) => <Choice key={option} name="advertising" value={option} checked={values.advertising === option} onChange={() => updateValue("advertising", option)} />)}</div></fieldset>
+                  <StepActions onBack={goBack} />
+                </form>
+              </LeadFormStep>
+            ) : step === 2 ? (
+              <LeadFormStep key="goals" stepKey="goals" direction={direction}>
+                <form onSubmit={handleNext}>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <label className="text-sm font-medium text-zinc-300">Serviço de interesse<select required value={values.service} onChange={(e) => updateValue("service", e.target.value)} className={inputClasses}><option value="" className="bg-[#121216]">Selecione</option>{serviceOptions.map((option) => <option key={option} className="bg-[#121216]">{option}</option>)}</select></label>
+                    <label className="text-sm font-medium text-zinc-300">Melhor horário<input required value={values.bestTime} onChange={(e) => updateValue("bestTime", e.target.value)} className={inputClasses} placeholder="Ex.: após as 14h" /></label>
+                  </div>
+                  <fieldset className="mt-6"><legend className="text-sm font-medium text-zinc-300">Principal objetivo</legend><div className="mt-3 grid gap-2 sm:grid-cols-2">{objectiveOptions.map((option) => <Choice key={option} name="objective" value={option} checked={values.objective === option} onChange={() => updateValue("objective", option)} />)}</div></fieldset>
+                  <StepActions onBack={goBack} />
+                </form>
+              </LeadFormStep>
+            ) : (
+              <LeadFormStep key="review" stepKey="review" direction={direction}>
+                <label className="block text-sm font-medium text-zinc-300">Observações <span className="font-normal text-zinc-600">(opcional)</span><textarea value={values.notes} onChange={(e) => updateValue("notes", e.target.value)} className={`${inputClasses} min-h-24 resize-y`} placeholder="Conte algo que ajude na análise." /></label>
                 <div className="rounded-[1.4rem] border border-[rgba(245,169,0,0.22)] bg-[rgba(245,169,0,0.06)] p-5 sm:p-6">
                   <CheckCircle2 className="h-8 w-8 text-[var(--color-gold-light)]" aria-hidden="true" />
                   <h3 className="mt-5 font-display text-2xl font-semibold text-white">
@@ -155,7 +195,7 @@ export function LeadForm({ onClose }: LeadFormProps) {
                 <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
                   <button
                     type="button"
-                    onClick={() => setIsReady(false)}
+                    onClick={goBack}
                     className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/10 px-6 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/5"
                   >
                     <ArrowLeft className="h-4 w-4" aria-hidden="true" />
@@ -174,89 +214,18 @@ export function LeadForm({ onClose }: LeadFormProps) {
                   </motion.a>
                 </div>
               </LeadFormStep>
-            ) : (
-              <LeadFormStep key="form" stepKey="form">
-                <form onSubmit={handleSubmit} noValidate={false}>
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <label className="text-sm font-medium text-zinc-300">
-                      Nome
-                      <input required autoComplete="name" value={values.name} onChange={(e) => updateValue("name", e.target.value)} className={inputClasses} placeholder="Seu nome" />
-                    </label>
-                    <label className="text-sm font-medium text-zinc-300">
-                      Nome da empresa
-                      <input required autoComplete="organization" value={values.company} onChange={(e) => updateValue("company", e.target.value)} className={inputClasses} placeholder="Sua empresa" />
-                    </label>
-                    <label className="text-sm font-medium text-zinc-300">
-                      Segmento do negócio
-                      <input required value={values.segment} onChange={(e) => updateValue("segment", e.target.value)} className={inputClasses} placeholder="Ex.: clínica, varejo, serviços" />
-                    </label>
-                    <label className="text-sm font-medium text-zinc-300">
-                      Cidade ou região
-                      <input required autoComplete="address-level2" value={values.location} onChange={(e) => updateValue("location", e.target.value)} className={inputClasses} placeholder="Onde você atende?" />
-                    </label>
-                    <label className="text-sm font-medium text-zinc-300 sm:col-span-2">
-                      Instagram ou site
-                      <input required inputMode="url" value={values.profile} onChange={(e) => updateValue("profile", e.target.value)} className={inputClasses} placeholder="@perfil ou seusite.com.br" />
-                    </label>
-                    <label className="text-sm font-medium text-zinc-300">
-                      Qual serviço procura?
-                      <select required value={values.service} onChange={(e) => updateValue("service", e.target.value)} className={inputClasses}>
-                        <option value="" className="bg-[#121216]">Selecione</option>
-                        {serviceOptions.map((option) => <option key={option} value={option} className="bg-[#121216]">{option}</option>)}
-                      </select>
-                    </label>
-                    <label className="text-sm font-medium text-zinc-300">
-                      Melhor horário para contato
-                      <input required value={values.bestTime} onChange={(e) => updateValue("bestTime", e.target.value)} className={inputClasses} placeholder="Ex.: manhã, após as 14h" />
-                    </label>
-                  </div>
-
-                  <fieldset className="mt-6">
-                    <legend className="text-sm font-medium text-zinc-300">Já anuncia atualmente?</legend>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {advertisingOptions.map((option) => (
-                        <label key={option} className="cursor-pointer">
-                          <input required type="radio" name="advertising" value={option} checked={values.advertising === option} onChange={(e) => updateValue("advertising", e.target.value)} className="peer sr-only" />
-                          <span className="flex min-h-11 items-center rounded-full border border-white/10 px-4 text-sm text-zinc-400 transition peer-checked:border-[var(--color-gold)] peer-checked:bg-[rgba(245,169,0,0.08)] peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--color-gold-light)]">{option}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  <fieldset className="mt-6">
-                    <legend className="text-sm font-medium text-zinc-300">Qual o principal objetivo?</legend>
-                    <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                      {objectiveOptions.map((option) => (
-                        <label key={option} className="cursor-pointer">
-                          <input required type="radio" name="objective" value={option} checked={values.objective === option} onChange={(e) => updateValue("objective", e.target.value)} className="peer sr-only" />
-                          <span className="flex min-h-11 items-center rounded-xl border border-white/10 px-4 text-sm text-zinc-400 transition peer-checked:border-[var(--color-gold)] peer-checked:bg-[rgba(245,169,0,0.08)] peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--color-gold-light)]">{option}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  <label className="mt-6 block text-sm font-medium text-zinc-300">
-                    Observações <span className="font-normal text-zinc-600">(opcional)</span>
-                    <textarea value={values.notes} onChange={(e) => updateValue("notes", e.target.value)} className={`${inputClasses} min-h-28 resize-y`} placeholder="Conte algo que ajude na análise." />
-                  </label>
-
-                  <div className="mt-7 flex justify-end">
-                    <motion.button
-                      type="submit"
-                      whileHover={{ y: -2, scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
-                      className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[var(--color-gold)] to-[var(--color-gold-deep)] px-6 text-sm font-semibold text-black sm:w-auto"
-                    >
-                      Revisar respostas
-                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                    </motion.button>
-                  </div>
-                </form>
-              </LeadFormStep>
             )}
           </AnimatePresence>
         </div>
       </motion.div>
     </motion.div>
   );
+}
+
+function Choice({ name, value, checked, onChange }: { name: string; value: string; checked: boolean; onChange: () => void }) {
+  return <label className="cursor-pointer"><input required type="radio" name={name} value={value} checked={checked} onChange={onChange} className="peer sr-only" /><span className="flex min-h-11 items-center rounded-xl border border-white/10 px-4 text-sm text-zinc-400 transition peer-checked:scale-[1.01] peer-checked:border-[var(--color-gold)] peer-checked:bg-[rgba(245,169,0,0.08)] peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-[var(--color-gold-light)]">{checked ? "✓ " : ""}{value}</span></label>;
+}
+
+function StepActions({ onBack }: { onBack?: () => void }) {
+  return <div className="mt-7 flex items-center justify-between gap-3">{onBack ? <button type="button" onClick={onBack} className="inline-flex min-h-12 items-center gap-2 rounded-full border border-white/10 px-5 text-sm font-semibold text-white"><ArrowLeft className="h-4 w-4" /> Voltar</button> : <span />}<motion.button type="submit" whileHover={{ y: -2 }} whileTap={{ scale: 0.99 }} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-gradient-to-r from-[var(--color-gold)] to-[var(--color-gold-deep)] px-6 text-sm font-semibold text-black">Continuar <ArrowRight className="h-4 w-4" /></motion.button></div>;
 }

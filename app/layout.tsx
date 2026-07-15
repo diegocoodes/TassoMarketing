@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, League_Spartan } from "next/font/google";
+import { Inter, Orbitron } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  preload: false,
 });
 
-const leagueSpartan = League_Spartan({
-  variable: "--font-league-spartan",
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -64,9 +66,13 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${leagueSpartan.variable} h-full antialiased`}
+      className={`${inter.variable} ${orbitron.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full bg-[var(--color-bg)] text-[var(--color-text)]">
+      <body
+        className="min-h-full bg-[var(--color-bg)] text-[var(--color-text)]"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

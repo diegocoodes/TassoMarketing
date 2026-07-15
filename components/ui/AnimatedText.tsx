@@ -17,7 +17,8 @@ export function AnimatedText({
           <span key={line} className="block overflow-hidden pb-2">
             <span
               data-hero-line
-              className="font-display block text-[clamp(2.9rem,8vw,6.5rem)] font-semibold leading-[0.88] tracking-[-0.03em] text-white"
+              className={`font-display block w-fit text-[clamp(2.9rem,8vw,6.5rem)] font-semibold leading-[0.88] tracking-[-0.03em] ${line.includes("anúncios em clientes") ? "hero-title-highlight before:hidden" : "text-white"}`}
+              style={line.includes("anúncios em clientes") ? { color: "var(--color-gold-deep)" } : undefined}
             >
               {line}
             </span>

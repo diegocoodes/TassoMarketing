@@ -17,7 +17,6 @@ export function BrandMark({ compact = false, href = "/" }: BrandMarkProps) {
             alt="Ícone da Universo Marketing"
             width={44}
             height={44}
-            priority
             className="h-8 w-8 object-contain"
           />
         </div>
@@ -27,7 +26,6 @@ export function BrandMark({ compact = false, href = "/" }: BrandMarkProps) {
           alt="Logo da Universo Marketing"
           width={340}
           height={132}
-          priority
           className="h-16 w-auto object-contain md:h-20"
         />
       )}

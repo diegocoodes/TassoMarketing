@@ -1,52 +1,32 @@
 "use client";
 
-import {
-  Activity,
-  Inbox,
-  MessageCircleWarning,
-  SearchSlash,
-  TimerReset,
-  TrendingDown,
-} from "lucide-react";
-import { motion } from "motion/react";
+import { ArrowUpRight, MessageCircleWarning, TimerReset, TrendingDown } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { Container } from "@/components/layout/Container";
+import { SpotlightCard } from "@/components/animation/SpotlightCard";
+import { Button } from "@/components/ui/Button";
 import { SectionTitle } from "@/components/ui/SectionTitle";
+import { getWhatsAppUrl } from "@/config/site";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const problems = [
   {
     title: "Anúncios sem retorno",
-    description: "Investimento sem direção clara e baixa qualidade de oportunidade.",
+    description: "Sua empresa investe em divulgação, mas não consegue identificar com clareza quais campanhas realmente geram oportunidades.",
     icon: TrendingDown,
   },
   {
-    title: "Poucas mensagens de clientes",
-    description: "A presença digital existe, mas o volume de contato continua baixo.",
-    icon: Inbox,
-  },
-  {
     title: "Atendimento demorado",
-    description: "Leads esfriam enquanto a resposta da empresa demora para chegar.",
+    description: "Potenciais clientes perdem o interesse enquanto aguardam uma resposta, reduzindo as chances de transformar contatos em vendas.",
     icon: MessageCircleWarning,
   },
   {
     title: "Leads sem acompanhamento",
-    description: "Contatos entram, mas não existe uma rotina consistente de seguimento.",
+    description: "Os contatos chegam, mas sem uma rotina organizada de acompanhamento muitas oportunidades acabam sendo esquecidas.",
     icon: TimerReset,
-  },
-  {
-    title: "Dificuldade para medir resultados",
-    description: "Sem leitura organizada, fica difícil saber o que manter ou corrigir.",
-    icon: Activity,
-  },
-  {
-    title: "Dependência de indicações",
-    description: "O crescimento fica vulnerável quando depende só do boca a boca.",
-    icon: SearchSlash,
   },
 ] as const;
 
@@ -88,35 +68,37 @@ export function ProblemsSection() {
     <section ref={sectionRef} className="py-18 md:py-24">
       <Container>
         <SectionTitle
-          eyebrow="Pontos de atrito"
-          title="Seu negócio está na internet, mas ainda não gera oportunidades todos os dias?"
-          description="Publicar nas redes sociais não é suficiente. Sem estratégia de distribuição, atendimento e acompanhamento, sua empresa perde oportunidades e continua dependendo apenas de indicações."
+          title="Reconhece algum destes desafios?"
+          description="Estes são alguns dos obstáculos mais comuns que impedem empresas de transformar presença digital em novas oportunidades de negócio."
+          align="center"
         />
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mx-auto mt-12 grid max-w-6xl gap-5 md:grid-cols-3">
           {problems.map((problem) => {
             const Icon = problem.icon;
 
             return (
               <div key={problem.title} data-problem-card>
-                <motion.article
-                  whileHover={{ y: -4, scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
-                  transition={{ duration: 0.18, ease: "easeOut" }}
-                  className="surface-panel h-full rounded-[1.75rem] p-6"
+                <SpotlightCard
+                  className="surface-panel h-full rounded-2xl border border-[rgba(245,169,0,0.34)] border-b-[4px] border-r-[4px] border-b-[var(--color-gold)] border-r-[var(--color-gold)] px-6 pb-7 pt-0"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[rgba(245,169,0,0.18)] bg-[rgba(245,169,0,0.08)] text-[var(--color-gold-light)]">
+                  <div className="flex h-12 w-12 -translate-y-px items-center justify-center rounded-b-xl bg-gradient-to-br from-[var(--color-gold-light)] to-[var(--color-gold-deep)] text-black shadow-[0_10px_30px_rgba(245,169,0,0.2)]">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-white">
+                  <h3 className="mt-5 text-xl font-semibold text-white">
                     {problem.title}
                   </h3>
                   <p className="mt-3 text-sm leading-7 text-[var(--color-text-muted)]">
                     {problem.description}
                   </p>
-                </motion.article>
+                </SpotlightCard>
               </div>
             );
           })}
+        </div>
+        <div className="mt-9 flex justify-center">
+          <Button href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer" icon={<ArrowUpRight className="h-4 w-4" />} magnetic>
+            Quero melhorar meus resultados
+          </Button>
         </div>
       </Container>
     </section>

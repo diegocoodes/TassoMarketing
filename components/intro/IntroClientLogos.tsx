@@ -23,7 +23,7 @@ export function IntroClientLogos() {
       <div className="mt-4 overflow-hidden">
         <LogoLoop
           logos={clientLogos}
-          speed={38}
+          speed={24}
           direction="left"
           logoHeight={50}
           gap={20}
