@@ -3,6 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { CustomCursor } from "@/components/animation/CustomCursor";
 import { ScrollProgress } from "@/components/animation/ScrollProgress";
 import { SectionScrollReveal } from "@/components/animation/SectionScrollReveal";
+import { ParticleLogoSection } from "@/components/animation/ParticleLogoSection";
 import { IntroGateway } from "@/components/intro/IntroGateway";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { AudienceSection } from "@/components/sections/AudienceSection";
@@ -50,6 +51,7 @@ export default function Home() {
           <AudienceSection />
           <FAQSection />
         </main>
+        <ParticleLogoSection />
         <Footer />
         <WhatsAppButton />
       </div>

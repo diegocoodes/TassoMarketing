@@ -19,7 +19,7 @@ import "./LogoLoop.css";
 const ANIMATION_CONFIG = {
   SMOOTH_TAU: 0.25,
   MIN_COPIES: 2,
-  COPY_HEADROOM: 2,
+  COPY_HEADROOM: 1,
 } as const;
 
 type ImageLogoItem = {
@@ -35,6 +35,7 @@ type ImageLogoItem = {
 
 type NodeLogoItem = {
   node: ReactNode;
+  duplicateNode?: ReactNode;
   title?: string;
   ariaLabel?: string;
   href?: string;
@@ -173,24 +174,25 @@ function useAnimationLoop(
     if (reducedMotion) return;
 
     isDocumentVisibleRef.current = document.visibilityState === "visible";
+    let disposed = false;
 
-    const handleVisibilityChange = () => {
-      isDocumentVisibleRef.current = document.visibilityState === "visible";
+    const stopAnimation = () => {
+      if (rafRef.current !== null) window.cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
       lastTimestampRef.current = null;
     };
 
-    const observer =
-      "IntersectionObserver" in window
-        ? new IntersectionObserver(([entry]) => {
-            isVisibleRef.current = entry.isIntersecting;
-            lastTimestampRef.current = null;
-          })
-        : null;
-
-    observer?.observe(track);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
     const animate = (timestamp: number) => {
+      rafRef.current = null;
+      if (
+        disposed ||
+        !isVisibleRef.current ||
+        !isDocumentVisibleRef.current
+      ) {
+        lastTimestampRef.current = null;
+        return;
+      }
+
       if (lastTimestampRef.current === null) lastTimestampRef.current = timestamp;
 
       const deltaTime =
@@ -202,7 +204,7 @@ function useAnimationLoop(
         1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
       velocityRef.current += (target - velocityRef.current) * easingFactor;
 
-      if (seqSize > 0 && isVisibleRef.current && isDocumentVisibleRef.current) {
+      if (seqSize > 0) {
         let nextOffset = offsetRef.current + velocityRef.current * deltaTime;
         nextOffset = ((nextOffset % seqSize) + seqSize) % seqSize;
         offsetRef.current = nextOffset;
@@ -214,14 +216,38 @@ function useAnimationLoop(
       rafRef.current = window.requestAnimationFrame(animate);
     };
 
-    rafRef.current = window.requestAnimationFrame(animate);
+    const syncAnimation = () => {
+      if (isVisibleRef.current && isDocumentVisibleRef.current) {
+        if (rafRef.current === null) {
+          rafRef.current = window.requestAnimationFrame(animate);
+        }
+      } else {
+        stopAnimation();
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      isDocumentVisibleRef.current = document.visibilityState === "visible";
+      syncAnimation();
+    };
+
+    const observer =
+      "IntersectionObserver" in window
+        ? new IntersectionObserver(([entry]) => {
+            isVisibleRef.current = entry.isIntersecting;
+            syncAnimation();
+          })
+        : null;
+
+    observer?.observe(track);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    syncAnimation();
 
     return () => {
-      if (rafRef.current !== null) window.cancelAnimationFrame(rafRef.current);
+      disposed = true;
+      stopAnimation();
       observer?.disconnect();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      rafRef.current = null;
-      lastTimestampRef.current = null;
     };
   }, [
     targetVelocity,
@@ -359,7 +385,7 @@ export const LogoLoop = memo(function LogoLoop({
     .join(" ");
 
   const renderLogoItem = useCallback(
-    (item: LogoItem, key: Key) => {
+    (item: LogoItem, key: Key, isDuplicate = false) => {
       if (renderItem) {
         return (
           <li className="logoloop__item" key={key} role="listitem">
@@ -374,7 +400,9 @@ export const LogoLoop = memo(function LogoLoop({
           className="logoloop__node"
           aria-hidden={Boolean(item.href && !item.ariaLabel)}
         >
-          {item.node}
+          {isDuplicate && item.duplicateNode
+            ? item.duplicateNode
+            : item.node}
         </span>
       ) : (
         <img
@@ -426,7 +454,11 @@ export const LogoLoop = memo(function LogoLoop({
           ref={copyIndex === 0 ? seqRef : undefined}
         >
           {logos.map((item, itemIndex) =>
-            renderLogoItem(item, `${copyIndex}-${itemIndex}`),
+            renderLogoItem(
+              item,
+              `${copyIndex}-${itemIndex}`,
+              copyIndex > 0,
+            ),
           )}
         </ul>
       )),

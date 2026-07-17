@@ -1,19 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+const subscribers = new Set<() => void>();
+let mediaQuery: MediaQueryList | null = null;
+
+const notifySubscribers = () => {
+  subscribers.forEach((subscriber) => subscriber());
+};
+
+const getMediaQuery = () => {
+  if (!mediaQuery && typeof window !== "undefined") {
+    mediaQuery = window.matchMedia(REDUCED_MOTION_QUERY);
+  }
+
+  return mediaQuery;
+};
+
+const subscribe = (subscriber: () => void) => {
+  subscribers.add(subscriber);
+  const query = getMediaQuery();
+
+  if (subscribers.size === 1) {
+    query?.addEventListener("change", notifySubscribers);
+  }
+
+  return () => {
+    subscribers.delete(subscriber);
+    if (subscribers.size === 0) {
+      query?.removeEventListener("change", notifySubscribers);
+    }
+  };
+};
+
+const getSnapshot = () => getMediaQuery()?.matches ?? false;
+const getServerSnapshot = () => false;
 
 export function useReducedMotion() {
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReducedMotion(mediaQuery.matches);
-
-    update();
-    mediaQuery.addEventListener("change", update);
-
-    return () => mediaQuery.removeEventListener("change", update);
-  }, []);
-
-  return reducedMotion;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

@@ -1,4 +1,9 @@
+"use client";
+
 import { ArrowUpRight, Eye, Handshake, TrendingUp, Zap } from "lucide-react";
+import { BorderBeam } from "@/components/animation/BorderBeam";
+import { InteractiveConstellation } from "@/components/animation/InteractiveConstellation";
+import { SpotlightCard } from "@/components/animation/SpotlightCard";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionTitle } from "@/components/ui/SectionTitle";
@@ -31,6 +36,7 @@ export function AudienceSection() {
   return (
     <section className="relative overflow-hidden bg-[#050505] py-18 md:py-24">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,169,0,0.07),transparent_45%)]" />
+      <InteractiveConstellation className="pointer-events-auto absolute -left-20 top-0 hidden h-full w-[60%] opacity-35 md:block" />
       <Container className="relative">
         <SectionTitle
           eyebrow="Metodologia"
@@ -40,16 +46,17 @@ export function AudienceSection() {
         />
 
         <div className="mx-auto mt-12 grid max-w-5xl gap-px overflow-hidden rounded-2xl bg-[rgba(245,169,0,0.32)] md:grid-cols-2">
-          {pillars.map((pillar) => {
+          {pillars.map((pillar, index) => {
             const Icon = pillar.icon;
             return (
-              <article key={pillar.title} className="relative bg-[linear-gradient(145deg,#141416,#09090a)] px-6 pb-8 pt-0 text-center md:px-9">
+              <SpotlightCard key={pillar.title} role="article" data-cursor className="relative h-full bg-[linear-gradient(145deg,#141416,#09090a)] px-6 pb-8 pt-0 text-center md:px-9">
+                <BorderBeam duration={6 + index * 0.6} delay={index * 0.3} radius={0} />
                 <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-b-xl bg-gradient-to-br from-[var(--color-gold-light)] to-[var(--color-gold-deep)] text-black">
-                  <Icon className="h-6 w-6" aria-hidden="true" />
+                  <Icon className="icon-draw h-6 w-6" aria-hidden="true" />
                 </div>
                 <h3 className="font-display type-section-subtitle mt-6 text-white">{pillar.title}</h3>
                 <p className="type-body-md mx-auto mt-4 max-w-sm text-zinc-400">{pillar.description}</p>
-              </article>
+              </SpotlightCard>
             );
           })}
         </div>

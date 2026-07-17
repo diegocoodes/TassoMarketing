@@ -1,22 +1,13 @@
 import type { Metadata } from "next";
-import { Manrope, Sora } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: "variable",
   display: "swap",
-  preload: false,
-});
-
-const sora = Sora({
-  variable: "--font-sora",
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  display: "swap",
-  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -72,7 +63,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${manrope.variable} ${sora.variable} h-full antialiased`}
+      className={`${montserrat.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body

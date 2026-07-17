@@ -5,6 +5,9 @@ import { siteConfig } from "@/config/site";
 
 export function useSessionIntro() {
   const [isVisible, setIsVisible] = useState<boolean>(siteConfig.intro.enabled);
+  const [isSessionResolved, setIsSessionResolved] = useState(
+    !siteConfig.intro.enabled,
+  );
 
   useEffect(() => {
     if (!siteConfig.intro.enabled) return;
@@ -18,7 +21,10 @@ export function useSessionIntro() {
       completed = false;
     }
 
-    const timer = window.setTimeout(() => setIsVisible(!completed), 0);
+    const timer = window.setTimeout(() => {
+      setIsVisible(!completed);
+      setIsSessionResolved(true);
+    }, 0);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -32,5 +38,5 @@ export function useSessionIntro() {
     setIsVisible(false);
   }
 
-  return { isVisible, completeIntro };
+  return { isVisible, isSessionResolved, completeIntro };
 }

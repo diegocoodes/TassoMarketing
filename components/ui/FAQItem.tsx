@@ -1,7 +1,8 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { Plus } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import { BorderBeam } from "@/components/animation/BorderBeam";
 
 type FAQItemProps = {
   answer: string;
@@ -19,7 +20,8 @@ export function FAQItem({
   question,
 }: FAQItemProps) {
   return (
-    <div className={`overflow-hidden rounded-xl border bg-[#0d0f11] transition-colors duration-300 ${isOpen ? "border-[rgba(245,169,0,0.55)]" : "border-white/10 hover:border-white/20"}`}>
+    <motion.div layout className={`relative overflow-hidden rounded-xl border bg-[#0d0f11] transition-colors duration-300 ${isOpen ? "border-[rgba(245,169,0,0.55)]" : "border-white/10 hover:border-white/20"}`}>
+      {isOpen ? <BorderBeam duration={3.8} radius={12} /> : null}
       <h3>
         <button
           type="button"
@@ -30,11 +32,11 @@ export function FAQItem({
         >
           <span className={`type-body-md flex items-center px-5 py-4 font-semibold transition-colors md:px-6 ${isOpen ? "text-white" : "text-[var(--color-text-soft)] group-hover:text-white"}`}>{question}</span>
           <motion.span
-            animate={{ rotate: isOpen ? 180 : 0 }}
+            animate={{ rotate: isOpen ? 45 : 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="flex w-14 shrink-0 items-center justify-center bg-gradient-to-b from-[var(--color-gold-light)] to-[var(--color-gold-deep)] text-black md:w-16"
           >
-            <ChevronDown className="h-4 w-4" aria-hidden="true" />
+            <Plus className="h-5 w-5" aria-hidden="true" />
           </motion.span>
         </button>
       </h3>
@@ -55,6 +57,6 @@ export function FAQItem({
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }

@@ -46,13 +46,13 @@ export function ProblemsSection() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         "[data-problem-card]",
-        { opacity: 0, y: 32 },
+        { opacity: 0, y: 110, rotateY: -28, rotateZ: -4, scale: 0.86, transformOrigin: "center bottom" },
         {
           opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.08,
-          ease: "power3.out",
+          y: 0, rotateY: 0, rotateZ: 0, scale: 1,
+          duration: 1,
+          stagger: 0.13,
+          ease: "power4.out",
           scrollTrigger: {
             trigger: section,
             start: "top 78%",
@@ -72,7 +72,7 @@ export function ProblemsSection() {
           description="Estes são alguns dos obstáculos mais comuns que impedem empresas de transformar presença digital em novas oportunidades de negócio."
           align="center"
         />
-        <div className="mx-auto mt-12 grid max-w-6xl gap-5 md:grid-cols-3">
+        <div className="mx-auto mt-12 grid max-w-6xl gap-5 [perspective:1200px] md:grid-cols-3">
           {problems.map((problem) => {
             const Icon = problem.icon;
 

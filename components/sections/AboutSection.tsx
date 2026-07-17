@@ -35,6 +35,10 @@ export function AboutSection() {
         ease: "power2.out",
         scrollTrigger: { trigger: section, start: "top 72%" },
       });
+      gsap.fromTo("[data-about-image]", { clipPath: "inset(0 100% 0 0)", scale: 1.12 }, {
+        clipPath: "inset(0 0% 0 0)", scale: 1, duration: 1.15, ease: "power4.inOut",
+        scrollTrigger: { trigger: section, start: "top 78%", toggleActions: "play reverse play reverse" },
+      });
     }, section);
     return () => ctx.revert();
   }, [reducedMotion]);
@@ -43,7 +47,7 @@ export function AboutSection() {
     <section id="sobre" ref={sectionRef} className="relative overflow-hidden bg-[#050505] pb-20 pt-8 md:pb-28 md:pt-14">
       <Container>
         <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#ECEBEF] lg:grid-cols-2 lg:rounded-[2rem] lg:border-0">
-          <div className="relative aspect-[4/3] overflow-hidden bg-black sm:aspect-[16/11] lg:aspect-auto lg:min-h-[42rem]">
+          <div data-about-image className="relative aspect-[4/3] overflow-hidden bg-black will-change-transform sm:aspect-[16/11] lg:aspect-auto lg:min-h-[42rem]">
             <Image
               src={siteConfig.assets.tassoBanner}
               alt="T. Thales, CEO da Universo Marketing, em ambiente profissional."

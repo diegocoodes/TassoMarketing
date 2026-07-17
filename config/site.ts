@@ -11,7 +11,7 @@ export const siteConfig = {
       "Olá, T. Thales! Conheci a Universo Marketing pela landing page e gostaria de solicitar uma análise do meu negócio.",
   },
   scheduling: {
-    url: "",
+    url: "https://calendar.app.google/T5TXss758TKzPRRV9",
   },
   intro: {
     enabled: true,
@@ -35,8 +35,8 @@ export const siteConfig = {
     tassoPortrait: "/images/tasso/tasso-retrato.webp",
     tassoNotebook: "/images/tasso/tasso-notebook.webp",
     tassoBanner: "/images/tasso/banner.png",
-    heroBanner: "/images/tasso/bannersolido.png",
-    heroBannerMobile: "/images/tasso/mobile.png",
+    heroBanner: "/images/tasso/bannersolido.webp",
+    heroBannerMobile: "/images/tasso/mobile.webp",
     ogImage: "/images/brand/social-cover-placeholder.svg",
   },
   seo: {

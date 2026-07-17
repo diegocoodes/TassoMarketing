@@ -6,8 +6,11 @@ import { navigationItems } from "@/data/navigation";
 
 export function Footer() {
   return (
-    <footer className="footer-gold bg-[var(--color-gold)] py-12 text-black md:py-16">
-      <Container>
+    <footer className="footer-gold relative mx-2 mb-2 overflow-hidden rounded-[2.75rem] bg-[var(--color-gold)] py-12 text-black md:mx-4 md:mb-4 md:rounded-[4rem] md:py-16">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-35">
+        {[0, 1, 2, 3].map((item) => <span key={item} className={`footer-meteor footer-meteor-${item + 1}`} />)}
+      </div>
+      <Container className="relative z-10">
         <div className="grid gap-10 text-center lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:text-left">
           <div className="flex flex-col items-center lg:items-start">
             <BrandMark />
@@ -80,7 +83,9 @@ export function Footer() {
               Termos de uso
             </Link>
           </div>
-          <p>© {new Date().getFullYear()} Universo Marketing. Todos os direitos reservados.</p>
+          <p className="text-[var(--color-text-muted)]">
+            &copy; {new Date().getFullYear()} Universo Marketing. Todos os direitos reservados.
+          </p>
         </div>
       </Container>
     </footer>
