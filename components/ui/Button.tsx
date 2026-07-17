@@ -14,6 +14,7 @@ type ButtonProps = {
   target?: string;
   rel?: string;
   ariaLabel?: string;
+  cursorLabel?: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
   variant?: "primary" | "secondary" | "ghost";
   icon?: ReactNode;
@@ -35,7 +36,9 @@ export function Button({
   variant = "primary",
   icon,
   ariaLabel,
+  cursorLabel,
   magnetic = false,
+  href,
   ...props
 }: ButtonProps) {
   const reducedMotion = useReducedMotion();
@@ -61,13 +64,22 @@ export function Button({
     rawY.set(((event.clientY - rect.top) / rect.height - 0.5) * animationConfig.magnetic.maxOffset * 2);
   };
 
+  const resolvedCursorLabel =
+    cursorLabel ??
+    (href.includes("wa.me")
+      ? "FALAR"
+      : href.startsWith("#")
+        ? "VER"
+        : "ABRIR");
+
   return (
     <motion.a
       whileHover={isMobile ? undefined : { y: -2, scale: 1.01 }}
       whileTap={{ scale: 0.985 }}
       transition={{ duration: 0.18, ease: "easeOut" }}
       aria-label={ariaLabel}
-      data-cursor-label="ABRIR"
+      data-cursor-label={resolvedCursorLabel}
+      href={href}
       onPointerMove={handlePointerMove}
       onPointerLeave={() => { rawX.set(0); rawY.set(0); }}
       style={magnetic && !isMobile ? { x, y } : undefined}

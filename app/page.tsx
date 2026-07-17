@@ -2,7 +2,6 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { CustomCursor } from "@/components/animation/CustomCursor";
 import { ScrollProgress } from "@/components/animation/ScrollProgress";
-import { SectionScrollReveal } from "@/components/animation/SectionScrollReveal";
 import { ParticleLogoSection } from "@/components/animation/ParticleLogoSection";
 import { IntroGateway } from "@/components/intro/IntroGateway";
 import { AboutSection } from "@/components/sections/AboutSection";
@@ -34,9 +33,11 @@ export default function Home() {
       </noscript>
       <IntroGateway />
       <ScrollProgress />
-      <SectionScrollReveal />
       <CustomCursor />
-      <div className="relative isolate overflow-x-clip bg-[var(--color-bg)]">
+      <div
+        data-site-shell
+        className="relative isolate overflow-x-clip bg-[var(--color-bg)]"
+      >
         <Header />
         <main id="conteudo-principal">
           <HeroSection />

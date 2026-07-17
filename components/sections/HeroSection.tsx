@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { HeroLiquidMetalText } from "@/components/animation/HeroLiquidMetalText";
 import { HeroVolumetricRays } from "@/components/animation/HeroVolumetricRays";
+import { INTRO_HERO_REVEAL_EVENT } from "@/components/intro/introHeroEvents";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { getWhatsAppUrl, siteConfig } from "@/config/site";
@@ -48,6 +49,12 @@ export function HeroSection() {
     }
 
     gsap.registerPlugin(ScrollTrigger);
+    const introPhase = document.documentElement.dataset.universoIntro;
+    let heroReleased =
+      !siteConfig.intro.enabled ||
+      introPhase === "completed" ||
+      introPhase === "revealing";
+    const entranceTimelines = new Set<gsap.core.Timeline>();
     const sectionBounds = section.getBoundingClientRect();
     let sectionInViewport =
       sectionBounds.bottom > 0 &&
@@ -56,7 +63,9 @@ export function HeroSection() {
       sectionBounds.left < window.innerWidth;
     const visibilitySubscribers = new Set<(isVisible: boolean) => void>();
     const isSectionActive = () =>
-      sectionInViewport && document.visibilityState !== "hidden";
+      heroReleased &&
+      sectionInViewport &&
+      document.visibilityState !== "hidden";
     const notifyVisibilitySubscribers = () => {
       const isVisible = isSectionActive();
       visibilitySubscribers.forEach((subscriber) => subscriber(isVisible));
@@ -70,6 +79,20 @@ export function HeroSection() {
         visibilitySubscribers.delete(subscriber);
       };
     };
+    const registerEntranceTimeline = (timeline: gsap.core.Timeline) => {
+      entranceTimelines.add(timeline);
+      if (heroReleased) timeline.play(0);
+      else timeline.pause(0);
+
+      return () => entranceTimelines.delete(timeline);
+    };
+    const releaseHeroEntrance = () => {
+      if (heroReleased) return;
+      heroReleased = true;
+      entranceTimelines.forEach((timeline) => timeline.play(0));
+      notifyVisibilitySubscribers();
+    };
+    const handleIntroReveal = () => releaseHeroEntrance();
     const viewportObserver = new IntersectionObserver(([entry]) => {
       sectionInViewport = entry.isIntersecting;
       notifyVisibilitySubscribers();
@@ -78,12 +101,13 @@ export function HeroSection() {
 
     viewportObserver.observe(section);
     document.addEventListener("visibilitychange", handleDocumentVisibility);
+    window.addEventListener(INTRO_HERO_REVEAL_EVENT, handleIntroReveal);
 
     const media = gsap.matchMedia();
     const ctx = gsap.context(() => {
       media.add("(min-width: 768px)", () => {
-        gsap
-          .timeline({ defaults: { ease: "power3.out" } })
+        const entranceTimeline = gsap
+          .timeline({ paused: true, defaults: { ease: "power3.out" } })
           .fromTo(
             "[data-hero-title-line]",
             { opacity: 0, yPercent: 112, rotateX: -12 },
@@ -108,6 +132,7 @@ export function HeroSection() {
             { opacity: 1, y: 0, duration: 0.48 },
             "-=0.25",
           );
+        const unregisterEntrance = registerEntranceTimeline(entranceTimeline);
 
         const ambientAnimations = [
           gsap.fromTo(
@@ -203,15 +228,28 @@ export function HeroSection() {
           scrollTrigger: scrollSettings,
         });
 
-        return unsubscribeVisibility;
+        return () => {
+          unregisterEntrance();
+          unsubscribeVisibility();
+        };
       });
 
       media.add("(max-width: 767px)", () => {
-        gsap.fromTo(
-          "[data-hero-mobile-actions]",
-          { opacity: 0, y: 14 },
-          { opacity: 1, y: 0, duration: 0.48, delay: 0.24, ease: "power3.out" },
-        );
+        const entranceTimeline = gsap
+          .timeline({ paused: true })
+          .fromTo(
+            "[data-hero-mobile-actions]",
+            { opacity: 0, y: 14 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.48,
+              delay: 0.24,
+              ease: "power3.out",
+            },
+          );
+
+        return registerEntranceTimeline(entranceTimeline);
       });
 
       media.add("(min-width: 768px) and (pointer: fine)", () => {
@@ -352,6 +390,8 @@ export function HeroSection() {
     return () => {
       viewportObserver.disconnect();
       document.removeEventListener("visibilitychange", handleDocumentVisibility);
+      window.removeEventListener(INTRO_HERO_REVEAL_EVENT, handleIntroReveal);
+      entranceTimelines.clear();
       visibilitySubscribers.clear();
       media.revert();
       ctx.revert();

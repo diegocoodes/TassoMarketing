@@ -1,6 +1,27 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 :root {
+  --background: #050505;
+  --foreground: #ffffff;
+  --card: #111214;
+  --card-foreground: #ffffff;
+  --popover: #111214;
+  --popover-foreground: #ffffff;
+  --primary: #f5a900;
+  --primary-foreground: #09090a;
+  --secondary: #202124;
+  --secondary-foreground: #fafafa;
+  --muted: #202124;
+  --muted-foreground: #a1a1aa;
+  --accent: #2a210d;
+  --accent-foreground: #ffd447;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #ffd447;
+  --radius: 0.875rem;
   --color-bg: #050505;
   --color-bg-soft: #0c0c0d;
   --color-surface: #17181b;
@@ -19,6 +40,26 @@
 @theme inline {
   --color-background: var(--color-bg);
   --color-foreground: var(--color-text);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
   --font-sans: var(--font-montserrat);
   --font-display: var(--font-montserrat);
 }
@@ -122,12 +163,12 @@ body::after {
   content: "";
   position: fixed;
   inset: -15%;
-  z-index: 150;
+  z-index: 70;
   pointer-events: none;
-  opacity: 0.045;
+  opacity: 0.028;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.8'/%3E%3C/svg%3E");
   mix-blend-mode: soft-light;
-  animation: cinematic-grain 1600ms steps(2, end) infinite;
+  animation: cinematic-grain 6400ms steps(2, end) infinite;
 }
 
 @keyframes cinematic-grain {
@@ -229,44 +270,6 @@ body::after {
   background: linear-gradient(100deg, #ffffff 0%, #ffffff 60%, var(--color-gold-light) 100%);
   background-clip: text;
   -webkit-background-clip: text;
-}
-
-#conteudo-principal > section:not(#inicio) {
-  position: relative;
-}
-
-#conteudo-principal > section:not(#inicio)::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 80;
-  pointer-events: none;
-  background: linear-gradient(90deg, #050505 0%, #050505 97%, var(--color-gold-light) 99.5%, transparent 100%);
-  box-shadow: 8px 0 34px rgba(245, 169, 0, 0.28);
-  transform: scaleX(0);
-  transform-origin: left center;
-}
-
-#conteudo-principal > section[data-scroll-reveal="pending"] {
-  opacity: 1;
-  transform: none;
-}
-
-#conteudo-principal > section[data-scroll-reveal="pending"]::after {
-  transform: scaleX(1);
-  transition: none;
-}
-
-#conteudo-principal > section[data-scroll-reveal="visible"] {
-  opacity: 1;
-  transform: none;
-  will-change: auto;
-}
-
-#conteudo-principal > section[data-scroll-reveal="visible"]::after {
-  transform: scaleX(0);
-  transform-origin: right center;
-  transition: transform 1.05s cubic-bezier(0.77, 0, 0.18, 1);
 }
 
 .spotlight-card {
@@ -443,7 +446,4 @@ body::after {
     opacity: 0.025;
   }
 
-  #conteudo-principal > section:not(#inicio)::after {
-    box-shadow: 4px 0 18px rgba(245, 169, 0, 0.18);
-  }
 }

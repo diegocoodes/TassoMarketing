@@ -15,19 +15,21 @@ export function BrandMark({ compact = false, href = "/" }: BrandMarkProps) {
           <Image
             src={siteConfig.assets.brandIcon}
             alt="Ícone da Universo Marketing"
-            width={44}
-            height={44}
-            className="h-8 w-8 object-contain"
+            fill
+            sizes="44px"
+            className="scale-[2.4] object-contain object-center"
           />
         </div>
       ) : (
-        <Image
-          src={siteConfig.assets.brandLogo}
-          alt="Logo da Universo Marketing"
-          width={340}
-          height={132}
-          className="h-16 w-auto object-contain md:h-20"
-        />
+        <div className="relative h-14 w-44 overflow-hidden md:h-16 md:w-52">
+          <Image
+            src={siteConfig.assets.brandLogo}
+            alt="Logo da Universo Marketing"
+            fill
+            sizes="(min-width: 768px) 208px, 176px"
+            className="object-cover object-[center_46%]"
+          />
+        </div>
       )}
     </div>
   );

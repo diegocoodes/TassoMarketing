@@ -73,11 +73,25 @@ export function CustomCursor() {
       const explicit = target?.closest<HTMLElement>("[data-cursor-label]");
       const actionable = target?.closest<HTMLElement>("a,button,[data-cursor]");
       const nextInteractive = Boolean(actionable);
+      const href = actionable?.getAttribute("href") ?? "";
+      const contextualLabel = href.includes("wa.me")
+        ? "FALAR"
+        : href.includes("calendar")
+          ? "AGENDAR"
+          : href.startsWith("#")
+            ? "VER"
+            : actionable?.matches("button")
+              ? "ESCOLHER"
+              : "ABRIR";
 
       setInteractive(nextInteractive);
       setLabel(
         explicit?.dataset.cursorLabel ??
-          (actionable?.matches("a,button") ? "ABRIR" : nextInteractive ? "VER" : ""),
+          (actionable?.matches("a,button")
+            ? contextualLabel
+            : nextInteractive
+              ? "VER"
+              : ""),
       );
     };
 
