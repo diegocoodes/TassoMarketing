@@ -1,12 +1,7 @@
 import {
   ArrowUpRight,
   BarChart3,
-  Camera,
-  Code2,
-  Megaphone,
-  MonitorSmartphone,
   Orbit,
-  Palette,
   PenTool,
   Plus,
   Target,
@@ -17,6 +12,10 @@ import { SpaceParticles } from "@/components/animation/SpaceParticles";
 import { Container } from "@/components/layout/Container";
 import Hero30 from "@/components/originkit/hero-30";
 import { Button } from "@/components/ui/Button";
+import {
+  ServiceCarousel,
+  type Service,
+} from "@/components/ui/services-card";
 import { getWhatsAppUrl, siteConfig } from "@/config/site";
 import { faqItems } from "@/data/faq";
 import { testimonials } from "@/data/testimonials";
@@ -72,10 +71,12 @@ const journey = [
 
 const serviceOfferings = [
   {
+    number: "001",
     title: "Social Media",
     description:
       "Planejamento e produção para manter a marca ativa, coerente e relevante nas redes sociais.",
-    icon: Palette,
+    icon: "palette",
+    gradient: "from-[#211b0d] via-[#11110e] to-[#08090b]",
     items: [
       "Design e artes",
       "Edição de vídeos",
@@ -85,10 +86,12 @@ const serviceOfferings = [
     ],
   },
   {
+    number: "002",
     title: "Tráfego Pago",
     description:
       "Gestão contínua dos anúncios, com análise de desempenho e ajustes de verba, público e comunicação.",
-    icon: Megaphone,
+    icon: "megaphone",
+    gradient: "from-[#20160b] via-[#11100d] to-[#08090b]",
     items: [
       "Gestão e análise de tráfego pago",
       "Meta Ads: Facebook, Instagram e WhatsApp",
@@ -97,10 +100,12 @@ const serviceOfferings = [
     ],
   },
   {
+    number: "003",
     title: "Web Design",
     description:
       "Estrutura digital criada para apresentar a empresa com clareza e transformar visitas em contatos ou vendas.",
-    icon: MonitorSmartphone,
+    icon: "monitor",
+    gradient: "from-[#17191b] via-[#0f1012] to-[#08090b]",
     items: [
       "Criação de sites e landing pages",
       "Desenvolvimento de e-commerce",
@@ -109,10 +114,12 @@ const serviceOfferings = [
     ],
   },
   {
+    number: "004",
     title: "Captação",
     description:
       "Produção presencial de imagens para empresas localizadas na Região Metropolitana do Recife.",
-    icon: Camera,
+    icon: "camera",
+    gradient: "from-[#1d180d] via-[#10100d] to-[#08090b]",
     items: [
       "Captação profissional de vídeos e imagens na empresa",
       "Roteiro alinhado aos objetivos da marca",
@@ -121,10 +128,12 @@ const serviceOfferings = [
     ],
   },
   {
+    number: "005",
     title: "Programação e Desenvolvimento",
     description:
       "Sistemas e integrações para organizar o atendimento, reduzir tarefas manuais e ampliar a capacidade da operação.",
-    icon: Code2,
+    icon: "code",
+    gradient: "from-[#181410] via-[#0f0f0f] to-[#08090b]",
     items: [
       "CRM em plataforma própria",
       "Chatbots, automações e atendimento com inteligência artificial",
@@ -133,7 +142,7 @@ const serviceOfferings = [
       "Integrações com API oficial",
     ],
   },
-] as const;
+] as const satisfies readonly Service[];
 
 const serviceSupport = [
   "Portal do cliente",
@@ -203,46 +212,8 @@ export function AgencyLanding() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 md:mt-14 md:grid-cols-2 xl:grid-cols-3">
-            {serviceOfferings.map((service) => {
-              const Icon = service.icon;
-              return (
-                <article
-                  key={service.title}
-                  className="group relative isolate flex min-h-full flex-col overflow-hidden border border-white/10 bg-[#0b0c0e]/90 p-7 transition duration-500 hover:-translate-y-1 hover:border-[rgba(245,169,0,0.38)] hover:bg-[#101114] sm:p-9 xl:min-h-[38rem] xl:last:col-span-2"
-                >
-                  <div
-                    className="pointer-events-none absolute -right-24 -top-24 size-64 rounded-full bg-[rgba(245,169,0,0.12)] opacity-0 blur-3xl transition duration-500 group-hover:opacity-100"
-                    aria-hidden="true"
-                  />
-                  <div className="relative flex items-start justify-between border-b border-white/10 pb-7">
-                    <Icon className="size-7 text-[var(--color-gold-light)]" aria-hidden="true" />
-                    <ArrowUpRight className="size-5 text-zinc-700 transition duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[var(--color-gold-light)]" aria-hidden="true" />
-                  </div>
-
-                  <div className="relative pt-8">
-                    <h3 className="max-w-md text-3xl font-semibold leading-tight tracking-[-0.045em] text-white sm:text-4xl">
-                      {service.title}
-                    </h3>
-                    <p className="mt-5 max-w-xl text-sm leading-7 text-zinc-500 md:text-base">
-                      {service.description}
-                    </p>
-                  </div>
-
-                  <ul className="relative mt-8 border-t border-white/10 xl:mt-auto xl:pt-6" aria-label={`Entregas de ${service.title}`}>
-                    {service.items.map((item) => (
-                      <li
-                        key={item}
-                        className="flex min-h-14 items-center gap-4 border-b border-white/10 py-3.5 text-sm leading-6 text-zinc-300"
-                      >
-                        <span className="size-1.5 shrink-0 bg-[var(--color-gold)]" aria-hidden="true" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              );
-            })}
+          <div className="mt-10 md:mt-14">
+            <ServiceCarousel services={serviceOfferings} />
           </div>
 
           <div className="mt-14 grid gap-8 bg-[var(--color-gold)] p-7 text-black sm:p-10 md:mt-20 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20 lg:p-14">
