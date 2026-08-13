@@ -13,6 +13,7 @@ import {
   Workflow,
 } from "lucide-react";
 import Image from "next/image";
+import { SpaceParticles } from "@/components/animation/SpaceParticles";
 import { Container } from "@/components/layout/Container";
 import Hero30 from "@/components/originkit/hero-30";
 import { Button } from "@/components/ui/Button";
@@ -191,7 +192,7 @@ export function AgencyLanding() {
       </section>
 
       <section id="servicos" className="relative scroll-mt-24 overflow-hidden py-20 md:py-32 lg:py-40">
-        <div className="agency-starfield opacity-35" aria-hidden="true" />
+        <SpaceParticles className="opacity-55" />
         <Container className="relative z-10">
           <div className="border-b border-white/10 pb-14 md:pb-20">
             <h2 className="max-w-[13ch] text-[clamp(2.65rem,5.8vw,6rem)] font-semibold leading-[0.92] tracking-[-0.065em] text-white">
@@ -260,7 +261,7 @@ export function AgencyLanding() {
       </section>
 
       <section className="relative overflow-hidden py-24 md:py-36 lg:py-44">
-        <div className="agency-starfield opacity-60" aria-hidden="true" />
+        <SpaceParticles className="opacity-70" />
         <Container className="relative z-10">
           <div className="grid items-center gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
             <div>
@@ -322,7 +323,8 @@ export function AgencyLanding() {
       </section>
 
       <section className="relative overflow-hidden py-24 md:py-36">
-        <Container>
+        <SpaceParticles />
+        <Container className="relative z-10">
           <div className="grid gap-12 lg:grid-cols-[0.62fr_1.38fr] lg:gap-20">
             <div>
               <h2 className="text-4xl font-semibold tracking-[-0.05em] md:text-5xl">
@@ -345,8 +347,9 @@ export function AgencyLanding() {
         </Container>
       </section>
 
-      <section id="sobre" className="scroll-mt-24 py-10 md:py-20">
-        <Container>
+      <section id="sobre" className="relative scroll-mt-24 overflow-hidden py-10 md:py-20">
+        <SpaceParticles density="compact" className="opacity-45" />
+        <Container className="relative z-10">
           <div className="agency-about grid overflow-hidden rounded-[2rem] border border-white/10 bg-[#111216] lg:grid-cols-[0.92fr_1.08fr] lg:rounded-[3rem]">
             <div className="relative min-h-[28rem] overflow-hidden bg-[#08090b] sm:min-h-[36rem] lg:min-h-[46rem]">
               <Image
@@ -384,8 +387,9 @@ export function AgencyLanding() {
         </Container>
       </section>
 
-      <section className="py-24 md:py-36">
-        <Container>
+      <section className="relative overflow-hidden py-24 md:py-36">
+        <SpaceParticles density="compact" />
+        <Container className="relative z-10">
           <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
             <div>
               <h2 className="max-w-[11ch] text-[clamp(2.7rem,5vw,5.2rem)] font-semibold leading-[0.94] tracking-[-0.06em]">

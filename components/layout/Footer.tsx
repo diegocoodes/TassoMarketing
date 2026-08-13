@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { SpaceParticles } from "@/components/animation/SpaceParticles";
 import { Container } from "@/components/layout/Container";
 import { BrandMark } from "@/components/ui/BrandMark";
 import { getWhatsAppUrl, siteConfig } from "@/config/site";
@@ -8,7 +9,8 @@ import { navigationItems } from "@/data/navigation";
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#050608] pb-8 pt-20 md:pb-10 md:pt-28">
-      <Container>
+      <SpaceParticles density="compact" className="opacity-45" />
+      <Container className="relative z-10">
         <div className="grid gap-14 border-t border-white/10 pt-10 lg:grid-cols-[1.45fr_0.55fr_0.7fr]">
           <div>
             <div className="flex items-center gap-3">

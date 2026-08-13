@@ -451,20 +451,6 @@ body::after {
 }
 
 /* Agency universe */
-.agency-starfield {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.72) 0 0.7px, transparent 0.9px),
-    radial-gradient(circle, rgba(255, 212, 71, 0.66) 0 0.65px, transparent 0.9px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.36) 0 0.55px, transparent 0.8px);
-  background-position: 0 0, 41px 67px, 23px 17px;
-  background-size: 107px 107px, 173px 173px, 61px 61px;
-  mask-image: linear-gradient(180deg, black, rgba(0, 0, 0, 0.42) 78%, transparent);
-  opacity: 0.42;
-}
-
 .agency-paper {
   background-color: #ecebe6;
   background-image:

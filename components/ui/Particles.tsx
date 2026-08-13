@@ -150,6 +150,18 @@ export default function Particles({
     const handlePointerMove = (event: PointerEvent) => {
       const rect = container.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
+
+      const isInside =
+        event.clientX >= rect.left &&
+        event.clientX <= rect.right &&
+        event.clientY >= rect.top &&
+        event.clientY <= rect.bottom;
+
+      if (!isInside) {
+        mouseRef.current = { x: 0, y: 0 };
+        return;
+      }
+
       mouseRef.current = {
         x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
         y: -(((event.clientY - rect.top) / rect.height) * 2 - 1),
@@ -240,8 +252,10 @@ export default function Particles({
       program.uniforms.uTime.value = elapsed * 0.001;
 
       if (moveParticlesOnHover) {
-        particles.position.x = -mouseRef.current.x * particleHoverFactor;
-        particles.position.y = -mouseRef.current.y * particleHoverFactor;
+        const targetX = -mouseRef.current.x * particleHoverFactor;
+        const targetY = -mouseRef.current.y * particleHoverFactor;
+        particles.position.x += (targetX - particles.position.x) * 0.055;
+        particles.position.y += (targetY - particles.position.y) * 0.055;
       }
 
       if (!disableRotation) {

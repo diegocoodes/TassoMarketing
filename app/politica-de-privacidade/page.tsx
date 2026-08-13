@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { SpaceParticles } from "@/components/animation/SpaceParticles";
 import { Container } from "@/components/layout/Container";
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="py-24 md:py-32">
-      <Container>
+    <main className="relative min-h-screen overflow-hidden py-24 md:py-32">
+      <SpaceParticles density="compact" />
+      <Container className="relative z-10">
         <div className="surface-panel rounded-[2rem] p-8 md:p-12">
           <p className="eyebrow">Documento provisório</p>
           <h1 className="font-display type-section-title mt-6">

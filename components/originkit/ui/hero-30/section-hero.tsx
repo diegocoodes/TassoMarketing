@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { AccretionDisk } from "@/components/originkit/ui/hero-30/accretion-disk";
 import { Backdrop } from "@/components/originkit/ui/hero-30/backdrop";
 import { LogoStrip } from "@/components/originkit/ui/hero-30/logo-strip";
+import { SpaceParticles } from "@/components/animation/SpaceParticles";
 import {
   INTRO_HERO_REVEAL_EVENT,
 } from "@/components/intro/introHeroEvents";
@@ -41,7 +42,12 @@ export const SectionHero = () => {
       <Backdrop />
     </div>
 
-    <div className="pointer-events-none absolute inset-0 left-1/2 w-full max-w-[1920px] -translate-x-1/2">
+    <SpaceParticles
+      density="hero"
+      className="opacity-75 [mask-image:linear-gradient(to_bottom,black_0%,black_82%,transparent_100%)]"
+    />
+
+    <div className="pointer-events-none absolute inset-0 left-1/2 z-[2] w-full max-w-[1920px] -translate-x-1/2">
       <AccretionDisk className="bottom-20 h-[297px] w-[370px] ipad:bottom-[85px] ipad:h-[520px] ipad:w-[647px] desktop-sm:bottom-[85px] desktop-sm:left-[72%] desktop-sm:aspect-[673/540] desktop-sm:h-auto desktop-sm:w-[min(54%,960px)]" />
     </div>
 
