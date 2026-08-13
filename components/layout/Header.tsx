@@ -2,9 +2,9 @@
 
 import { Menu } from "lucide-react";
 import { motion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { BrandMark } from "@/components/ui/BrandMark";
 import { Button } from "@/components/ui/Button";
 import {
   Sheet,
@@ -14,7 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { getWhatsAppUrl } from "@/config/site";
+import { getWhatsAppUrl, siteConfig } from "@/config/site";
 import { navigationItems } from "@/data/navigation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -79,13 +79,20 @@ export function Header() {
               : "border-white/[0.08] bg-black/20 backdrop-blur-md"
           }`}
         >
-          <div className="flex items-center gap-2.5">
-            <BrandMark compact />
-            <span className="hidden text-[0.64rem] font-bold uppercase leading-[1.15] tracking-[0.18em] text-white min-[390px]:block">
-              Universo
-              <span className="block text-zinc-500">Marketing</span>
-            </span>
-          </div>
+          <Link
+            href="#inicio"
+            aria-label="Universo Marketing — voltar ao início"
+            className="relative h-11 w-32 shrink-0 overflow-hidden sm:h-12 sm:w-36"
+          >
+            <Image
+              src={siteConfig.assets.brandLogo}
+              alt="Universo Marketing"
+              fill
+              priority
+              sizes="(min-width: 640px) 144px, 128px"
+              className="scale-[1.72] object-cover object-[center_46%]"
+            />
+          </Link>
 
           <nav aria-label="Navegação principal" className="hidden items-center gap-1 lg:flex">
             {navigationItems.map((item) => {

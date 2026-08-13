@@ -8,12 +8,14 @@ import {
   Camera,
   Code2,
   Megaphone,
+  MessageCircle,
   MonitorSmartphone,
   Palette,
   type LucideIcon,
 } from "lucide-react";
 import { motion, useInView } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { getWhatsAppUrl } from "@/config/site";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { cn } from "@/lib/utils";
 
@@ -82,13 +84,7 @@ function ServiceCard({ service, index, reducedMotion }: ServiceCardProps) {
       />
 
       <div className="relative flex items-start justify-between">
-        {service.featured ? (
-          <span className="rounded-full border border-[rgba(245,169,0,0.38)] bg-[rgba(245,169,0,0.12)] px-3 py-1.5 text-[0.64rem] font-bold uppercase tracking-[0.15em] text-[var(--color-gold-light)]">
-            Em destaque
-          </span>
-        ) : (
-          <span aria-hidden="true" />
-        )}
+        <span aria-hidden="true" />
         <span
           className={cn(
             "flex size-12 items-center justify-center rounded-full border border-white/10 bg-black/25 text-[var(--color-gold-light)] backdrop-blur-sm",
@@ -127,6 +123,23 @@ function ServiceCard({ service, index, reducedMotion }: ServiceCardProps) {
             ))}
           </ul>
         ) : null}
+
+        <a
+          href={getWhatsAppUrl(
+            `Olá! Conheci a Universo Marketing pelo site e tenho interesse no serviço de ${service.title}. Gostaria de saber mais.`,
+          )}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(
+            "mt-6 flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.055] px-5 py-3 text-center text-sm font-semibold text-white transition duration-300 hover:border-[rgba(245,169,0,0.48)] hover:bg-[var(--color-gold)] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold-light)]",
+            service.featured &&
+              "border-[rgba(245,169,0,0.42)] bg-[var(--color-gold)] text-black shadow-[0_14px_35px_rgba(245,169,0,0.16)] hover:bg-[var(--color-gold-light)]",
+          )}
+          aria-label={`Conversar no WhatsApp sobre ${service.title}`}
+        >
+          <MessageCircle className="size-4" aria-hidden="true" />
+          Quero este serviço
+        </a>
       </div>
     </motion.article>
   );
