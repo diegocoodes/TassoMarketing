@@ -12,15 +12,14 @@ import Image from "next/image";
 import { SpaceParticles } from "@/components/animation/SpaceParticles";
 import { Container } from "@/components/layout/Container";
 import Hero30 from "@/components/originkit/hero-30";
+import { TestimonialsMarqueeSection } from "@/components/sections/TestimonialsMarqueeSection";
 import { Button } from "@/components/ui/Button";
 import {
   ServiceCarousel,
   type Service,
 } from "@/components/ui/services-card";
 import { getWhatsAppUrl, siteConfig } from "@/config/site";
-import { clients } from "@/data/clients";
 import { faqItems } from "@/data/faq";
-import { testimonials } from "@/data/testimonials";
 
 const capabilities = [
   {
@@ -151,8 +150,6 @@ const serviceSupport = [
   "Diagnóstico e implantação",
   "Acompanhamento dos resultados",
 ] as const;
-
-const selectedTestimonials = [testimonials[1], testimonials[4], testimonials[5]];
 
 export function AgencyLanding() {
   return (
@@ -308,84 +305,7 @@ export function AgencyLanding() {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden py-24 md:py-36">
-        <SpaceParticles />
-        <Container className="relative z-10">
-          <div className="flex flex-col justify-between gap-7 border-b border-white/10 pb-12 md:flex-row md:items-end md:pb-16">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-gold-light)]">
-                Marcas atendidas
-              </p>
-              <h2 className="mt-4 max-w-[12ch] text-4xl font-semibold leading-[0.96] tracking-[-0.055em] md:text-6xl">
-                Quem trabalha com a Universo.
-              </h2>
-            </div>
-            <p className="max-w-md text-sm leading-7 text-zinc-400 md:text-base">
-              Empresas que confiam em estratégia, mídia e acompanhamento para ampliar sua presença digital.
-            </p>
-          </div>
-
-          <div className="relative mt-10 overflow-hidden rounded-[2rem] border border-white/[0.08] bg-white/[0.025] p-3 sm:p-4 md:mt-14 md:rounded-[2.5rem]">
-            <div className="pointer-events-none absolute left-1/2 top-0 h-40 w-2/3 -translate-x-1/2 rounded-full bg-[rgba(245,169,0,0.1)] blur-[80px]" aria-hidden="true" />
-            <div className="relative grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-6">
-              {clients.map((client) => (
-                <div
-                  key={client.name}
-                  className="group flex aspect-square items-center justify-center overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0b0c0e]/85 p-3 transition duration-300 hover:-translate-y-1 hover:border-[rgba(245,169,0,0.3)] hover:bg-[#111216] sm:p-4"
-                  title={client.name}
-                >
-                  <Image
-                    src={client.logo}
-                    alt={client.alt ?? client.name}
-                    width={client.width ?? 144}
-                    height={client.height ?? 144}
-                    sizes="(min-width: 1024px) 150px, (min-width: 640px) 22vw, 30vw"
-                    className="h-full w-full rounded-full object-contain opacity-75 grayscale transition duration-300 group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 grid gap-3 md:grid-cols-3">
-            {selectedTestimonials.map((testimonial) => {
-              const client = clients.find(
-                (item) => item.name === testimonial.company,
-              );
-
-              return (
-                <blockquote
-                  key={testimonial.company}
-                  className="group flex min-h-[22rem] flex-col rounded-[1.75rem] border border-white/[0.08] bg-[#0b0c0e]/90 p-7 transition duration-300 hover:border-[rgba(245,169,0,0.26)] lg:p-8"
-                >
-                  <div className="flex items-center justify-between">
-                    {client ? (
-                      <Image
-                        src={client.logo}
-                        alt={client.alt ?? client.name}
-                        width={56}
-                        height={56}
-                        className="size-14 rounded-full object-contain grayscale transition duration-300 group-hover:grayscale-0"
-                      />
-                    ) : (
-                      <span aria-hidden="true" />
-                    )}
-                    <span className="font-serif text-5xl leading-none text-[var(--color-gold)]/40" aria-hidden="true">
-                      “
-                    </span>
-                  </div>
-                  <p className="mt-8 flex-1 text-base leading-8 text-zinc-300">
-                    {testimonial.feedback}
-                  </p>
-                  <footer className="mt-8 border-t border-white/10 pt-5 text-xs font-bold uppercase tracking-[0.14em] text-white">
-                    {testimonial.company}
-                  </footer>
-                </blockquote>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
+      <TestimonialsMarqueeSection />
 
       <section id="sobre" className="relative scroll-mt-24 overflow-hidden py-10 md:py-20">
         <SpaceParticles density="compact" className="opacity-45" />

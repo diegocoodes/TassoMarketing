@@ -492,6 +492,17 @@ export const LogoLoop = memo(function LogoLoop({
         onMouseLeave={() => {
           if (effectiveHoverSpeed !== undefined) setIsHovered(false);
         }}
+        onFocusCapture={() => {
+          if (effectiveHoverSpeed !== undefined) setIsHovered(true);
+        }}
+        onBlurCapture={(event) => {
+          if (
+            effectiveHoverSpeed !== undefined &&
+            !event.currentTarget.contains(event.relatedTarget)
+          ) {
+            setIsHovered(false);
+          }
+        }}
       >
         {logoLists}
       </div>
