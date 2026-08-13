@@ -32,7 +32,7 @@ function SheetOverlay({
     <SheetPrimitive.Overlay
       data-slot="sheet-overlay"
       className={cn(
-        "fixed inset-0 z-[70] bg-black/72 backdrop-blur-[3px] data-[state=open]:animate-[sheet-overlay-in_220ms_ease-out] data-[state=closed]:animate-[sheet-overlay-out_180ms_ease-in] motion-reduce:animate-none",
+        "fixed inset-0 z-[70] bg-black/72 backdrop-blur-[3px] data-[state=open]:animate-[sheet-overlay-in_220ms_ease-out] data-[state=closed]:invisible data-[state=closed]:pointer-events-none data-[state=closed]:animate-[sheet-overlay-out_180ms_ease-in_forwards] motion-reduce:animate-none",
         className,
       )}
       {...props}
@@ -41,12 +41,12 @@ function SheetOverlay({
 }
 
 const sideClasses = {
-  top: "inset-x-0 top-0 max-h-[90dvh] border-b data-[state=open]:animate-[sheet-top-in_320ms_cubic-bezier(0.22,1,0.36,1)] data-[state=closed]:animate-[sheet-top-out_220ms_ease-in]",
+  top: "inset-x-0 top-0 max-h-[90dvh] border-b data-[state=open]:animate-[sheet-top-in_320ms_cubic-bezier(0.22,1,0.36,1)] data-[state=closed]:pointer-events-none data-[state=closed]:animate-[sheet-top-out_220ms_ease-in_forwards] motion-reduce:data-[state=closed]:invisible",
   right:
-    "inset-y-0 right-0 h-dvh w-[min(92vw,26rem)] border-l data-[state=open]:animate-[sheet-right-in_360ms_cubic-bezier(0.22,1,0.36,1)] data-[state=closed]:animate-[sheet-right-out_240ms_ease-in]",
+    "inset-y-0 right-0 h-dvh w-[min(92vw,26rem)] border-l data-[state=open]:animate-[sheet-right-in_360ms_cubic-bezier(0.22,1,0.36,1)] data-[state=closed]:pointer-events-none data-[state=closed]:animate-[sheet-right-out_240ms_ease-in_forwards] motion-reduce:data-[state=closed]:invisible",
   bottom:
-    "inset-x-0 bottom-0 max-h-[90dvh] border-t data-[state=open]:animate-[sheet-bottom-in_320ms_cubic-bezier(0.22,1,0.36,1)] data-[state=closed]:animate-[sheet-bottom-out_220ms_ease-in]",
-  left: "inset-y-0 left-0 h-dvh w-[min(92vw,26rem)] border-r data-[state=open]:animate-[sheet-left-in_360ms_cubic-bezier(0.22,1,0.36,1)] data-[state=closed]:animate-[sheet-left-out_240ms_ease-in]",
+    "inset-x-0 bottom-0 max-h-[90dvh] border-t data-[state=open]:animate-[sheet-bottom-in_320ms_cubic-bezier(0.22,1,0.36,1)] data-[state=closed]:pointer-events-none data-[state=closed]:animate-[sheet-bottom-out_220ms_ease-in_forwards] motion-reduce:data-[state=closed]:invisible",
+  left: "inset-y-0 left-0 h-dvh w-[min(92vw,26rem)] border-r data-[state=open]:animate-[sheet-left-in_360ms_cubic-bezier(0.22,1,0.36,1)] data-[state=closed]:pointer-events-none data-[state=closed]:animate-[sheet-left-out_240ms_ease-in_forwards] motion-reduce:data-[state=closed]:invisible",
 } as const
 
 type SheetContentProps = React.ComponentProps<typeof SheetPrimitive.Content> & {
@@ -79,7 +79,7 @@ function SheetContent({
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(
-          "fixed z-[80] flex flex-col border-white/10 bg-[#090a0b] text-white shadow-2xl shadow-black/60 outline-none motion-reduce:animate-none",
+          "fixed z-[80] flex flex-col border-white/10 bg-[#090a0b] text-white shadow-2xl shadow-black/60 outline-none data-[state=closed]:invisible data-[state=closed]:pointer-events-none motion-reduce:animate-none",
           sideClasses[side],
           className,
         )}

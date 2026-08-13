@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: siteConfig.seo.ogImage,
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} | Estratégia, tráfego e tecnologia`,
+        alt: `${siteConfig.name} | Estratégia, mídia e tecnologia`,
       },
     ],
   },

@@ -8,7 +8,9 @@ export function SectionScrollReveal() {
 
   useIsomorphicLayoutEffect(() => {
     const sections = Array.from(
-      document.querySelectorAll<HTMLElement>("#conteudo-principal > section:not(#inicio)"),
+      document.querySelectorAll<HTMLElement>(
+        "#conteudo-principal > section:not(#inicio):not(#solucoes)",
+      ),
     );
 
     if (reducedMotion || !("IntersectionObserver" in window)) {

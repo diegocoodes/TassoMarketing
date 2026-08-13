@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Universo Marketing",
     short_name: "Universo Marketing",
     description:
-      "Landing page institucional da Universo Marketing com foco em tráfego pago, automações e crescimento digital.",
+      "Agência de estratégia, mídia e tecnologia para marcas que querem ocupar mais espaço.",
     start_url: "/",
     display: "standalone",
     background_color: "#050505",

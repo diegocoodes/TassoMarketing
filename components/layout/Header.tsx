@@ -25,26 +25,17 @@ export function Header() {
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    let lastValue = false;
     let frame = 0;
-
     const update = () => {
       frame = 0;
-      const nextValue = window.scrollY > 24;
-      if (nextValue !== lastValue) {
-        lastValue = nextValue;
-        setIsScrolled(nextValue);
-      }
+      setIsScrolled(window.scrollY > 28);
     };
-
     const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(update);
+      if (!frame) frame = window.requestAnimationFrame(update);
     };
 
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
-
     return () => {
       window.removeEventListener("scroll", onScroll);
       if (frame) window.cancelAnimationFrame(frame);
@@ -57,187 +48,136 @@ export function Header() {
       .filter(Boolean) as Element[];
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
+        const current = entries
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id) setActiveHref(`#${visible.target.id}`);
+        if (current?.target.id) setActiveHref(`#${current.target.id}`);
       },
-      { rootMargin: "-30% 0px -60%", threshold: [0, 0.2, 0.5] },
+      { rootMargin: "-25% 0px -65%", threshold: [0, 0.15, 0.35] },
     );
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1024px)");
-    const closeOnDesktop = () => {
-      if (desktop.matches) setIsOpen(false);
-    };
-
-    desktop.addEventListener("change", closeOnDesktop);
-    return () => desktop.removeEventListener("change", closeOnDesktop);
-  }, []);
-
   return (
-    <header className="absolute top-0 z-40 w-full bg-transparent p-3 lg:sticky lg:bg-[#ECEBEF] lg:px-6 lg:py-3">
-      <motion.div
-        initial={reducedMotion ? false : { opacity: 0, y: -16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: reducedMotion ? 0 : 0.45, ease: "easeOut" }}
-        className={`ml-auto flex w-fit items-center justify-end rounded-full border-0 bg-transparent p-0 shadow-none transition-all lg:mx-auto lg:w-auto lg:max-w-[1320px] lg:justify-between lg:border lg:px-5 ${isScrolled ? "lg:py-2" : "lg:py-3"} ${
-          isScrolled
-            ? "lg:border-black/10 lg:bg-[rgba(236,235,239,0.96)] lg:shadow-lg lg:shadow-[#c99418]/10 lg:backdrop-blur-md"
-            : "lg:border-black/10 lg:bg-[#ECEBEF] lg:shadow-md lg:shadow-[#c99418]/10"
-        }`}
+    <>
+      <a
+        href="#conteudo-principal"
+        className="fixed left-4 top-3 z-[100] -translate-y-20 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition focus:translate-y-0"
       >
+        Ir para o conteúdo
+      </a>
+      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-5 md:pt-4">
         <motion.div
-          className="hidden lg:block"
-          animate={{ scale: isScrolled ? 0.92 : 1 }}
-          transition={{ duration: reducedMotion ? 0 : 0.2 }}
+          initial={reducedMotion ? false : { opacity: 0, y: -18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reducedMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className={`container-shell flex min-h-16 items-center justify-between rounded-full border px-3 pr-3 transition duration-300 md:px-4 ${
+            isScrolled
+              ? "border-white/10 bg-[#090a0c]/88 shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur-xl"
+              : "border-white/[0.08] bg-black/20 backdrop-blur-md"
+          }`}
         >
-          <BrandMark />
-        </motion.div>
+          <div className="flex items-center gap-2.5">
+            <BrandMark compact />
+            <span className="hidden text-[0.64rem] font-bold uppercase leading-[1.15] tracking-[0.18em] text-white min-[390px]:block">
+              Universo
+              <span className="block text-zinc-500">Marketing</span>
+            </span>
+          </div>
 
-        <nav aria-label="Navegação principal" className="hidden items-center gap-7 lg:flex">
-          {navigationItems.map((item) => {
-            const isActive = activeHref === item.href;
+          <nav aria-label="Navegação principal" className="hidden items-center gap-1 lg:flex">
+            {navigationItems.map((item) => {
+              const isActive = activeHref === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive ? "location" : undefined}
+                  className={`relative rounded-full px-4 py-2 text-xs font-semibold transition ${
+                    isActive ? "text-white" : "text-zinc-500 hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                  {isActive ? (
+                    <motion.span
+                      layoutId="active-navigation"
+                      className="absolute inset-x-4 -bottom-0.5 h-px bg-[var(--color-gold-light)]"
+                      transition={{ duration: reducedMotion ? 0 : 0.25 }}
+                    />
+                  ) : null}
+                </Link>
+              );
+            })}
+          </nav>
 
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive ? "location" : undefined}
-                className={`relative py-2 text-sm font-semibold transition hover:text-black ${isActive ? "text-black" : "text-zinc-600"}`}
-              >
-                {item.label}
-                {isActive ? (
-                  <motion.span
-                    layoutId="active-navigation"
-                    transition={{ duration: reducedMotion ? 0 : 0.25 }}
-                    className="absolute inset-x-0 -bottom-1 mx-auto h-0.5 rounded-full bg-[var(--color-gold-light)]"
-                  />
-                ) : null}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="hidden lg:block">
-          <Button href={getWhatsAppUrl()} target="_blank" rel="noopener noreferrer">
-            Solicitar análise
-          </Button>
-        </div>
-
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild>
-            <button
-              type="button"
-              aria-label="Abrir menu"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#d89b00]/50 bg-[var(--color-gold-light)] text-black shadow-[0_10px_30px_rgba(245,169,0,0.22)] transition hover:bg-[#ffdc67] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white lg:hidden motion-reduce:transition-none"
+          <div className="hidden lg:block">
+            <Button
+              href={getWhatsAppUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="!min-h-10 !px-5 !py-2 !text-xs"
             >
-              <Menu className="h-5 w-5" aria-hidden="true" />
-            </button>
-          </SheetTrigger>
+              Falar com a agência
+            </Button>
+          </div>
 
-          <SheetContent className="overflow-hidden lg:hidden">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_5%,rgba(245,169,0,0.17),transparent_29%),radial-gradient(circle_at_10%_75%,rgba(245,169,0,0.08),transparent_34%)]"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-[var(--color-gold-light)]/55 to-transparent"
-            />
-
-            <div className="relative flex min-h-0 flex-1 flex-col px-6 pb-7 pt-6">
-              <div className="border-b border-white/10 pb-5 pr-14">
-                <SheetTitle className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-[var(--color-gold-light)]">
-                  Navegação
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <button
+                type="button"
+                aria-label="Abrir menu"
+                className="flex size-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-white transition hover:bg-white/[0.1] lg:hidden"
+              >
+                <Menu className="size-5" aria-hidden="true" />
+              </button>
+            </SheetTrigger>
+            <SheetContent className="border-white/10 bg-[#08090b] text-white lg:hidden">
+              <div className="relative flex min-h-0 flex-1 flex-col px-6 pb-8 pt-8">
+                <SheetTitle className="text-xs font-bold uppercase tracking-[0.22em] text-[var(--color-gold-light)]">
+                  Universo Marketing
                 </SheetTitle>
-                <SheetDescription className="mt-2 max-w-[15rem] text-sm leading-relaxed">
-                  Explore a Universo Marketing e encontre a solução ideal para sua empresa.
+                <SheetDescription className="mt-3 max-w-xs text-sm leading-6 text-zinc-500">
+                  Soluções para atrair, atender e vender melhor.
                 </SheetDescription>
-              </div>
 
-              <nav aria-label="Navegação principal mobile" className="mt-7">
-                <div className="grid gap-2">
-                  {navigationItems.map((item, index) => {
+                <nav aria-label="Navegação principal mobile" className="mt-10 border-t border-white/10">
+                  {navigationItems.map((item) => {
                     const isActive = activeHref === item.href;
-
                     return (
-                      <motion.div
-                        key={item.href}
-                        initial={reducedMotion ? false : { opacity: 0, x: 18 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{
-                          delay: reducedMotion ? 0 : 0.07 + index * 0.055,
-                          duration: reducedMotion ? 0 : 0.32,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                      >
-                        <SheetClose asChild>
-                          <Link
-                            href={item.href}
-                            aria-current={isActive ? "location" : undefined}
-                            className={`group flex min-h-14 items-center gap-4 rounded-2xl border px-4 py-3 text-base font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold-light)] motion-reduce:transition-none ${
-                              isActive
-                                ? "border-[rgba(245,169,0,0.32)] bg-[rgba(245,169,0,0.1)] text-white"
-                                : "border-transparent text-zinc-300 hover:border-white/10 hover:bg-white/[0.05] hover:text-white"
-                            }`}
-                          >
-                            <span
-                              className={`text-[0.65rem] tabular-nums tracking-[0.16em] ${
-                                isActive
-                                  ? "text-[var(--color-gold-light)]"
-                                  : "text-zinc-600 group-hover:text-zinc-400"
-                              }`}
-                            >
-                              {String(index + 1).padStart(2, "0")}
-                            </span>
-                            <span className="flex-1">{item.label}</span>
-                            <span
-                              aria-hidden="true"
-                              className={`size-1.5 rounded-full transition ${
-                                isActive
-                                  ? "bg-[var(--color-gold-light)] shadow-[0_0_12px_rgba(245,169,0,0.8)]"
-                                  : "bg-white/15 group-hover:bg-white/35"
-                              }`}
-                            />
-                          </Link>
-                        </SheetClose>
-                      </motion.div>
+                      <SheetClose asChild key={item.href}>
+                        <Link
+                          href={item.href}
+                          onClick={() => setIsOpen(false)}
+                          aria-current={isActive ? "location" : undefined}
+                          className="group flex min-h-16 items-center gap-4 border-b border-white/10 text-lg font-semibold"
+                        >
+                          <span className={`transition ${isActive ? "text-white" : "text-zinc-400 group-hover:text-white"}`}>
+                            {item.label}
+                          </span>
+                        </Link>
+                      </SheetClose>
                     );
                   })}
-                </div>
-              </nav>
+                </nav>
 
-              <motion.div
-                initial={reducedMotion ? false : { opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: reducedMotion ? 0 : 0.38,
-                  duration: reducedMotion ? 0 : 0.3,
-                }}
-                className="mt-auto border-t border-white/10 pt-6"
-              >
-                <Button
-                  href={getWhatsAppUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsOpen(false)}
-                  className="w-full"
-                >
-                  Solicitar análise
-                </Button>
-                <p className="mt-4 text-center text-xs leading-relaxed text-zinc-500">
-                  Estratégia, mídia e crescimento com acompanhamento próximo.
-                </p>
-              </motion.div>
-            </div>
-          </SheetContent>
-        </Sheet>
-      </motion.div>
-    </header>
+                <div className="mt-auto pt-10">
+                  <Button
+                    href={getWhatsAppUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full"
+                  >
+                    Iniciar conversa
+                  </Button>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </motion.div>
+      </header>
+    </>
   );
 }

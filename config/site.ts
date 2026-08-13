@@ -1,14 +1,14 @@
 export const siteConfig = {
   name: "Universo Marketing",
-  title: "Universo Marketing | Tráfego Pago, Automação e Marketing Digital",
+  title: "Universo Marketing | Estratégia, Mídia e Tecnologia",
   description:
-    "Estratégias de tráfego pago, atendimento com IA, CRM, automações, SEO e tecnologia para gerar oportunidades comerciais para sua empresa.",
+    "Agência de estratégia, mídia e tecnologia para marcas que querem ampliar sua presença, conectar canais e crescer com direção.",
   url: "https://seudominio.com.br",
-  positionStatement: "Damos à sua marca uma vantagem estratégica na internet.",
+  positionStatement: "Sua marca precisa de um universo maior.",
   whatsapp: {
     number: "+55 (81) 98602-0710",
     message:
-      "Olá, T. Thales! Conheci a Universo Marketing pela landing page e gostaria de solicitar uma análise do meu negócio.",
+      "Olá! Conheci a Universo Marketing pela landing page e gostaria de conversar sobre o crescimento da minha marca.",
   },
   scheduling: {
     url: "https://calendar.app.google/T5TXss758TKzPRRV9",
@@ -18,7 +18,6 @@ export const siteConfig = {
     sessionStorageKey: "universo-intro-completed",
   },
   social: {
-    tassoInstagram: "https://instagram.com/tassothales",
     companyInstagram: "https://instagram.com/universomrktg",
   },
   email: "",

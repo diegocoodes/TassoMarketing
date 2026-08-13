@@ -86,7 +86,7 @@ export function Button({
       className={`premium-button group relative isolate mx-auto inline-flex min-h-12 items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-center text-sm font-semibold tracking-[0.02em] transition sm:mx-0 ${variantClasses[variant]} ${className}`}
       {...props}
     >
-      <span className="absolute inset-0 -z-10 translate-y-[102%] bg-[var(--color-gold-light)] transition-transform duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0 motion-reduce:translate-y-0" aria-hidden="true" />
+      <span className="absolute inset-0 -z-10 translate-y-[102%] bg-[var(--color-gold-light)] transition-transform duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0 motion-reduce:hidden" aria-hidden="true" />
       <span className="button-glint pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/45 to-transparent" aria-hidden="true" />
       <span className="transition-colors group-hover:text-black group-focus-visible:text-black">{children}</span>
       <span className="transition duration-200 group-hover:translate-x-1 group-hover:text-black group-focus-visible:translate-x-1 group-focus-visible:text-black">{icon}</span>

@@ -8,10 +8,7 @@ export function JsonLd() {
       name: siteConfig.name,
       url: siteConfig.url,
       logo: `${siteConfig.url}${siteConfig.assets.brandLogo}`,
-      sameAs: [
-        siteConfig.social.tassoInstagram,
-        siteConfig.social.companyInstagram,
-      ],
+      sameAs: [siteConfig.social.companyInstagram],
       description: siteConfig.description,
     },
     {
@@ -29,17 +26,6 @@ export function JsonLd() {
       name: siteConfig.name,
       url: siteConfig.url,
       description: siteConfig.description,
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: "T. Thales",
-      jobTitle: "CEO da Universo Marketing",
-      worksFor: {
-        "@type": "Organization",
-        name: siteConfig.name,
-      },
-      sameAs: [siteConfig.social.tassoInstagram],
     },
   ];
 
