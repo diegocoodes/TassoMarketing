@@ -1,14 +1,18 @@
 "use client";
 
 import { Quote } from "lucide-react";
+import Image from "next/image";
 import { BorderBeam } from "@/components/animation/BorderBeam";
 import { SpaceParticles } from "@/components/animation/SpaceParticles";
 import { SpotlightCard } from "@/components/animation/SpotlightCard";
 import { Container } from "@/components/layout/Container";
 import LogoLoop, { type LogoItem } from "@/components/ui/LogoLoop";
+import { clients } from "@/data/clients";
 import { testimonials } from "@/data/testimonials";
 
 function TestimonialCard({ company, feedback }: (typeof testimonials)[number]) {
+  const client = clients.find((item) => item.name === company);
+
   return (
     <SpotlightCard
       role="article"
@@ -18,9 +22,21 @@ function TestimonialCard({ company, feedback }: (typeof testimonials)[number]) {
     >
       <BorderBeam duration={8} />
       <div className="flex items-center justify-between gap-4">
-        <span className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-[var(--color-gold-light)]">
-          Cliente Universo
-        </span>
+        {client ? (
+          <span className="relative flex size-14 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-1.5">
+            <Image
+              src={client.logo}
+              alt={client.alt ?? `Logo da ${company}`}
+              fill
+              sizes="56px"
+              className="object-contain p-1.5"
+            />
+          </span>
+        ) : (
+          <span className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-[var(--color-gold-light)]">
+            Cliente Universo
+          </span>
+        )}
         <span className="flex size-11 items-center justify-center rounded-full border border-[rgba(245,169,0,0.24)] bg-[rgba(245,169,0,0.08)]">
           <Quote className="size-5 text-[var(--color-gold-light)]" aria-hidden="true" />
         </span>
@@ -36,12 +52,26 @@ function TestimonialCard({ company, feedback }: (typeof testimonials)[number]) {
 }
 
 function StaticTestimonialCard({ company, feedback }: (typeof testimonials)[number]) {
+  const client = clients.find((item) => item.name === company);
+
   return (
     <article className="spotlight-card flex h-[20rem] w-[min(24rem,86vw)] shrink-0 flex-col rounded-[1.75rem] border border-white/[0.08] bg-[#0b0c0e]/95 p-7 shadow-[0_24px_70px_rgba(0,0,0,0.24)] md:h-[21rem] md:w-[27rem] md:p-8">
       <div className="flex items-center justify-between gap-4">
-        <span className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-[var(--color-gold-light)]">
-          Cliente Universo
-        </span>
+        {client ? (
+          <span className="relative flex size-14 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-1.5">
+            <Image
+              src={client.logo}
+              alt=""
+              fill
+              sizes="56px"
+              className="object-contain p-1.5"
+            />
+          </span>
+        ) : (
+          <span className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-[var(--color-gold-light)]">
+            Cliente Universo
+          </span>
+        )}
         <span className="flex size-11 items-center justify-center rounded-full border border-[rgba(245,169,0,0.24)] bg-[rgba(245,169,0,0.08)]">
           <Quote className="size-5 text-[var(--color-gold-light)]" aria-hidden="true" />
         </span>

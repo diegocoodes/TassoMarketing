@@ -158,31 +158,44 @@ export function AgencyLanding() {
 
       <section id="solucoes" className="agency-paper scroll-mt-24 py-24 text-[#101114] md:py-36 lg:py-44">
         <Container>
-          <h2 className="max-w-[14ch] text-[clamp(2.7rem,6vw,6.1rem)] font-semibold leading-[0.92] tracking-[-0.065em]">
-            Do primeiro impacto à próxima venda.
-          </h2>
+          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#9a6a00]">
+                Estratégia conectada
+              </p>
+              <h2 className="mt-5 max-w-[14ch] text-[clamp(2.7rem,6vw,6.1rem)] font-semibold leading-[0.92] tracking-[-0.065em]">
+                Do primeiro impacto à próxima venda.
+              </h2>
+            </div>
+            <p className="max-w-md text-sm leading-7 text-zinc-600 md:text-base">
+              Cada frente trabalha em conjunto para transformar atenção em relacionamento e oportunidades reais de negócio.
+            </p>
+          </div>
 
-          <div className="mt-16 grid border-l border-t border-black/15 md:mt-24 md:grid-cols-2">
+          <div className="mt-16 grid gap-4 md:mt-24 md:grid-cols-2">
             {capabilities.map((capability) => {
               const Icon = capability.icon;
               return (
                 <article
                   key={capability.title}
-                  className="agency-capability group relative min-h-[27rem] overflow-hidden border-b border-r border-black/15 p-7 sm:p-9 lg:p-11"
+                  className="agency-capability group relative flex min-h-[29rem] flex-col overflow-hidden rounded-[2rem] border border-black/10 bg-white/60 p-7 shadow-[0_20px_65px_rgba(16,17,20,0.06)] backdrop-blur-sm transition duration-500 hover:-translate-y-1 hover:border-[rgba(154,106,0,0.3)] hover:shadow-[0_28px_80px_rgba(16,17,20,0.12)] sm:p-9 lg:rounded-[2.5rem] lg:p-11"
                 >
-                  <div className="flex items-start justify-end">
-                    <Icon className="size-6 text-[#9a6a00] transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" aria-hidden="true" />
+                  <div className="flex items-start justify-between">
+                    <span className="flex size-14 items-center justify-center rounded-2xl border border-[rgba(154,106,0,0.18)] bg-[rgba(245,169,0,0.1)] text-[#8a5f00] transition duration-500 group-hover:rotate-3 group-hover:scale-105 group-hover:bg-[var(--color-gold)] group-hover:text-black">
+                      <Icon className="size-6" aria-hidden="true" />
+                    </span>
+                    <ArrowUpRight className="size-5 text-zinc-400 transition duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#9a6a00]" aria-hidden="true" />
                   </div>
-                  <div className="mt-16 sm:mt-20">
+                  <div className="mt-14 flex flex-1 flex-col sm:mt-16">
                     <h3 className="text-3xl font-semibold tracking-[-0.045em] sm:text-4xl">
                       {capability.title}
                     </h3>
                     <p className="mt-5 max-w-lg text-sm leading-7 text-zinc-600 sm:text-base">
                       {capability.description}
                     </p>
-                    <ul className="mt-8 border-t border-black/10" aria-label={`Entregas de ${capability.title}`}>
+                    <ul className="mt-auto grid gap-2 pt-9 sm:grid-cols-3" aria-label={`Entregas de ${capability.title}`}>
                       {capability.items.map((item) => (
-                        <li key={item} className="border-b border-black/10 py-3 text-xs font-medium uppercase tracking-[0.08em] text-zinc-700">
+                        <li key={item} className="flex min-h-11 items-center justify-center rounded-xl border border-black/[0.08] bg-white/55 px-3 py-2 text-center text-[0.68rem] font-bold uppercase leading-5 tracking-[0.07em] text-zinc-700 transition group-hover:border-[rgba(154,106,0,0.2)] group-hover:bg-white/80">
                           {item}
                         </li>
                       ))}
@@ -282,7 +295,10 @@ export function AgencyLanding() {
         <Container>
           <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
             <div>
-              <h2 className="max-w-[13ch] text-[clamp(2.7rem,5.2vw,5.4rem)] font-semibold leading-[0.94] tracking-[-0.06em]">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#9a6a00]">
+                Método Universo
+              </p>
+              <h2 className="mt-5 max-w-[13ch] text-[clamp(2.7rem,5.2vw,5.4rem)] font-semibold leading-[0.94] tracking-[-0.06em]">
                 Do diagnóstico à otimização.
               </h2>
             </div>
@@ -291,14 +307,25 @@ export function AgencyLanding() {
             </p>
           </div>
 
-          <ol className="mt-16 grid border-t border-black/15 md:mt-24 md:grid-cols-3">
-            {journey.map((item) => (
-              <li key={item.step} className="group border-b border-black/15 py-10 md:border-r md:px-8 md:py-12 first:md:pl-0 last:md:border-r-0 last:md:pr-0">
-                <div className="flex items-center justify-end">
+          <ol className="mt-16 grid gap-4 md:mt-24 md:grid-cols-3">
+            {journey.map((item, index) => (
+              <li
+                key={item.step}
+                className="agency-method-card group relative flex min-h-[24rem] flex-col overflow-hidden rounded-[2rem] border border-black/10 bg-white/60 p-7 shadow-[0_20px_65px_rgba(16,17,20,0.06)] backdrop-blur-sm transition duration-500 hover:-translate-y-1 hover:border-[rgba(154,106,0,0.3)] hover:shadow-[0_28px_80px_rgba(16,17,20,0.12)] sm:p-9"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="flex size-12 items-center justify-center rounded-full border border-[rgba(154,106,0,0.2)] bg-[rgba(245,169,0,0.1)] font-mono text-xs font-bold text-[#805800] transition duration-300 group-hover:bg-[var(--color-gold)] group-hover:text-black">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                   <ArrowUpRight className="size-5 text-zinc-400 transition duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#9a6a00]" aria-hidden="true" />
                 </div>
-                <h3 className="mt-12 text-3xl font-semibold tracking-[-0.04em]">{item.step}</h3>
-                <p className="mt-5 text-sm leading-7 text-zinc-600">{item.description}</p>
+                <div className="mt-auto pt-16">
+                  <p className="text-[0.66rem] font-bold uppercase tracking-[0.16em] text-[#9a6a00]">
+                    Etapa {index + 1}
+                  </p>
+                  <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{item.step}</h3>
+                  <p className="mt-5 text-sm leading-7 text-zinc-600">{item.description}</p>
+                </div>
               </li>
             ))}
           </ol>

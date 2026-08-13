@@ -483,6 +483,43 @@ body::after {
   transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), opacity 350ms ease;
 }
 
+.agency-method-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(245, 169, 0, 0.12), transparent 32%),
+    radial-gradient(circle at 100% 100%, rgba(245, 169, 0, 0.12), transparent 38%);
+  opacity: 0;
+  transition: opacity 450ms ease;
+}
+
+.agency-method-card::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-gold-deep), var(--color-gold-light));
+  transition: width 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.agency-method-card:hover::before,
+.agency-method-card:focus-within::before {
+  opacity: 1;
+}
+
+.agency-method-card:hover::after,
+.agency-method-card:focus-within::after {
+  width: 100%;
+}
+
+.agency-method-card > * {
+  position: relative;
+  z-index: 1;
+}
+
 .agency-capability:hover::before,
 .agency-capability:focus-within::before,
 .agency-capability:hover::after,
