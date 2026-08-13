@@ -1,6 +1,7 @@
 import {
   ArrowUpRight,
   BarChart3,
+  Check,
   Orbit,
   PenTool,
   Plus,
@@ -71,7 +72,20 @@ const journey = [
 
 const serviceOfferings = [
   {
-    number: "001",
+    title: "Tráfego Pago",
+    description:
+      "Gestão contínua dos anúncios, com análise de desempenho e ajustes de verba, público e comunicação.",
+    icon: "megaphone",
+    gradient: "from-[#30220a] via-[#181307] to-[#08090b]",
+    featured: true,
+    items: [
+      "Gestão e análise de tráfego pago",
+      "Meta Ads: Facebook, Instagram e WhatsApp",
+      "Google Search e Google Meu Negócio",
+      "Anúncios no YouTube, em sites e aplicativos",
+    ],
+  },
+  {
     title: "Social Media",
     description:
       "Planejamento e produção para manter a marca ativa, coerente e relevante nas redes sociais.",
@@ -86,21 +100,6 @@ const serviceOfferings = [
     ],
   },
   {
-    number: "002",
-    title: "Tráfego Pago",
-    description:
-      "Gestão contínua dos anúncios, com análise de desempenho e ajustes de verba, público e comunicação.",
-    icon: "megaphone",
-    gradient: "from-[#20160b] via-[#11100d] to-[#08090b]",
-    items: [
-      "Gestão e análise de tráfego pago",
-      "Meta Ads: Facebook, Instagram e WhatsApp",
-      "Google Search e Google Meu Negócio",
-      "Anúncios no YouTube, em sites e aplicativos",
-    ],
-  },
-  {
-    number: "003",
     title: "Web Design",
     description:
       "Estrutura digital criada para apresentar a empresa com clareza e transformar visitas em contatos ou vendas.",
@@ -114,7 +113,6 @@ const serviceOfferings = [
     ],
   },
   {
-    number: "004",
     title: "Captação",
     description:
       "Produção presencial de imagens para empresas localizadas na Região Metropolitana do Recife.",
@@ -128,7 +126,6 @@ const serviceOfferings = [
     ],
   },
   {
-    number: "005",
     title: "Programação e Desenvolvimento",
     description:
       "Sistemas e integrações para organizar o atendimento, reduzir tarefas manuais e ampliar a capacidade da operação.",
@@ -201,7 +198,7 @@ export function AgencyLanding() {
       </section>
 
       <section id="servicos" className="relative scroll-mt-24 overflow-hidden py-20 md:py-32 lg:py-40">
-        <SpaceParticles className="opacity-55" />
+        <SpaceParticles density="dense" className="opacity-80" />
         <Container className="relative z-10">
           <div className="border-b border-white/10 pb-14 md:pb-20">
             <h2 className="max-w-[13ch] text-[clamp(2.65rem,5.8vw,6rem)] font-semibold leading-[0.92] tracking-[-0.065em] text-white">
@@ -216,17 +213,38 @@ export function AgencyLanding() {
             <ServiceCarousel services={serviceOfferings} />
           </div>
 
-          <div className="mt-14 grid gap-8 bg-[var(--color-gold)] p-7 text-black sm:p-10 md:mt-20 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20 lg:p-14">
-            <h3 className="max-w-sm text-3xl font-semibold leading-tight tracking-[-0.045em] sm:text-4xl">
-              Acompanhamento incluído.
-            </h3>
-            <ul className="grid border-t border-black/20 sm:grid-cols-2">
-              {serviceSupport.map((item) => (
-                <li key={item} className="border-b border-black/20 py-4 text-sm font-medium sm:odd:pr-5 sm:even:pl-5">
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <div className="relative mt-14 overflow-hidden rounded-[2rem] border border-[rgba(245,169,0,0.24)] bg-[#0b0c0e]/95 p-7 shadow-[0_35px_100px_rgba(0,0,0,0.32)] backdrop-blur-sm sm:p-10 md:mt-20 lg:rounded-[2.75rem] lg:p-14">
+            <div className="pointer-events-none absolute -left-28 -top-32 size-80 rounded-full bg-[rgba(245,169,0,0.16)] blur-[90px]" aria-hidden="true" />
+            <div className="pointer-events-none absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-gold)] to-transparent" aria-hidden="true" />
+
+            <div className="relative grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-20">
+              <div>
+                <p className="flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[var(--color-gold-light)]">
+                  <span className="size-1.5 rounded-full bg-[var(--color-gold)] shadow-[0_0_14px_rgba(245,169,0,0.8)]" aria-hidden="true" />
+                  Suporte contínuo
+                </p>
+                <h3 className="mt-5 max-w-sm text-3xl font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-4xl lg:text-5xl">
+                  Acompanhamento incluído.
+                </h3>
+                <p className="mt-6 max-w-md text-sm leading-7 text-zinc-400 sm:text-base">
+                  Estratégia, execução e análise conectadas para sua operação evoluir sem perder ritmo.
+                </p>
+              </div>
+
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {serviceSupport.map((item) => (
+                  <li
+                    key={item}
+                    className="group flex min-h-16 items-center gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.035] px-4 py-3 text-sm font-medium text-zinc-300 transition duration-300 hover:border-[rgba(245,169,0,0.28)] hover:bg-[rgba(245,169,0,0.06)] hover:text-white sm:last:col-span-2"
+                  >
+                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[rgba(245,169,0,0.25)] bg-[rgba(245,169,0,0.1)] text-[var(--color-gold-light)] transition group-hover:bg-[var(--color-gold)] group-hover:text-black">
+                      <Check className="size-4" strokeWidth={2.5} aria-hidden="true" />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </Container>
       </section>

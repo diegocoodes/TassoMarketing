@@ -28,11 +28,11 @@ const serviceIcons = {
 export type ServiceIcon = keyof typeof serviceIcons;
 
 export interface Service {
-  number: string;
   title: string;
   description: string;
   icon: ServiceIcon;
   gradient: string;
+  featured?: boolean;
   items?: readonly string[];
 }
 
@@ -67,6 +67,8 @@ function ServiceCard({ service, index, reducedMotion }: ServiceCardProps) {
       }}
       className={cn(
         "group relative isolate flex h-full min-h-[34rem] w-full flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br p-7 sm:p-8",
+        service.featured &&
+          "border-[rgba(245,169,0,0.48)] shadow-[0_24px_80px_rgba(245,169,0,0.13)]",
         service.gradient,
       )}
     >
@@ -80,11 +82,21 @@ function ServiceCard({ service, index, reducedMotion }: ServiceCardProps) {
       />
 
       <div className="relative flex items-start justify-between">
-        <span className="font-mono text-xs tracking-[0.16em] text-white/40">
-          ( {service.number} )
-        </span>
-        <span className="flex size-12 items-center justify-center rounded-full border border-white/10 bg-black/25 text-[var(--color-gold-light)] backdrop-blur-sm">
-          <Icon className="size-5" aria-hidden="true" />
+        {service.featured ? (
+          <span className="rounded-full border border-[rgba(245,169,0,0.38)] bg-[rgba(245,169,0,0.12)] px-3 py-1.5 text-[0.64rem] font-bold uppercase tracking-[0.15em] text-[var(--color-gold-light)]">
+            Em destaque
+          </span>
+        ) : (
+          <span aria-hidden="true" />
+        )}
+        <span
+          className={cn(
+            "flex size-12 items-center justify-center rounded-full border border-white/10 bg-black/25 text-[var(--color-gold-light)] backdrop-blur-sm",
+            service.featured &&
+              "size-14 border-[rgba(245,169,0,0.4)] bg-[var(--color-gold)] text-black shadow-[0_0_30px_rgba(245,169,0,0.25)]",
+          )}
+        >
+          <Icon className={cn("size-5", service.featured && "size-6")} aria-hidden="true" />
         </span>
       </div>
 
@@ -181,13 +193,9 @@ export function ServiceCarousel({ services, options }: ServiceCarouselProps) {
       onKeyDown={handleKeyDown}
     >
       <div className="mb-7 flex items-center justify-between gap-5">
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-zinc-500">
-          <span className="text-[var(--color-gold-light)]">
-            {String(selectedIndex + 1).padStart(2, "0")}
-          </span>
-          <span aria-hidden="true"> / </span>
-          <span className="sr-only">de</span>
-          {String(snapCount).padStart(2, "0")}
+        <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-zinc-500">
+          <span className="size-1.5 rounded-full bg-[var(--color-gold)] shadow-[0_0_12px_rgba(245,169,0,0.7)]" aria-hidden="true" />
+          Deslize para explorar
         </p>
 
         <div className="flex gap-2">
@@ -220,7 +228,7 @@ export function ServiceCarousel({ services, options }: ServiceCarouselProps) {
         >
           {services.map((service, index) => (
             <div
-              key={service.number}
+              key={service.title}
               className="min-w-0 shrink-0 grow-0 basis-[88%] pl-4 sm:basis-[68%] md:basis-1/2 xl:basis-1/3"
               role="group"
               aria-roledescription="slide"

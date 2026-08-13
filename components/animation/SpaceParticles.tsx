@@ -22,6 +22,11 @@ const DENSITY_PRESETS = {
     particleSpread: 11,
     particleBaseSize: 82,
   },
+  dense: {
+    particleCount: 290,
+    particleSpread: 12,
+    particleBaseSize: 86,
+  },
   compact: {
     particleCount: 100,
     particleSpread: 9,
