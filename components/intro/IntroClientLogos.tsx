@@ -27,7 +27,7 @@ export function IntroClientLogos() {
           direction="left"
           logoHeight={50}
           gap={20}
-          hoverSpeed={0}
+          hoverSpeed={8}
           scaleOnHover
           fadeOut
           fadeOutColor="#0a0a0c"

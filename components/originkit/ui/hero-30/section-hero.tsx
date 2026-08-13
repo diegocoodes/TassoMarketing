@@ -70,7 +70,7 @@ export const SectionHero = () => {
     ref={sectionRef}
     id="inicio"
     aria-labelledby="hero-30-title"
-    className="animate-hero-reveal relative isolate flex min-h-[800px] w-full scroll-mt-24 flex-col overflow-hidden bg-black iphone:min-h-[848px] ipad:min-h-[1063px] desktop-sm:min-h-[clamp(832px,100dvh,1142px)]"
+    className="relative isolate flex min-h-[800px] w-full scroll-mt-24 flex-col overflow-hidden bg-black iphone:min-h-[848px] ipad:min-h-[1063px] desktop-sm:min-h-[clamp(832px,100dvh,1142px)]"
   >
     <div className="absolute inset-y-0 left-1/2 w-full max-w-[1920px] -translate-x-1/2">
       <Backdrop />
@@ -82,9 +82,16 @@ export const SectionHero = () => {
     />
 
     <div className="pointer-events-none absolute inset-0 left-1/2 z-[2] w-full max-w-[1920px] -translate-x-1/2">
-      <div ref={orbitRef} className="absolute inset-0 origin-center">
-        <AccretionDisk className="bottom-20 h-[270px] w-[336px] iphone:h-[285px] iphone:w-[355px] ipad:bottom-[85px] ipad:h-[500px] ipad:w-[622px] desktop-sm:bottom-[85px] desktop-sm:left-[72%] desktop-sm:aspect-[673/540] desktop-sm:h-auto desktop-sm:w-[min(54%,960px)]" />
-      </div>
+      <motion.div
+        className="absolute inset-0"
+        initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+        animate={revealTitle ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+        transition={{ duration: reducedMotion ? 0 : 0.85, delay: reducedMotion ? 0 : 0.64, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div ref={orbitRef} className="absolute inset-0 origin-center">
+          <AccretionDisk className="bottom-20 h-[270px] w-[336px] iphone:h-[285px] iphone:w-[355px] ipad:bottom-[85px] ipad:h-[500px] ipad:w-[622px] desktop-sm:bottom-[85px] desktop-sm:left-[72%] desktop-sm:aspect-[673/540] desktop-sm:h-auto desktop-sm:w-[min(54%,960px)]" />
+        </div>
+      </motion.div>
     </div>
 
     <div className="relative z-10 mx-auto flex min-h-[800px] w-full max-w-[1920px] flex-1 flex-col pt-28 iphone:min-h-[848px] ipad:min-h-[1063px] ipad:pt-32 desktop-sm:min-h-[clamp(832px,100dvh,1142px)] desktop-sm:pt-36">

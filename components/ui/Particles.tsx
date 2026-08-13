@@ -231,7 +231,7 @@ export default function Particles({
     let animationFrameId = 0;
     let lastTime = performance.now();
     let elapsed = 0;
-    let isInViewport = true;
+    let isInViewport = !("IntersectionObserver" in window);
     let isDocumentVisible = document.visibilityState === "visible";
 
     const renderFrame = () => {
@@ -241,10 +241,8 @@ export default function Particles({
     const shouldAnimate = () => isInViewport && isDocumentVisible && !reducedMotion;
 
     const update = (time: number) => {
-      if (!shouldAnimate()) {
-        animationFrameId = window.requestAnimationFrame(update);
-        return;
-      }
+      animationFrameId = 0;
+      if (!shouldAnimate()) return;
 
       const delta = time - lastTime;
       lastTime = time;
@@ -268,18 +266,29 @@ export default function Particles({
       animationFrameId = window.requestAnimationFrame(update);
     };
 
+    const stopAnimation = () => {
+      if (animationFrameId) window.cancelAnimationFrame(animationFrameId);
+      animationFrameId = 0;
+    };
+
+    const startAnimation = () => {
+      if (!shouldAnimate() || animationFrameId) return;
+      lastTime = performance.now();
+      animationFrameId = window.requestAnimationFrame(update);
+    };
+
     const handleVisibilityChange = () => {
       isDocumentVisible = document.visibilityState === "visible";
-      lastTime = performance.now();
-      if (!isDocumentVisible) renderFrame();
+      if (isDocumentVisible) startAnimation();
+      else stopAnimation();
     };
 
     const observer =
       "IntersectionObserver" in window
         ? new IntersectionObserver(([entry]) => {
             isInViewport = entry.isIntersecting;
-            lastTime = performance.now();
-            if (!isInViewport) renderFrame();
+            if (isInViewport) startAnimation();
+            else stopAnimation();
           })
         : null;
 
@@ -288,8 +297,8 @@ export default function Particles({
 
     if (reducedMotion) {
       renderFrame();
-    } else {
-      animationFrameId = window.requestAnimationFrame(update);
+    } else if (!observer) {
+      startAnimation();
     }
 
     return () => {
@@ -297,7 +306,7 @@ export default function Particles({
       window.removeEventListener("pointermove", handlePointerMove);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       observer?.disconnect();
-      if (animationFrameId) window.cancelAnimationFrame(animationFrameId);
+      stopAnimation();
       if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
     };
   }, [

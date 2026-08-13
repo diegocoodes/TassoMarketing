@@ -30,7 +30,7 @@ export function ClientsMarqueeSection() {
           direction="left"
           logoHeight={72}
           gap={44}
-          hoverSpeed={0}
+          hoverSpeed={18}
           scaleOnHover
           fadeOut
           fadeOutColor="#050505"

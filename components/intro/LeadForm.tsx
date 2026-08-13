@@ -157,8 +157,8 @@ export function LeadForm({ onClose }: LeadFormProps) {
       <DialogContent
         asChild
         showCloseButton={false}
-        overlayClassName="z-[120] bg-black/80 backdrop-blur-md"
-        className="safe-bottom fixed inset-x-0 bottom-0 left-0 top-auto z-[121] max-h-[calc(100svh-0.5rem)] w-full max-w-none translate-x-0 translate-y-0 overflow-y-auto rounded-none rounded-t-[1.75rem] border border-white/10 bg-[#0d0d10] p-0 shadow-[0_-24px_80px_rgba(0,0,0,0.45)] sm:inset-0 sm:m-auto sm:h-fit sm:max-h-[92svh] sm:max-w-3xl sm:rounded-[1.75rem]"
+        overlayClassName="z-[120] bg-black/85"
+        className="safe-bottom fixed inset-x-0 bottom-0 left-0 top-auto z-[121] max-h-[calc(100svh-0.5rem)] w-full max-w-none translate-x-0 translate-y-0 overflow-y-auto rounded-none rounded-t-[1.75rem] border border-white/10 bg-[#0d0d10] p-0 sm:inset-0 sm:m-auto sm:h-fit sm:max-h-[92svh] sm:max-w-3xl sm:rounded-[1.75rem]"
         onOpenAutoFocus={(event) => {
           event.preventDefault();
           firstFieldRef.current?.focus();
@@ -186,7 +186,7 @@ export function LeadForm({ onClose }: LeadFormProps) {
             className="mx-auto mt-2 h-1 w-12 rounded-full bg-white/15 sm:hidden"
           />
 
-          <header className="sticky top-0 z-10 flex items-center justify-between border-b border-white/8 bg-[rgba(13,13,16,0.94)] px-5 py-4 backdrop-blur-lg sm:px-7">
+          <header className="sticky top-0 z-10 flex items-center justify-between border-b border-white/8 bg-[#0d0d10] px-5 py-4 sm:px-7">
             <div>
               <p className="type-caption text-[var(--color-gold-light)]">
                 Etapa {String(step + 1).padStart(2, "0")} de 04
@@ -215,7 +215,7 @@ export function LeadForm({ onClose }: LeadFormProps) {
             value={(step + 1) * 25}
             aria-label="Progresso do formulário"
             aria-valuetext={`Etapa ${step + 1} de 4`}
-            className="h-1 rounded-none bg-white/5 [&_[data-slot=progress-indicator]]:bg-gradient-to-r [&_[data-slot=progress-indicator]]:from-[var(--color-gold)] [&_[data-slot=progress-indicator]]:to-[var(--color-gold-light)] motion-reduce:[&_[data-slot=progress-indicator]]:transition-none"
+            className="h-1 rounded-none bg-white/5 [&_[data-slot=progress-indicator]]:bg-[var(--color-gold)] motion-reduce:[&_[data-slot=progress-indicator]]:transition-none"
           />
 
           <div className="p-5 sm:p-7">
@@ -533,11 +533,9 @@ export function LeadForm({ onClose }: LeadFormProps) {
                       href={whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={
-                        reducedMotion ? undefined : { y: -2, scale: 1.01 }
-                      }
+                      whileHover={reducedMotion ? undefined : { y: -2 }}
                       whileTap={reducedMotion ? undefined : { scale: 0.99 }}
-                      className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[var(--color-gold)] to-[var(--color-gold-deep)] px-6 text-sm font-semibold text-black"
+                      className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--color-gold)] px-6 text-sm font-semibold text-black transition-colors hover:bg-[var(--color-gold-light)]"
                     >
                       Enviar respostas pelo WhatsApp
                       <Send className="h-4 w-4" aria-hidden="true" />
@@ -572,7 +570,7 @@ function Choice({
       />
       <FieldLabel
         htmlFor={id}
-        className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-white/10 px-4 text-zinc-400 transition peer-data-[state=checked]:scale-[1.01] peer-data-[state=checked]:border-[var(--color-gold)] peer-data-[state=checked]:bg-[rgba(245,169,0,0.08)] peer-data-[state=checked]:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--color-gold-light)] motion-reduce:transform-none motion-reduce:transition-none"
+        className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-white/10 px-4 text-zinc-400 transition peer-data-[state=checked]:border-[var(--color-gold)] peer-data-[state=checked]:bg-[#15130d] peer-data-[state=checked]:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[var(--color-gold-light)] motion-reduce:transition-none"
       >
         {checked ? (
           <Check
@@ -612,7 +610,7 @@ function StepActions({ onBack }: { onBack?: () => void }) {
         type="submit"
         whileHover={reducedMotion ? undefined : { y: -2 }}
         whileTap={reducedMotion ? undefined : { scale: 0.99 }}
-        className="inline-flex min-h-12 items-center gap-2 rounded-full bg-gradient-to-r from-[var(--color-gold)] to-[var(--color-gold-deep)] px-6 text-sm font-semibold text-black"
+        className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[var(--color-gold)] px-6 text-sm font-semibold text-black transition-colors hover:bg-[var(--color-gold-light)]"
       >
         Continuar
         <ArrowRight className="h-4 w-4" aria-hidden="true" />

@@ -34,10 +34,8 @@ export function FounderSection() {
               alt="Fundador e estrategista da Universo Marketing"
               fill
               sizes="(max-width: 1024px) 100vw, 46vw"
-              className="object-cover object-[center_25%] grayscale"
+              className="object-cover object-[center_25%]"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(8,9,11,0.82)_100%)]" />
-            <div className="agency-about-orbit" aria-hidden="true" />
           </motion.div>
 
           <motion.div

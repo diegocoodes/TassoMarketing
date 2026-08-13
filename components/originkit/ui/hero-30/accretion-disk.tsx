@@ -4,7 +4,6 @@
 import { useEffect, useRef, useState } from "react";
 
 import BlackHole from "@/components/originkit/ui/hero-30/black-hole";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 /**
  * The accretion disk — Figma `image 3083603` (2405:6373 / 6455 / 6489), live
@@ -32,7 +31,6 @@ const VOID_RATIO = 0.067;
 export const AccretionDisk = ({ className = "" }: { className?: string }) => {
   const hostRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
-  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const host = hostRef.current;
@@ -64,7 +62,7 @@ export const AccretionDisk = ({ className = "" }: { className?: string }) => {
           particleSize={4}
           outerRadius={95}
           trail={50}
-          orbitSpeed={reducedMotion ? 0 : 2.2}
+          orbitSpeed={0}
           pullSpeed={0}
           tilt={20}
           tiltSideway={160}

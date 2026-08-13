@@ -313,7 +313,7 @@ export function IntroGateway() {
 
         <div
           ref={transitionRef}
-          className="pointer-events-none fixed inset-0 z-[90] bg-[radial-gradient(circle_at_center,#ffdc66_0%,#f5a900_42%,#d98e00_100%)] opacity-0 will-change-[clip-path]"
+          className="pointer-events-none fixed inset-0 z-[90] bg-[var(--color-gold)] opacity-0 will-change-[clip-path]"
           aria-hidden="true"
         />
 
@@ -322,7 +322,7 @@ export function IntroGateway() {
           type="button"
           onClick={(event) => revealSite(event.currentTarget)}
           disabled={isExiting}
-          className="fixed right-[calc(env(safe-area-inset-right)_+_1rem)] top-[calc(env(safe-area-inset-top)_+_1rem)] z-20 rounded-full border border-white/10 bg-black/55 px-4 py-2.5 text-xs font-semibold text-zinc-300 backdrop-blur-md transition hover:border-[rgba(245,169,0,0.35)] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold-light)] disabled:pointer-events-none sm:right-[calc(env(safe-area-inset-right)_+_1.5rem)] sm:top-[calc(env(safe-area-inset-top)_+_1.5rem)]"
+          className="fixed right-[calc(env(safe-area-inset-right)_+_1rem)] top-[calc(env(safe-area-inset-top)_+_1rem)] z-20 rounded-full border border-white/10 bg-[#08090b] px-4 py-2.5 text-xs font-semibold text-zinc-300 transition hover:border-[rgba(245,169,0,0.35)] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold-light)] disabled:pointer-events-none sm:right-[calc(env(safe-area-inset-right)_+_1.5rem)] sm:top-[calc(env(safe-area-inset-top)_+_1.5rem)]"
         >
           Pular e conhecer o site
         </button>
@@ -330,10 +330,9 @@ export function IntroGateway() {
         <div className="relative z-10 flex min-h-[calc(100svh-2rem)] w-full min-w-0 items-center justify-center py-14 sm:min-h-[calc(100svh-3rem)] sm:py-12">
           <div
             ref={panelRef}
-            className="relative w-full min-w-0 max-w-[920px] overflow-hidden rounded-[2rem] border border-[rgba(245,169,0,0.27)] bg-[rgba(8,8,10,0.88)] p-5 shadow-[0_28px_100px_rgba(0,0,0,0.58),inset_0_1px_0_rgba(255,255,255,0.045)] backdrop-blur-xl sm:p-8 lg:p-10"
+            className="relative w-full min-w-0 max-w-[920px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#090a0c] p-5 sm:p-8 lg:p-10"
           >
-            <div className="pointer-events-none absolute inset-x-[12%] top-0 h-px bg-gradient-to-r from-transparent via-[rgba(255,210,80,0.66)] to-transparent" />
-            <div className="pointer-events-none absolute left-1/2 top-0 h-32 w-80 -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(245,169,0,0.1),transparent_68%)]" />
+            <div className="pointer-events-none absolute inset-x-[12%] top-0 h-px bg-[rgba(255,210,80,0.66)]" />
 
             <div
               data-intro-logo

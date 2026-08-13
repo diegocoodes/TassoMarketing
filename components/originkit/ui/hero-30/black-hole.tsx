@@ -473,10 +473,16 @@ export default function BlackHole(props: Props) {
       }
       fgCtx.globalAlpha = 1.0;
 
-      animRef.current = requestAnimationFrame(draw);
+      if (orbitSpeed !== 0 || pullSpeed !== 0) {
+        animRef.current = requestAnimationFrame(draw);
+      }
     };
 
-    animRef.current = requestAnimationFrame(draw);
+    if (orbitSpeed !== 0 || pullSpeed !== 0) {
+      animRef.current = requestAnimationFrame(draw);
+    } else {
+      draw(performance.now());
+    }
     return () => cancelAnimationFrame(animRef.current);
   }, [
     voidX,
@@ -494,6 +500,7 @@ export default function BlackHole(props: Props) {
     orbitSpeed,
     pullSpeed,
     perspective,
+    sizeVersion,
   ]);
 
   return (

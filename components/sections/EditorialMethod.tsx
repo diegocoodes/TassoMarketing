@@ -37,22 +37,25 @@ export function EditorialMethod() {
     gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
       const steps = gsap.utils.toArray<HTMLElement>("[data-method-step]");
-      steps.forEach((step) => {
-        gsap.fromTo(
-          step,
-          { opacity: 0.3 },
-          {
-            opacity: 1,
-            duration: 0.35,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: step,
-              start: "top 62%",
-              end: "bottom 38%",
-              toggleActions: "play reverse play reverse",
-            },
-          },
-        );
+      const activateStep = (activeIndex: number) => {
+        gsap.to(steps, {
+          opacity: (index) => index < activeIndex ? 0.15 : index === activeIndex ? 1 : 0.3,
+          duration: 0.35,
+          stagger: 0.025,
+          ease: "power3.out",
+          overwrite: "auto",
+        });
+      };
+
+      gsap.set(steps, { opacity: (index) => index === 0 ? 1 : 0.3 });
+      steps.forEach((step, index) => {
+        ScrollTrigger.create({
+          trigger: step,
+          start: "top 58%",
+          end: "bottom 42%",
+          onEnter: () => activateStep(index),
+          onEnterBack: () => activateStep(index),
+        });
       });
     }, sectionRef);
 

@@ -18,15 +18,15 @@ type IntroActionCardProps = {
 };
 
 const baseClasses =
-  "group relative flex min-h-[5.25rem] w-full items-center overflow-hidden rounded-[1.2rem] border p-3.5 text-left outline-none transition-[border-color,background-color,box-shadow,filter] duration-300 focus-visible:ring-2 focus-visible:ring-[var(--color-gold-light)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08080a] sm:p-4";
+  "group relative flex min-h-[5.25rem] w-full items-center overflow-hidden rounded-[1.2rem] border p-3.5 text-left outline-none transition-[border-color,background-color] duration-300 focus-visible:ring-2 focus-visible:ring-[var(--color-gold-light)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08080a] sm:p-4";
 
 const variantClasses: Record<IntroActionCardVariant, string> = {
   primary:
-    "border-[#ffd766] bg-gradient-to-r from-[#f5a900] via-[#f8b916] to-[#ffd14a] text-black shadow-[0_16px_45px_rgba(245,169,0,0.16)] hover:brightness-[1.04]",
+    "border-[#f5a900] bg-[#f5a900] text-black hover:bg-[#ffd447]",
   secondary:
-    "border-[rgba(245,169,0,0.34)] bg-[linear-gradient(110deg,rgba(245,169,0,0.12),rgba(255,255,255,0.025))] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.045)] hover:border-[rgba(255,207,73,0.58)] hover:bg-[linear-gradient(110deg,rgba(245,169,0,0.17),rgba(255,255,255,0.04))]",
+    "border-[rgba(245,169,0,0.34)] bg-[#11100c] text-white hover:border-[rgba(255,207,73,0.58)] hover:bg-[#15130d]",
   tertiary:
-    "border-white/10 bg-white/[0.025] text-white hover:border-white/20 hover:bg-white/[0.045]",
+    "border-white/10 bg-[#0d0e10] text-white hover:border-white/20 hover:bg-[#131416]",
 };
 
 const iconClasses: Record<IntroActionCardVariant, string> = {
@@ -92,7 +92,7 @@ export function IntroActionCard({
   ...props
 }: IntroActionCardProps) {
   const reducedMotion = useReducedMotion();
-  const interaction = reducedMotion ? undefined : { y: -2, scale: 1.006 };
+  const interaction = reducedMotion ? undefined : { y: -2 };
   const classes = `${baseClasses} ${variantClasses[variant]} disabled:cursor-not-allowed disabled:opacity-45`;
 
   if (props.href && !props.disabled) {
