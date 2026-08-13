@@ -60,11 +60,11 @@ export const AccretionDisk = ({ className = "" }: { className?: string }) => {
           /* 1200, not the component default 1000 or anything denser: Figma's
              disk reads as separated orbital bands with dark gaps between them,
              and past about 1500 the trails merge into one solid mass. */
-          particleCount={1200}
+          particleCount={820}
           particleSize={4}
           outerRadius={95}
           trail={50}
-          orbitSpeed={reducedMotion ? 0 : 4}
+          orbitSpeed={reducedMotion ? 0 : 2.2}
           pullSpeed={0}
           tilt={20}
           tiltSideway={160}

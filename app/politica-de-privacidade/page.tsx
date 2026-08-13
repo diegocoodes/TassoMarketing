@@ -5,7 +5,7 @@ import { Container } from "@/components/layout/Container";
 export default function PrivacyPolicyPage() {
   return (
     <main className="relative min-h-screen overflow-hidden py-24 md:py-32">
-      <SpaceParticles density="compact" />
+      <SpaceParticles density="sparse" className="opacity-32" />
       <Container className="relative z-10">
         <div className="surface-panel rounded-[2rem] p-8 md:p-12">
           <p className="eyebrow">Documento provisório</p>

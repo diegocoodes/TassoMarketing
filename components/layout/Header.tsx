@@ -75,8 +75,8 @@ export function Header() {
           transition={{ duration: reducedMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
           className={`container-shell flex min-h-16 items-center justify-between rounded-full border px-3 pr-3 transition duration-300 md:px-4 ${
             isScrolled
-              ? "border-white/10 bg-[#090a0c]/88 shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur-xl"
-              : "border-white/[0.08] bg-black/20 backdrop-blur-md"
+              ? "border-white/10 bg-[#090a0c] shadow-[0_12px_36px_rgba(0,0,0,0.26)]"
+              : "border-white/[0.08] bg-[#050505]/95"
           }`}
         >
           <Link

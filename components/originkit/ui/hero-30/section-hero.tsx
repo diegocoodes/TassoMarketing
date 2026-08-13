@@ -2,16 +2,21 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { SpaceParticles } from "@/components/animation/SpaceParticles";
 import { AccretionDisk } from "@/components/originkit/ui/hero-30/accretion-disk";
 import { Backdrop } from "@/components/originkit/ui/hero-30/backdrop";
 import { LogoStrip } from "@/components/originkit/ui/hero-30/logo-strip";
-import { SpaceParticles } from "@/components/animation/SpaceParticles";
 import {
   INTRO_HERO_REVEAL_EVENT,
 } from "@/components/intro/introHeroEvents";
-import { BlurReveal } from "@/components/ui/blur-reveal";
 import { getWhatsAppUrl } from "@/config/site";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const GUTTER = "px-6 ipad:px-14";
 
@@ -20,6 +25,10 @@ const CTA =
 
 export const SectionHero = () => {
   const [revealTitle, setRevealTitle] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const orbitRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const reveal = () => setRevealTitle(true);
@@ -33,7 +42,32 @@ export const SectionHero = () => {
     return () => window.removeEventListener(INTRO_HERO_REVEAL_EVENT, reveal);
   }, []);
 
+  useIsomorphicLayoutEffect(() => {
+    if (reducedMotion || isMobile || !sectionRef.current || !orbitRef.current) {
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+    const context = gsap.context(() => {
+      gsap.to(orbitRef.current, {
+        y: 80,
+        rotation: 20,
+        scale: 0.94,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => context.revert();
+  }, [isMobile, reducedMotion]);
+
   return <section
+    ref={sectionRef}
     id="inicio"
     aria-labelledby="hero-30-title"
     className="animate-hero-reveal relative isolate flex min-h-[800px] w-full scroll-mt-24 flex-col overflow-hidden bg-black iphone:min-h-[848px] ipad:min-h-[1063px] desktop-sm:min-h-[clamp(832px,100dvh,1142px)]"
@@ -44,37 +78,58 @@ export const SectionHero = () => {
 
     <SpaceParticles
       density="hero"
-      className="opacity-75 [mask-image:linear-gradient(to_bottom,black_0%,black_82%,transparent_100%)]"
+      className="opacity-60 [mask-image:linear-gradient(to_bottom,black_0%,black_82%,transparent_100%)]"
     />
 
     <div className="pointer-events-none absolute inset-0 left-1/2 z-[2] w-full max-w-[1920px] -translate-x-1/2">
-      <AccretionDisk className="bottom-20 h-[297px] w-[370px] ipad:bottom-[85px] ipad:h-[520px] ipad:w-[647px] desktop-sm:bottom-[85px] desktop-sm:left-[72%] desktop-sm:aspect-[673/540] desktop-sm:h-auto desktop-sm:w-[min(54%,960px)]" />
+      <div ref={orbitRef} className="absolute inset-0 origin-center">
+        <AccretionDisk className="bottom-20 h-[270px] w-[336px] iphone:h-[285px] iphone:w-[355px] ipad:bottom-[85px] ipad:h-[500px] ipad:w-[622px] desktop-sm:bottom-[85px] desktop-sm:left-[72%] desktop-sm:aspect-[673/540] desktop-sm:h-auto desktop-sm:w-[min(54%,960px)]" />
+      </div>
     </div>
 
     <div className="relative z-10 mx-auto flex min-h-[800px] w-full max-w-[1920px] flex-1 flex-col pt-28 iphone:min-h-[848px] ipad:min-h-[1063px] ipad:pt-32 desktop-sm:min-h-[clamp(832px,100dvh,1142px)] desktop-sm:pt-36">
       <div
         className={`flex flex-col items-start ${GUTTER}`}
       >
-        <div className="flex max-w-[760px] flex-col items-start gap-7">
-          <div className="flex flex-col items-start gap-3">
-            <div id="hero-30-title">
-              <BlurReveal
-                as="h1"
-                trigger={revealTitle}
-                delay={0.08}
-                speedReveal={1.25}
-                speedSegment={0.72}
-                className="max-w-[15ch] font-geist-mono text-[clamp(2.5rem,11.2vw,4.6rem)] font-medium leading-[0.98] tracking-[-0.07em] text-white"
-              >
-                Sua marca precisa de um universo maior.
-              </BlurReveal>
-            </div>
-            <p className="max-w-[610px] font-tight text-sm leading-7 text-white/60 ipad:text-base ipad:leading-8">
+        <div className="flex w-full max-w-[760px] flex-col items-start gap-8">
+          <div className="flex flex-col items-start gap-5">
+            <h1
+              id="hero-30-title"
+              className="max-w-[16ch] font-geist-mono text-[clamp(2.1rem,9.2vw,4.6rem)] font-medium leading-[0.98] tracking-[-0.07em] text-white"
+            >
+              {["Sua marca", "precisa de um", "universo maior."].map((line, index) => (
+                <span key={line} className="block overflow-hidden pb-[0.08em]">
+                  <motion.span
+                    className="block"
+                    initial={reducedMotion ? false : { y: "110%" }}
+                    animate={revealTitle ? { y: 0 } : { y: "110%" }}
+                    transition={{
+                      duration: reducedMotion ? 0 : 0.9,
+                      delay: reducedMotion ? 0 : 0.08 + index * 0.08,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    {line}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
+            <motion.p
+              initial={reducedMotion ? false : { opacity: 0, y: 18 }}
+              animate={revealTitle ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              transition={{ duration: reducedMotion ? 0 : 0.7, delay: reducedMotion ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-[36rem] font-tight text-[0.94rem] leading-7 text-white/65 ipad:text-base ipad:leading-8"
+            >
               Planejamos campanhas, criamos conteúdo e organizamos a operação digital para gerar mais oportunidades de venda.
-            </p>
+            </motion.p>
           </div>
 
-          <div className="grid w-full grid-cols-1 items-center gap-2 min-[520px]:flex min-[520px]:flex-wrap">
+          <motion.div
+            initial={reducedMotion ? false : { opacity: 0, y: 18 }}
+            animate={revealTitle ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+            transition={{ duration: reducedMotion ? 0 : 0.7, delay: reducedMotion ? 0 : 0.52, ease: [0.22, 1, 0.36, 1] }}
+            className="grid w-full grid-cols-1 items-center gap-3 min-[520px]:flex min-[520px]:flex-wrap"
+          >
             <a
               href="#servicos"
               className={`bg-[var(--color-gold)] text-black hover:bg-[var(--color-gold-light)] ${CTA}`}
@@ -91,7 +146,7 @@ export const SectionHero = () => {
               Iniciar conversa
               <ArrowUpRight className="size-4" aria-hidden="true" />
             </a>
-          </div>
+          </motion.div>
         </div>
       </div>
 

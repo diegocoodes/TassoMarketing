@@ -9,7 +9,7 @@ import { navigationItems } from "@/data/navigation";
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#050608] pb-8 pt-20 md:pb-10 md:pt-28">
-      <SpaceParticles density="compact" className="opacity-45" />
+      <SpaceParticles density="sparse" className="opacity-34" />
       <Container className="relative z-10">
         <div className="grid gap-14 border-t border-white/10 pt-10 lg:grid-cols-[1.45fr_0.55fr_0.7fr]">
           <div>

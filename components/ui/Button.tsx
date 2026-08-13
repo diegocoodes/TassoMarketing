@@ -87,7 +87,6 @@ export function Button({
       {...props}
     >
       <span className="absolute inset-0 -z-10 translate-y-[102%] bg-[var(--color-gold-light)] transition-transform duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0 motion-reduce:hidden" aria-hidden="true" />
-      <span className="button-glint pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/45 to-transparent" aria-hidden="true" />
       <span className="transition-colors group-hover:text-black group-focus-visible:text-black">{children}</span>
       <span className="transition duration-200 group-hover:translate-x-1 group-hover:text-black group-focus-visible:translate-x-1 group-focus-visible:text-black">{icon}</span>
     </motion.a>
