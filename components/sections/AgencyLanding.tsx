@@ -1,7 +1,4 @@
-import {
-  Check,
-  Plus,
-} from "lucide-react";
+import { Plus } from "lucide-react";
 import { SpaceParticles } from "@/components/animation/SpaceParticles";
 import { Container } from "@/components/layout/Container";
 import Hero30 from "@/components/originkit/hero-30";
@@ -12,7 +9,7 @@ import { FinalCTASectionEditorial } from "@/components/sections/FinalCTASectionE
 import { FounderSection } from "@/components/sections/FounderSection";
 import { TestimonialsMarqueeSection } from "@/components/sections/TestimonialsMarqueeSection";
 import {
-  ServiceStack,
+  ServiceGrid,
   type Service,
 } from "@/components/ui/services-card";
 import { faqItems } from "@/data/faq";
@@ -81,17 +78,23 @@ const serviceOfferings = [
       "Integrações com API oficial",
     ],
   },
+  {
+    title: "Acompanhamento incluído",
+    description:
+      "Estratégia, execução e análise conectadas para sua operação evoluir sem perder ritmo.",
+    icon: "headphones",
+    showCta: false,
+    items: [
+      "Portal do cliente",
+      "Relatórios quinzenais e mensais",
+      "Acompanhamento diário",
+      "Reunião mensal",
+      "Suporte",
+      "Diagnóstico e implantação",
+      "Acompanhamento dos resultados",
+    ],
+  },
 ] as const satisfies readonly Service[];
-
-const serviceSupport = [
-  "Portal do cliente",
-  "Relatórios quinzenais e mensais",
-  "Acompanhamento diário",
-  "Reunião mensal",
-  "Suporte",
-  "Diagnóstico e implantação",
-  "Acompanhamento dos resultados",
-] as const;
 
 export function AgencyLanding() {
   return (
@@ -113,36 +116,7 @@ export function AgencyLanding() {
           </div>
 
           <div className="mt-10 md:mt-14">
-            <ServiceStack services={serviceOfferings} />
-          </div>
-
-          <div className="relative mt-14 overflow-hidden rounded-[1.75rem] border border-[rgba(245,169,0,0.2)] bg-[#0b0c0e] p-6 sm:p-9 md:mt-20 lg:rounded-[2.5rem] lg:p-14">
-            <div className="pointer-events-none absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-gold)] to-transparent" aria-hidden="true" />
-
-            <div className="relative grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-20">
-              <div>
-                <h3 className="max-w-sm text-3xl font-semibold leading-[1.02] tracking-[-0.05em] text-white sm:text-4xl lg:text-5xl">
-                  Acompanhamento incluído.
-                </h3>
-                <p className="mt-6 max-w-md text-sm leading-7 text-zinc-400 sm:text-base">
-                  Estratégia, execução e análise conectadas para sua operação evoluir sem perder ritmo.
-                </p>
-              </div>
-
-              <ul className="grid gap-2.5 sm:grid-cols-2">
-                {serviceSupport.map((item) => (
-                  <li
-                    key={item}
-                    className="group flex min-h-16 items-center gap-4 rounded-xl border border-white/[0.08] px-4 py-3 text-sm font-medium text-zinc-300 transition-colors duration-300 hover:border-[rgba(245,169,0,0.28)] hover:text-white sm:last:col-span-2"
-                  >
-                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[rgba(245,169,0,0.25)] bg-[rgba(245,169,0,0.1)] text-[var(--color-gold-light)] transition group-hover:bg-[var(--color-gold)] group-hover:text-black">
-                      <Check className="size-4" strokeWidth={2.5} aria-hidden="true" />
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ServiceGrid services={serviceOfferings} />
           </div>
         </Container>
       </section>

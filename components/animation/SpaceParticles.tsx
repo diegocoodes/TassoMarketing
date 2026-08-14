@@ -1,7 +1,6 @@
 "use client";
 
 import Particles from "@/components/ui/Particles";
-import { useIsMobile } from "@/hooks/useIsMobile";
 import { cn } from "@/lib/utils";
 
 const SPACE_COLORS = [
@@ -14,29 +13,29 @@ const SPACE_COLORS = [
 
 const DENSITY_PRESETS = {
   hero: {
-    particleCount: 150,
+    particleCount: 230,
     particleSpread: 14,
-    particleBaseSize: 82,
+    particleBaseSize: 92,
   },
   section: {
-    particleCount: 85,
+    particleCount: 150,
     particleSpread: 11,
-    particleBaseSize: 72,
+    particleBaseSize: 82,
   },
   services: {
-    particleCount: 105,
+    particleCount: 290,
     particleSpread: 12,
-    particleBaseSize: 74,
+    particleBaseSize: 86,
   },
   sparse: {
-    particleCount: 55,
+    particleCount: 100,
     particleSpread: 9,
-    particleBaseSize: 68,
+    particleBaseSize: 74,
   },
   minimal: {
-    particleCount: 28,
+    particleCount: 100,
     particleSpread: 8,
-    particleBaseSize: 64,
+    particleBaseSize: 74,
   },
 } as const;
 
@@ -50,10 +49,6 @@ export function SpaceParticles({
   className,
 }: SpaceParticlesProps) {
   const preset = DENSITY_PRESETS[density];
-  const isMobile = useIsMobile();
-  const particleCount = isMobile
-    ? Math.max(18, Math.round(preset.particleCount * 0.55))
-    : preset.particleCount;
 
   return (
     <div
@@ -66,15 +61,16 @@ export function SpaceParticles({
     >
       <Particles
         className="h-full w-full"
-        particleCount={particleCount}
+        particleCount={preset.particleCount}
         particleSpread={preset.particleSpread}
-        speed={0.012}
+        speed={0.075}
         particleColors={SPACE_COLORS}
+        moveParticlesOnHover
+        particleHoverFactor={0.75}
         alphaParticles
         particleBaseSize={preset.particleBaseSize}
-        sizeRandomness={1.1}
+        sizeRandomness={1.35}
         cameraDistance={20}
-        disableRotation
         pixelRatio={1}
       />
     </div>

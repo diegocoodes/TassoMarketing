@@ -82,32 +82,24 @@ export function EditorialMethod() {
             </p>
           </div>
 
-          <ol className="mt-16 border-b border-black/15 lg:mt-0">
-            {journey.map((item, index) => (
-              <li
+          <div className="mt-16 border-b border-black/15 lg:mt-0">
+            {journey.map((item) => (
+              <article
                 key={item.step}
                 data-method-step
-                className="relative flex min-h-[22rem] items-end overflow-hidden border-t border-black/15 py-10 sm:min-h-[26rem] sm:py-14 lg:min-h-[34rem]"
+                className="relative flex min-h-[20rem] items-center overflow-hidden border-t border-black/15 py-10 sm:min-h-[24rem] sm:py-14 lg:min-h-[30rem]"
               >
-                <span className="pointer-events-none absolute -right-[0.05em] -top-[0.18em] font-mono text-[clamp(8rem,22vw,18rem)] font-semibold leading-none tracking-[-0.12em] text-black/[0.045]" aria-hidden="true">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div className="relative grid w-full gap-5 md:grid-cols-[0.36fr_0.64fr] md:items-end">
-                  <div>
-                    <p className="font-mono text-xs font-bold tracking-[0.14em] text-[#8a5f00]">
-                      {String(index + 1).padStart(2, "0")}
-                    </p>
-                    <h3 className="mt-3 text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">
-                      {item.step}
-                    </h3>
-                  </div>
+                <div className="relative grid w-full gap-7 md:grid-cols-[0.42fr_0.58fr] md:items-end">
+                  <h3 className="text-5xl font-semibold tracking-[-0.055em] sm:text-6xl lg:text-7xl">
+                    {item.step}
+                  </h3>
                   <p className="max-w-lg text-sm leading-7 text-zinc-600 sm:text-base sm:leading-8">
                     {item.description}
                   </p>
                 </div>
-              </li>
+              </article>
             ))}
-          </ol>
+          </div>
         </div>
       </Container>
     </section>

@@ -82,15 +82,15 @@ export function Header() {
           <Link
             href="#inicio"
             aria-label="Universo Marketing — voltar ao início"
-            className="relative h-11 w-32 shrink-0 overflow-hidden sm:h-12 sm:w-36"
+            className="relative size-12 shrink-0 overflow-hidden transition-transform duration-300 hover:rotate-6"
           >
             <Image
-              src={siteConfig.assets.brandLogo}
-              alt="Universo Marketing"
+              src={siteConfig.assets.brandIcon}
+              alt="Planeta da Universo Marketing"
               fill
               priority
-              sizes="(min-width: 640px) 144px, 128px"
-              className="scale-[1.72] object-cover object-[center_46%]"
+              sizes="48px"
+              className="scale-[2.2] object-contain"
             />
           </Link>
 

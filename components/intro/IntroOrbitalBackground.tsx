@@ -61,6 +61,10 @@ export function IntroOrbitalBackground({
     };
   }, [pointerX, pointerY, reducedMotion]);
 
+  const orbitTransition = reducedMotion
+    ? undefined
+    : { duration: 52, repeat: Infinity, ease: "linear" as const };
+
   return (
     <div
       className="pointer-events-none fixed inset-0 overflow-hidden bg-[#050505]"
@@ -72,18 +76,33 @@ export function IntroOrbitalBackground({
           preserveAspectRatio="xMidYMid slice"
           className="h-full w-full opacity-75"
         >
-          {stars.map(([cx, cy, radius, opacity]) => (
-            <circle
+          {stars.map(([cx, cy, radius, opacity], index) => (
+            <motion.circle
               key={`${cx}-${cy}`}
               cx={cx}
               cy={cy}
               r={radius}
               fill="#ffd45b"
               opacity={opacity}
+              animate={
+                reducedMotion
+                  ? undefined
+                  : { opacity: [opacity * 0.45, opacity, opacity * 0.45] }
+              }
+              transition={{
+                duration: 3.4 + (index % 4) * 0.8,
+                delay: (index % 6) * 0.35,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             />
           ))}
 
-          <g>
+          <motion.g
+            style={{ transformOrigin: "720px 450px" }}
+            animate={reducedMotion ? undefined : { rotate: 360 }}
+            transition={orbitTransition}
+          >
             <motion.ellipse
               cx="720"
               cy="450"
@@ -98,9 +117,17 @@ export function IntroOrbitalBackground({
               transition={{ duration: 1.4, ease: "easeOut" }}
             />
             <circle cx="1294" cy="325" r="3.4" fill="#ffd45b" />
-          </g>
+          </motion.g>
 
-          <g>
+          <motion.g
+            style={{ transformOrigin: "720px 450px" }}
+            animate={reducedMotion ? undefined : { rotate: -360 }}
+            transition={
+              reducedMotion
+                ? undefined
+                : { duration: 68, repeat: Infinity, ease: "linear" }
+            }
+          >
             <motion.ellipse
               cx="720"
               cy="450"
@@ -116,7 +143,7 @@ export function IntroOrbitalBackground({
               transition={{ duration: 1.65, delay: 0.12, ease: "easeOut" }}
             />
             <circle cx="278" cy="558" r="2.6" fill="#f5a900" opacity="0.86" />
-          </g>
+          </motion.g>
 
           <motion.ellipse
             cx="720"

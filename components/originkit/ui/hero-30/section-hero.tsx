@@ -70,7 +70,7 @@ export const SectionHero = () => {
     ref={sectionRef}
     id="inicio"
     aria-labelledby="hero-30-title"
-    className="relative isolate flex min-h-[800px] w-full scroll-mt-24 flex-col overflow-hidden bg-black iphone:min-h-[848px] ipad:min-h-[1063px] desktop-sm:min-h-[clamp(832px,100dvh,1142px)]"
+    className="animate-hero-reveal relative isolate flex min-h-[800px] w-full scroll-mt-24 flex-col overflow-hidden bg-black iphone:min-h-[848px] ipad:min-h-[1063px] desktop-sm:min-h-[clamp(832px,100dvh,1142px)]"
   >
     <div className="absolute inset-y-0 left-1/2 w-full max-w-[1920px] -translate-x-1/2">
       <Backdrop />
