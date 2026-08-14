@@ -132,7 +132,7 @@ export function ConnectedGrowthFlow() {
               className="pointer-events-none absolute inset-0 will-change-transform motion-reduce:transform-none"
               aria-hidden="true"
             >
-              <span className="absolute left-1/2 top-[13.5%] size-3 -translate-x-1/2 rounded-full bg-[var(--color-gold)] shadow-[0_0_16px_rgba(245,169,0,0.55)] sm:size-3.5" />
+              <span className="absolute left-1/2 top-[14%] size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--color-gold)] shadow-[0_0_16px_rgba(245,169,0,0.55)] sm:size-3.5" />
 
               {stages.map((stage) => (
                 <span
